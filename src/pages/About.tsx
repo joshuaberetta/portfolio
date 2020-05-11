@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 40,
     marginBottom: 40,
     maxWidth: "50rem",
-    height: "40rem",
+    minHeight: "40rem",
     borderRadius: 10,
     background: COLOURS.primary,
   },
@@ -19,13 +19,142 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "IBM Plex Mono, monospace",
     fontWeight: "normal",
     color: COLOURS.secondary,
+    // paddingBottom: 20,
+  },
+  textSecondary: {
+    fontFamily: "IBM Plex Mono, monospace",
+    fontWeight: "normal",
+    color: COLOURS.blue,
+    // paddingBottom: 20,
+  },
+  textBold: {
+    fontFamily: "IBM Plex Mono, monospace",
+    fontWeight: "bold",
+    color: COLOURS.secondary,
+    // paddingBottom: 20,
   },
   heading: {
     fontFamily: "IBM Plex Mono, monospace",
     fontWeight: "normal",
+    paddingBottom: 20,
     color: COLOURS.pink,
   },
 }));
+
+const Whoami: React.FC = () => {
+  const classes = useStyles();
+  return (
+    <>
+      <Typography className={classes.heading}>
+        {ABOUT.sections.whoami.title}
+      </Typography>
+      <Typography className={classes.text}>
+        {ABOUT.sections.whoami.body}
+      </Typography>
+    </>
+  );
+};
+
+const Experience: React.FC = () => {
+  const classes = useStyles();
+  return (
+    <>
+      <Typography className={classes.heading}>
+        {ABOUT.sections.experience.title}
+      </Typography>
+      {ABOUT.sections.experience.body.map((item) => (
+        <div style={{ paddingBottom: 20 }}>
+          <Typography className={classes.text}>
+            <span className={classes.textBold}>{item.title}: </span>
+            {item.startDate} - {item.endDate}
+          </Typography>
+          <Typography className={classes.textSecondary}>{item.role}</Typography>
+          <Typography className={classes.text}>{item.description}</Typography>
+        </div>
+      ))}
+    </>
+  );
+};
+
+const Education: React.FC = () => {
+  const classes = useStyles();
+  return (
+    <>
+      <Typography className={classes.heading}>
+        {ABOUT.sections.education.title}
+      </Typography>
+      {ABOUT.sections.education.body.map((item) => (
+        <>
+          <Typography className={classes.heading}>{item.title}</Typography>
+          {item.body.map((e) => (
+            <div style={{ paddingBottom: 20 }}>
+              <Typography className={classes.text}>
+                <span className={classes.textBold}>{e.title}: </span>
+                {e.startDate} - {e.endDate}
+              </Typography>
+              <Typography className={classes.textSecondary}>
+                {e.description}
+              </Typography>
+              {e.body && (
+                <Typography className={classes.text}>{e.body}</Typography>
+              )}
+            </div>
+          ))}
+        </>
+      ))}
+    </>
+  );
+};
+
+const Honours: React.FC = () => {
+  const classes = useStyles();
+  return (
+    <>
+      <Typography className={classes.heading}>
+        {ABOUT.sections.honours.title}
+      </Typography>
+      {ABOUT.sections.honours.body.map((item) => (
+        <div style={{ paddingBottom: 20 }}>
+          <Typography className={classes.text}>
+            <span className={classes.textBold}>{item.title}: </span>
+            {item.years.join(", ")}
+          </Typography>
+          <Typography className={classes.textSecondary}>
+            {item.subtitle}
+          </Typography>
+        </div>
+      ))}
+    </>
+  );
+};
+
+const Skills: React.FC = () => {
+  const classes = useStyles();
+  return (
+    <>
+      <Typography className={classes.heading}>
+        {ABOUT.sections.skills.title}
+      </Typography>
+      <Typography className={classes.text}>
+        {ABOUT.sections.skills.body.join(", ")}
+      </Typography>
+    </>
+  );
+};
+
+const Interests: React.FC = () => {
+  const classes = useStyles();
+  return (
+    <>
+      <Typography className={classes.heading}>
+        {ABOUT.sections.interests.title}
+      </Typography>
+      <Typography className={classes.text}>
+        {ABOUT.sections.interests.body.join(", ")}
+      </Typography>
+    </>
+  );
+};
 
 const About: React.FC = () => {
   const classes = useStyles();
@@ -46,22 +175,24 @@ const About: React.FC = () => {
           spacing={3}
           className={classes.root}
         >
-          {ABOUT.sections.map((sec) => {
-            return (
-              <React.Fragment>
-                <Grid item>
-                  <Typography className={classes.heading}>
-                    {sec.title}
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Typography className={classes.text}>
-                    {sec.body.join("\n")}
-                  </Typography>
-                </Grid>
-              </React.Fragment>
-            );
-          })}
+          <Grid item>
+            <Whoami />
+          </Grid>
+          <Grid item>
+            <Experience />
+          </Grid>
+          <Grid item>
+            <Education />
+          </Grid>
+          <Grid item>
+            <Honours />
+          </Grid>
+          <Grid item>
+            <Skills />
+          </Grid>
+          <Grid item>
+            <Interests />
+          </Grid>
         </Grid>
       </Grid>
     </Grid>

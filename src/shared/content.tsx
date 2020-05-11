@@ -49,6 +49,7 @@ export const WORK = {
         "Firebase",
         "AWS",
         "Stripe",
+        "Travis CI",
       ],
       underConstruction: false,
       display: {
@@ -142,36 +143,331 @@ export const FOOTER = {
 };
 
 export const ABOUT = {
-  sections: [
-    {
+  sections: {
+    whoami: {
       title: "# whoami",
       body: [
-        "I grew up in the beautiful suburb of Noordhoek in Cape Town, South Africa.",
-        "I am married to the beautiful Naomi Beretta and we are currently travelling the world, experiencing new things and working remotely.",
-        "I am a passionate about technology and an advocate for privacy and individual freedom.",
+        `I grew up in the beautiful suburb of Noordhoek in Cape Town, South Africa.
+        
+        I am married to the beautiful Naomi Beretta and we are currently travelling the world, experiencing new things and working remotely.
+        
+        I am a passionate about technology and an advocate for privacy and individual freedom.`,
       ],
     },
-    {
+    experience: {
       title: "# Experience",
-      body: [],
+      body: [
+        {
+          title: "Ourthreedots",
+          startDate: "03/2020",
+          endDate: "present",
+          role: "Solo-Founder",
+          description: `
+          My first foray into technology startups, OurThreeDots is a digital service that analyses your WhatsApp chats, outputting a customizable PDF of your chat history with interesting analyses of your conversations. The tech stack includes Typescript, React, Node, Python, Flask, MongoDB, Stripe, Figma, Docker, Travis CI, Heroku, Firebase and AWS Lambda, S3, SES, SQS.
+          `,
+        },
+        {
+          title: "Aurecon",
+          startDate: "02/2018",
+          endDate: "02/2020",
+          role: "Mechanical Engineer",
+          description:
+            "Mechanical engineer in municipal wastewater treatment. Experience in data analysis and scripting in Python, project management, contract management, innovation, tendering, proposals, bills of quantities, specifications, payment certificates, inspections, mechanical design, tender evaluation, management of students.",
+        },
+        {
+          title: "Beretta Studio",
+          startDate: "10/2016",
+          endDate: "11/2018",
+          role: "Co-Founder",
+          description:
+            "Business and product management and development, B2B and B2C relations, strategy, finances, product design, hiring, manufacturing, quality control, sales.",
+        },
+        {
+          title: "Allan Gray",
+          startDate: "06/2017",
+          endDate: "07/2017",
+          role: "Intern",
+          description:
+            "Business analyst within a small team focussed on root-cause analysis using historical data, conducting staff interviews and in-depth market research. Presentation of the final solution to management.",
+        },
+        {
+          title: "Aurecon",
+          startDate: "06/2016",
+          endDate: "07/2016",
+          role: "Student Mechanical Engineer",
+          description:
+            "Work related to wastewater treatment plant analysis and tender documentation for road development around South Africa.",
+        },
+      ],
     },
-    {
+    education: {
       title: "# Education",
-      body: [],
+      body: [
+        {
+          title: "## Formal",
+          body: [
+            {
+              title: "University of Cape Town",
+              startDate: "2014",
+              endDate: "2017",
+              description:
+                "Bachelor of Science (B.Sc.), Mechanical Engineering (First Class Honours)",
+              body: `I graduated with First Class Honours in a BSc in Mechanical Engineering at the University of Cape Town with the Class of 2017. Several honours and awards were won throughout my four-year course of study, including class medals in physics, calculus, materials, and mechanical design, and awards for overall academic performance in first and second year in the Faculty of the Built Environment.`,
+            },
+            {
+              title: "Fish Hoek High School",
+              startDate: "2011",
+              endDate: "2013",
+              description:
+                "Head Student (Final Year), Class Representative (Grade 11)",
+            },
+            {
+              title: "Reddam House Constantia",
+              startDate: "2008",
+              endDate: "2010",
+              description: "High school",
+            },
+          ],
+        },
+        {
+          title: "## Informal",
+          body: [
+            {
+              title: "Microsoft",
+              startDate: "2020",
+              endDate: "2020",
+              description: "Advanced C++",
+            },
+            {
+              title: "Microsoft",
+              startDate: "2020",
+              endDate: "2020",
+              description: "Intermediate C++",
+            },
+            {
+              title: "Microsoft",
+              startDate: "2020",
+              endDate: "2020",
+              description: "Introduction to C++",
+            },
+            {
+              title: "StanfordOnline",
+              startDate: "2020",
+              endDate: "2020",
+              description: "Compilers",
+            },
+            {
+              title: "IsraelX",
+              startDate: "2020",
+              endDate: "2020",
+              description: "Unlocking Information Security: Part II",
+            },
+            {
+              title: "IsraelX",
+              startDate: "2020",
+              endDate: "2020",
+              description: "Unlocking Information Security: Part I",
+            },
+            {
+              title: "StanfordOnline",
+              startDate: "2020",
+              endDate: "2020",
+              description: "Algorithms: Design and Analysis, Part 1",
+            },
+            {
+              title: "HarvardX",
+              startDate: "2020",
+              endDate: "2020",
+              description: "CS50's Introduction to Computer Science",
+            },
+            {
+              title: "Udemy",
+              startDate: "2020",
+              endDate: "2020",
+              description: "Understanding Typescript",
+            },
+            {
+              title: "Udemy",
+              startDate: "2019",
+              endDate: "2019",
+              description:
+                "React, NodeJS, Express, MongoDB - The MERN Fullstack Guide",
+            },
+            {
+              title: "Udemy",
+              startDate: "2019",
+              endDate: "2019",
+              description: "React - The Complete Guide",
+            },
+            {
+              title: "fast.ai",
+              startDate: "2019",
+              endDate: "2019",
+              description: "Deep Learning from the Foundations",
+            },
+            {
+              title: "fast.ai",
+              startDate: "2019",
+              endDate: "2019",
+              description: "Practical Deep Learning for Coders",
+            },
+            {
+              title: "Udemy",
+              startDate: "2019",
+              endDate: "2019",
+              description: "The Complete Javascript Course 2020",
+            },
+            {
+              title: "Dataquest.io",
+              startDate: "2019",
+              endDate: "2019",
+              description: "Data Science Certificate, Python",
+            },
+            {
+              title: "TUMx",
+              startDate: "2019",
+              endDate: "2019",
+              description: "Six Sigma: Define and Measure",
+            },
+          ],
+        },
+      ],
     },
-    {
-      title: "## Formal",
-      body: [],
+    honours: {
+      title: "# Honours",
+      body: [
+        {
+          title: "Dean's Merit List",
+          subtitle: "University of Cape Town",
+          years: ["2014", "2015", "2016", "2017"],
+        },
+        {
+          title: "MEC3072F Class Medal",
+          subtitle: "University of Cape Town",
+          years: ["2016"],
+        },
+        {
+          title: "Aurecon Bursary Scheme",
+          subtitle: "Aurecon Group",
+          years: ["2016", "2017"],
+        },
+        {
+          title: "Twamley Undergraduate Scholarship",
+          subtitle: "University of Cape Town",
+          years: ["2015"],
+        },
+        {
+          title: "Golden Key Society",
+          subtitle: "Golden Key Society",
+          years: ["2015", "2016", "2017"],
+        },
+        {
+          title: "MEC2044S Class Medal",
+          subtitle: "University of Cape Town",
+          years: ["2015"],
+        },
+        {
+          title: "EBE Faculty Scholarship",
+          subtitle: "University of Cape Town",
+          years: ["2015", "2016"],
+        },
+        {
+          title: "MAM2083F Class Medal",
+          subtitle: "University of Cape Town",
+          years: ["2015"],
+        },
+        {
+          title: "PHY1013S Class Medal",
+          subtitle: "University of Cape Town",
+          years: ["2014"],
+        },
+        {
+          title: "Head Student",
+          subtitle: "Fish Hoek High School",
+          years: ["2013"],
+        },
+        {
+          title: "Full Academic Colours: Grades 11, 12",
+          subtitle: "Fish Hoek High School",
+          years: ["2012", "2013"],
+        },
+        {
+          title: "Van Belle Mathematics Trophy",
+          subtitle: "Fish Hoek High School",
+          years: ["2013"],
+        },
+        {
+          title: "Balco Trophy for Electrical Technology",
+          subtitle: "Fish Hoek High School",
+          years: ["2013"],
+        },
+        {
+          title: "Ubique Cup for Service",
+          subtitle: "Fish Hoek High School",
+          years: ["2013"],
+        },
+
+        {
+          title:
+            "First in Western Cape for Electrical Technology in NSC Examinations",
+          subtitle: "Fish Hoek High School",
+          years: ["2013"],
+        },
+        {
+          title: "Summiting Mount Kilimanjaro",
+          subtitle: "Tribe Safari",
+          years: ["2012"],
+        },
+      ],
     },
-    {
-      title: "## Informal",
-      body: [],
+    skills: {
+      title: "# Skills",
+      body: [
+        "Leadership",
+        "Entrepreneurship",
+        "Project Management",
+        "Video Editing",
+        "Photoshop",
+        "SolidWorks",
+        "Microsoft Office 365",
+        "Python",
+        "Flask",
+        "Javascript",
+        "Typescript",
+        "React",
+        "Node",
+        "Git",
+        "Bash",
+        "Linux",
+        "Docker",
+        "Travis CI",
+        "Figma",
+        "AWS",
+        "DigitalOcean",
+        "MongoDB",
+        "Golf",
+        "Tennis",
+        "Table Tennis",
+      ],
     },
-    {
+    interests: {
       title: "# Interests & Hobbies",
-      body: [],
+      body: [
+        "Engineering",
+        "Coding",
+        "Entrepreneurship",
+        "Theology",
+        "History",
+        "Philosophy",
+        "Design",
+        "Technology",
+        "Innovation",
+        "Hiking",
+        "Adventure",
+        "Travel",
+      ],
     },
-  ],
+  },
 };
 
 export const CONTACT = {
