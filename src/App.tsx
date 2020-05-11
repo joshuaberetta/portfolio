@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -12,18 +12,36 @@ import Work from "./pages/WorkPage";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 
+import Ourthreedots from "./pages/portfolioPages/Ourthreedots";
+
+import { LocationContext } from "./shared/context/LocationContext";
+
 const App: React.FC = () => {
+  const [location, setLocation] = useState<string>("/work");
+
+  const updateLocation = useCallback((loc: string) => {
+    setLocation(loc);
+  }, []);
+
   return (
-    <Router>
-      <NavBar />
-      <Switch>
-        <Route component={Work} path="/" exact />
-        <Route component={About} path="/about" exact />
-        <Route component={Contact} path="/contact" exact />
-        <Redirect to="/" />
-      </Switch>
-      <Footer />
-    </Router>
+    <LocationContext.Provider
+      value={{
+        location: location,
+        updateLocation: updateLocation,
+      }}
+    >
+      <Router>
+        <NavBar />
+        <Switch>
+          <Route component={Work} path="/" exact />
+          <Route component={About} path="/about" exact />
+          <Route component={Contact} path="/contact" exact />
+          <Route component={Ourthreedots} path="/work/ourthreedots" exact />
+          <Redirect to="/" />
+        </Switch>
+        <Footer />
+      </Router>
+    </LocationContext.Provider>
   );
 };
 

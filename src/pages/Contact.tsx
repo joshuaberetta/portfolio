@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Grid, Typography, Avatar, Link, makeStyles } from "@material-ui/core";
+
+import PublicKeyModal from "../components/PublicKeyModal";
 
 import { CONTACT } from "../shared/content";
 import { COLOURS } from "../shared/colours";
+import { LocationContext } from "../shared/context/LocationContext";
 
 const useStyles = makeStyles({
   root: {
     padding: 20,
-    paddingTop: 40,
-    paddingBottom: 40,
+    marginTop: 40,
+    marginBottom: 40,
     minHeight: "30rem",
   },
   card: {
@@ -51,11 +54,15 @@ const useStyles = makeStyles({
   },
 });
 
-const PGPButton = () => {
+interface PGPButtonProps {
+  onClick: () => void;
+}
+
+const PGPButton: React.FC<PGPButtonProps> = (props) => {
   const classes = useStyles();
 
   return (
-    <Link underline="none" component="button">
+    <Link underline="none" component="button" onClick={props.onClick}>
       <Grid
         container
         direction="column"
@@ -73,79 +80,90 @@ const PGPButton = () => {
 
 const Contact: React.FC = () => {
   const classes = useStyles();
+  const locationContext = useContext(LocationContext);
+  const [open, setOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    locationContext.updateLocation("/contact");
+  }, []);
+
+  const toggleModal = () => setOpen((prev: boolean) => !prev);
 
   return (
-    <Grid
-      container
-      direction="column"
-      justify="flex-start"
-      alignItems="center"
-      spacing={5}
-      className={classes.root}
-    >
-      <Grid item>
-        <Grid
-          container
-          direction="row"
-          justify="flex-start"
-          alignItems="center"
-          spacing={5}
-          className={classes.card}
-        >
-          <Grid item>
-            <Avatar src={CONTACT.image} alt="me" className={classes.avatar} />
-          </Grid>
-          <Grid item>
-            <Grid
-              container
-              direction="column"
-              justify="flex-start"
-              alignItems="flex-start"
-              spacing={1}
-            >
-              {CONTACT.details.map((item) => (
-                <Grid item>
-                  <Grid
-                    container
-                    direction="row"
-                    justify="flex-start"
-                    alignItems="center"
-                    spacing={2}
-                  >
-                    <Grid item>
-                      <Typography className={classes.title}>
-                        {item.title}
-                      </Typography>
-                    </Grid>
-                    <Grid item>
-                      <Typography className={classes.values}>
-                        {item.value}
-                      </Typography>
+    <React.Fragment>
+      <PublicKeyModal open={open} onClick={toggleModal} />
+      <Grid
+        container
+        direction="column"
+        justify="flex-start"
+        alignItems="center"
+        spacing={5}
+        className={classes.root}
+      >
+        <Grid item>
+          <Grid
+            container
+            direction="row"
+            justify="flex-start"
+            alignItems="center"
+            spacing={5}
+            className={classes.card}
+          >
+            <Grid item>
+              <Avatar src={CONTACT.image} alt="me" className={classes.avatar} />
+            </Grid>
+            <Grid item>
+              <Grid
+                container
+                direction="column"
+                justify="flex-start"
+                alignItems="flex-start"
+                spacing={1}
+              >
+                {CONTACT.details.map((item) => (
+                  <Grid item>
+                    <Grid
+                      container
+                      direction="row"
+                      justify="flex-start"
+                      alignItems="center"
+                      spacing={2}
+                    >
+                      <Grid item>
+                        <Typography className={classes.title}>
+                          {item.title}
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <Typography className={classes.values}>
+                          {item.value}
+                        </Typography>
+                      </Grid>
                     </Grid>
                   </Grid>
-                </Grid>
-              ))}
+                ))}
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
-      <Grid item>
-        <Grid
-          container
-          direction="column"
-          justify="center"
-          alignItems="center"
-          className={classes.pgp}
-        >
-          <Grid item>
-            <Typography className={classes.values}>{CONTACT.pgp}</Typography>
+        <Grid item>
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
+            className={classes.pgp}
+          >
+            <Grid item>
+              <Typography className={classes.values}>{CONTACT.pgp}</Typography>
+            </Grid>
           </Grid>
         </Grid>
+        <Grid item>
+          <PGPButton onClick={toggleModal} />
+        </Grid>
       </Grid>
-      <Grid item>
-        <PGPButton />
-      </Grid>
-    </Grid>
+    </React.Fragment>
   );
 };
 

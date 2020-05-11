@@ -25,13 +25,15 @@ const useStyles = makeStyles({
 
 interface BlockProps {
   children: any;
+  cb: (item: any) => void;
   font?: string;
 }
 
-const Block: React.FC = (props) => {
+const Block: React.FC<BlockProps> = (props) => {
   const classes = useStyles();
+
   return (
-    <Button disableRipple className={classes.button}>
+    <Button disableRipple className={classes.button} onClick={props.cb}>
       <Grid
         container
         direction="column"

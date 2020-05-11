@@ -8,6 +8,7 @@ import GitHubIcon from "@material-ui/icons/GitHub";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import InstagramIcon from "@material-ui/icons/Instagram";
+import TwitterIcon from "@material-ui/icons/Twitter";
 
 import Ourthreedots from "../components/svg/Ourthreedots";
 import Noordhoek from "../components/svg/Noordhoek";
@@ -36,6 +37,19 @@ export const WORK = {
     {
       title: "ourthreedots",
       href: "/work/ourthreedots",
+      href_ext: "https://ourthreedots.com",
+      stack: [
+        "React",
+        "Typescript",
+        "Node",
+        "Express",
+        "MongoDB",
+        "Python",
+        "Flask",
+        "AWS",
+        "Stripe",
+      ],
+      underConstruction: false,
       display: {
         type: "svg",
         component: <Ourthreedots />,
@@ -44,6 +58,7 @@ export const WORK = {
     {
       title: "noordhoek-bagels",
       href: "/work/noordhoek-bagels",
+      underConstruction: true,
       display: {
         type: "svg",
         component: <Noordhoek />,
@@ -52,6 +67,7 @@ export const WORK = {
     {
       title: "travelling-hipster-coaster",
       href: "/work/travelling-hipster-coaster",
+      underConstruction: true,
       display: {
         type: "svg",
         component: <THC />,
@@ -60,6 +76,7 @@ export const WORK = {
     {
       title: "beretta-studio",
       href: "/work/beretta-studio",
+      underConstruction: true,
       display: {
         type: "svg",
         component: <BS />,
@@ -68,6 +85,7 @@ export const WORK = {
     {
       title: "trend",
       href: "/work/trend",
+      underConstruction: true,
       display: {
         type: "svg",
         component: <Trend />,
@@ -76,6 +94,7 @@ export const WORK = {
     {
       title: "portfolio",
       href: "/work/portfolio",
+      underConstruction: true,
       display: {
         type: "svg",
         component: <Portfolio />,
@@ -111,7 +130,12 @@ export const FOOTER = {
     {
       title: "instagram",
       logo: <InstagramIcon />,
-      href: "instagram.com/joshuaberetta",
+      href: "https://www.instagram.com/joshberetta",
+    },
+    {
+      title: "twitter",
+      logo: <TwitterIcon />,
+      href: "https://www.twitter.com/joshberetta",
     },
   ],
 };
@@ -161,4 +185,10 @@ export const CONTACT = {
   pgp: "PGP FINGERPRINT: 2B51 8B51 D0C4 2000 4C2C CFE4 ED79 D7ED CB6C EFA3",
   button: "SHOW PUBLIC KEY",
   publickey: "",
+};
+
+export const MODALS = {
+  underConstruction:
+    "My site is still under some construction and will be completed shortly. Please check back soon :)",
+  error: "Something seems to have gone wrong :(",
 };

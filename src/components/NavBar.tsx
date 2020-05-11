@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Grid, Typography, makeStyles, Link } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 
 import { NAV } from "../shared/content";
 import { COLOURS } from "../shared/colours";
+import { LocationContext } from "../shared/context/LocationContext";
 
 const useStyles = makeStyles({
   root: {
@@ -24,11 +25,17 @@ const useStyles = makeStyles({
       color: COLOURS.blue,
     },
   },
+  active: {
+    fontFamily: "IBM Plex Mono, monospace",
+    fontWeight: "normal",
+    color: COLOURS.blue,
+  },
 });
 
 const NavBar: React.FC = () => {
   const classes = useStyles();
   const history = useHistory();
+  const locationContext = useContext(LocationContext);
 
   return (
     <Grid
@@ -58,11 +65,6 @@ const NavBar: React.FC = () => {
           spacing={5}
         >
           {NAV.links.map((link) => {
-            let colour;
-            if (link.title === "/work") {
-              colour = COLOURS.blue;
-            }
-
             return (
               <Grid item>
                 <Link
@@ -71,8 +73,12 @@ const NavBar: React.FC = () => {
                   onClick={() => history.push(link.href)}
                 >
                   <Typography
-                    className={classes.links}
-                    style={{ color: colour ? colour : "none" }}
+                    // className={classes.links}
+                    className={
+                      link.title === locationContext.location
+                        ? classes.active
+                        : classes.links
+                    }
                   >
                     {link.title}
                   </Typography>

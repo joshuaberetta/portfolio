@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Grid, Typography, makeStyles } from "@material-ui/core";
 
 import { ABOUT } from "../shared/content";
 import { COLOURS } from "../shared/colours";
+import { LocationContext } from "../shared/context/LocationContext";
 
 const useStyles = makeStyles({
   root: {
     padding: 20,
-    paddingTop: 40,
-    paddingBottom: 40,
+    marginTop: 40,
+    marginBottom: 40,
     maxWidth: "50rem",
     height: "40rem",
     borderRadius: 10,
@@ -28,6 +29,11 @@ const useStyles = makeStyles({
 
 const About: React.FC = () => {
   const classes = useStyles();
+  const locationContext = useContext(LocationContext);
+
+  useEffect(() => {
+    locationContext.updateLocation("/about");
+  }, []);
 
   return (
     <Grid container direction="column" justify="center" alignItems="center">
