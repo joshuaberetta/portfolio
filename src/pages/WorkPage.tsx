@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import Block from "../components/PortfolioBlock";
 import Modal from "../components/UnderConstruction";
 
-import { WORK } from "../shared/content";
+import { WORK, CONTACT } from "../shared/content";
 import { COLOURS } from "../shared/colours";
 import { LocationContext } from "../shared/context/LocationContext";
 import { WorkItem } from "../shared/models/workItem";
@@ -66,6 +66,11 @@ const Work: React.FC = () => {
         <Grid item>
           <Typography variant="body1" className={classes.subtitle}>
             {WORK.subtitle}
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant="body1" className={classes.subtitle}>
+            {CONTACT.details.filter((d) => d.title === "TITLE:")[0].value}
           </Typography>
         </Grid>
         <Grid item>

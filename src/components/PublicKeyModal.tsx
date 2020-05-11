@@ -1,7 +1,7 @@
 import React from "react";
-import { Grid, Typography, Backdrop, makeStyles } from "@material-ui/core";
+import { Grid, Typography, Dialog, makeStyles } from "@material-ui/core";
 
-import { MODALS } from "../shared/content";
+import { CONTACT } from "../shared/content";
 import { COLOURS } from "../shared/colours";
 
 const useStyles = makeStyles({
@@ -11,8 +11,9 @@ const useStyles = makeStyles({
     background: "rgba(255,255,255,0.7)",
   },
   container: {
-    width: 800,
-    height: 400,
+    // width: 800,
+    // height: 400,
+    padding: 20,
     background: COLOURS.primary,
     borderRadius: 10,
   },
@@ -32,24 +33,28 @@ const PublicKeyModal: React.FC<PublicKeyModalProps> = (props) => {
   const classes = useStyles();
 
   return (
-    <Backdrop
-      className={classes.backdrop}
+    <Dialog
+      // className={classes.backdrop}
       open={props.open}
-      onClick={props.onClick}
+      onClose={props.onClick}
+      scroll="paper"
+      maxWidth="lg"
     >
       <Grid
         container
         direction="column"
-        justify="center"
+        justify="flex-start"
         alignItems="center"
-        spacing={5}
+        // spacing={3}
         className={classes.container}
       >
         <Grid item>
-          <Typography className={classes.text}>Public Key</Typography>
+          {CONTACT.publickey.map((line) => (
+            <Typography className={classes.text}>{line}</Typography>
+          ))}
         </Grid>
       </Grid>
-    </Backdrop>
+    </Dialog>
   );
 };
 

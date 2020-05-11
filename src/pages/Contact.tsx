@@ -7,17 +7,17 @@ import { CONTACT } from "../shared/content";
 import { COLOURS } from "../shared/colours";
 import { LocationContext } from "../shared/context/LocationContext";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
-    padding: 20,
+    // padding: 20,
     marginTop: 40,
     marginBottom: 40,
     minHeight: "30rem",
   },
   card: {
     padding: 20,
-    height: 300,
-    width: 800,
+    minHeight: 300,
+    // maxWidth: 800,
     background: COLOURS.primary,
     borderRadius: 10,
   },
@@ -37,22 +37,27 @@ const useStyles = makeStyles({
   },
   pgp: {
     // marginTop: 10,
-    width: 800,
-    height: 100,
+    width: "inherit",
+    // maxWidth: 800,
+    minHeight: 100,
     borderRadius: 10,
+    paddingRight: 20,
+    paddingLeft: 20,
     background: COLOURS.primary,
   },
   button: {
-    width: 250,
-    height: 50,
+    maxWidth: 250,
+    minHeight: 50,
     background: COLOURS.primary,
     borderRadius: 10,
+    paddingRight: 20,
+    paddingLeft: 20,
     border: `3px solid ${COLOURS.secondary}`,
     "&:hover": {
       border: `3px solid ${COLOURS.pink}`,
     },
   },
-});
+}));
 
 interface PGPButtonProps {
   onClick: () => void;
@@ -104,7 +109,7 @@ const Contact: React.FC = () => {
           <Grid
             container
             direction="row"
-            justify="flex-start"
+            justify="center"
             alignItems="center"
             spacing={5}
             className={classes.card}

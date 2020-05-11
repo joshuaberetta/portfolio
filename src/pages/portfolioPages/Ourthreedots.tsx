@@ -10,11 +10,19 @@ const useStyles = makeStyles({
     marginTop: 40,
     marginBottom: 20,
   },
+  header: {
+    height: 220,
+    width: 220,
+    background: COLOURS.primary,
+    borderRadius: 10,
+    marginBottom: 20,
+    padding: 20,
+  },
   content: {
     background: COLOURS.primary,
     marginBottom: 20,
     padding: 20,
-    width: 800,
+    maxWidth: 800,
     borderRadius: 10,
   },
   textHeading: {
@@ -61,7 +69,7 @@ const Ourthreedots: React.FC = () => {
           direction="row"
           alignItems="center"
           justify="center"
-          className={classes.content}
+          className={classes.header}
         >
           <Grid item>{OTD.display.component}</Grid>
         </Grid>

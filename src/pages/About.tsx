@@ -5,7 +5,7 @@ import { ABOUT } from "../shared/content";
 import { COLOURS } from "../shared/colours";
 import { LocationContext } from "../shared/context/LocationContext";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     padding: 20,
     marginTop: 40,
@@ -25,7 +25,7 @@ const useStyles = makeStyles({
     fontWeight: "normal",
     color: COLOURS.pink,
   },
-});
+}));
 
 const About: React.FC = () => {
   const classes = useStyles();

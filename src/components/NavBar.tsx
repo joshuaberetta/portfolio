@@ -6,11 +6,15 @@ import { NAV } from "../shared/content";
 import { COLOURS } from "../shared/colours";
 import { LocationContext } from "../shared/context/LocationContext";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     padding: 50,
     paddingLeft: 200,
     paddingRight: 200,
+    [theme.breakpoints.down("sm")]: {
+      paddingRight: 100,
+      paddingLeft: 100,
+    },
   },
   logo: {
     color: COLOURS.secondary,
@@ -30,7 +34,7 @@ const useStyles = makeStyles({
     fontWeight: "normal",
     color: COLOURS.blue,
   },
-});
+}));
 
 const NavBar: React.FC = () => {
   const classes = useStyles();
