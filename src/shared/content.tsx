@@ -147,7 +147,7 @@ export const ABOUT = {
     whoami: {
       title: "# whoami",
       body: [
-        `I grew up in the beautiful suburb of Noordhoek in Cape Town, South Africa.
+        `I grew up in the peaceful suburb of Noordhoek in Cape Town, South Africa.
         
         I am married to the beautiful Naomi Beretta and we are currently travelling the world, experiencing new things and working remotely.
         
