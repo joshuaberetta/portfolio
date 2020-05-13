@@ -6,6 +6,7 @@ import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import TwitterIcon from "@material-ui/icons/Twitter";
+import Dribble from "../components/svg/dribble";
 
 import Ourthreedots from "../components/svg/Ourthreedots";
 import Noordhoek from "../components/svg/Noordhoek";
@@ -124,7 +125,7 @@ export const FOOTER = {
 
     {
       title: "indie-hackers",
-      logo: <Typography>IH</Typography>,
+      logo: <Typography style={{ fontWeight: "bold" }}>IH</Typography>,
       href: "https://www.indiehackers.com/joshuaberetta",
     },
     {

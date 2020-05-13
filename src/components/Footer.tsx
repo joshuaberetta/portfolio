@@ -20,32 +20,40 @@ const Footer: React.FC = () => {
   const classes = useStyles();
 
   return (
-    <Grid
-      container
-      direction="column"
-      justify="center"
-      alignItems="center"
-      className={classes.root}
-    >
-      <Grid item>
-        <Grid
-          container
-          direction="row"
-          alignItems="center"
-          justify="center"
-          spacing={5}
-          // className={classes.root}
-        >
-          {FOOTER.icons.map((icon) => (
-            <Grid item>
-              <Link href={icon.href} underline="none" className={classes.icon}>
-                {icon.logo}
-              </Link>
-            </Grid>
-          ))}
+    <div>
+      <Grid
+        container
+        direction="column"
+        justify="center"
+        alignItems="center"
+        className={classes.root}
+      >
+        <Grid item>
+          <Grid
+            container
+            item
+            direction="row"
+            alignItems="center"
+            justify="center"
+            spacing={5}
+            xs={12}
+            // className={classes.root}
+          >
+            {FOOTER.icons.map((icon) => (
+              <Grid item xs={2}>
+                <Link
+                  href={icon.href}
+                  underline="none"
+                  className={classes.icon}
+                >
+                  {icon.logo}
+                </Link>
+              </Grid>
+            ))}
+          </Grid>
         </Grid>
       </Grid>
-    </Grid>
+    </div>
   );
 };
 

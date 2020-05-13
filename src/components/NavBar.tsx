@@ -63,14 +63,16 @@ const NavBar: React.FC = () => {
       <Grid item>
         <Grid
           container
+          item
           direction="row"
           justify="center"
           alignItems="center"
           spacing={5}
+          xs={12}
         >
           {NAV.links.map((link) => {
             return (
-              <Grid item>
+              <Grid item xs={4}>
                 <Link
                   underline="none"
                   component="button"

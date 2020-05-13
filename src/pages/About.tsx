@@ -169,28 +169,30 @@ const About: React.FC = () => {
       <Grid item>
         <Grid
           container
+          item
           direction="column"
           alignItems="flex-start"
           justify="flex-start"
           spacing={3}
           className={classes.root}
+          xs={12}
         >
-          <Grid item>
+          <Grid item xs={12}>
             <Whoami />
           </Grid>
-          <Grid item>
+          <Grid item xs={12}>
             <Experience />
           </Grid>
-          <Grid item>
+          <Grid item xs={12}>
             <Education />
           </Grid>
-          <Grid item>
+          <Grid item xs={12}>
             <Honours />
           </Grid>
-          <Grid item>
+          <Grid item xs={12}>
             <Skills />
           </Grid>
-          <Grid item>
+          <Grid item xs={12}>
             <Interests />
           </Grid>
         </Grid>

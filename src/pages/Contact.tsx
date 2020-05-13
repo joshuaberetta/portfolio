@@ -70,12 +70,14 @@ const PGPButton: React.FC<PGPButtonProps> = (props) => {
     <Link underline="none" component="button" onClick={props.onClick}>
       <Grid
         container
+        item
         direction="column"
         justify="center"
         alignItems="center"
         className={classes.button}
+        xs={12}
       >
-        <Grid item>
+        <Grid item xs={12}>
           <Typography className={classes.values}>{CONTACT.button}</Typography>
         </Grid>
       </Grid>
@@ -108,6 +110,7 @@ const Contact: React.FC = () => {
         <Grid item>
           <Grid
             container
+            item
             direction="row"
             justify="center"
             alignItems="center"
@@ -118,42 +121,19 @@ const Contact: React.FC = () => {
               <Avatar src={CONTACT.image} alt="me" className={classes.avatar} />
             </Grid>
             <Grid item>
-              <Grid
-                container
-                direction="column"
-                justify="flex-start"
-                alignItems="flex-start"
-                spacing={1}
-              >
-                {CONTACT.details.map((item) => (
-                  <Grid item>
-                    <Grid
-                      container
-                      direction="row"
-                      justify="flex-start"
-                      alignItems="center"
-                      spacing={2}
-                    >
-                      <Grid item>
-                        <Typography className={classes.title}>
-                          {item.title}
-                        </Typography>
-                      </Grid>
-                      <Grid item>
-                        <Typography className={classes.values}>
-                          {item.value}
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                ))}
-              </Grid>
+              {CONTACT.details.map((item) => (
+                <Typography className={classes.values}>
+                  <span className={classes.title}>{item.title} </span>
+                  {item.value}
+                </Typography>
+              ))}
             </Grid>
           </Grid>
         </Grid>
         <Grid item>
           <Grid
             container
+            item
             direction="column"
             justify="center"
             alignItems="center"
