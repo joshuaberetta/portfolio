@@ -1,9 +1,6 @@
 import React from "react";
 import { Typography } from "@material-ui/core";
 
-import workImage from "../static/me.png";
-import contactImage from "../static/me.png";
-
 import GitHubIcon from "@material-ui/icons/GitHub";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
@@ -31,7 +28,8 @@ export const NAV = {
 };
 
 export const WORK = {
-  image: workImage,
+  image:
+    "https://my-portfolio-bucket-resources.s3-eu-west-1.amazonaws.com/public/me.jpg",
   subtitle: "hi, i'm josh.",
   items: [
     {
@@ -471,7 +469,8 @@ export const ABOUT = {
 };
 
 export const CONTACT = {
-  image: contactImage,
+  image:
+    "https://my-portfolio-bucket-resources.s3-eu-west-1.amazonaws.com/public/me.jpg",
   details: [
     { title: "NAME:", value: "JOSHUA BERETTA" },
     { title: "TITLE:", value: "ENTREPRENEUR / DEVELOPER / ENGINEER" },
