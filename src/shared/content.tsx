@@ -29,7 +29,8 @@ export const NAV = {
 };
 
 export const WORK = {
-  image: "https://d281hw6jrax8rk.cloudfront.net/me.jp2",
+  image:
+    "https://my-portfolio-bucket-resources.s3-eu-west-1.amazonaws.com/public/me.jpg",
   subtitle: "hi, i'm josh.",
   items: [
     {
@@ -469,7 +470,8 @@ export const ABOUT = {
 };
 
 export const CONTACT = {
-  image: "https://d281hw6jrax8rk.cloudfront.net/me.jp2",
+  image:
+    "https://my-portfolio-bucket-resources.s3-eu-west-1.amazonaws.com/public/me.jpg",
   details: [
     { title: "NAME:", value: "JOSHUA BERETTA" },
     { title: "TITLE:", value: "ENTREPRENEUR / DEVELOPER / ENGINEER" },
