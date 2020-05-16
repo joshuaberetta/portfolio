@@ -36,7 +36,7 @@ const Footer: React.FC = () => {
             alignItems="center"
             justify="center"
             spacing={5}
-            xs={12}
+            // xs={12} //this was causing an offset from center...
             // className={classes.root}
           >
             {FOOTER.icons.map((icon) => (
