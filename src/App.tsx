@@ -13,6 +13,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 
 import Ourthreedots from "./pages/portfolioPages/Ourthreedots";
+import NoordhoekBagels from "./pages/portfolioPages/NoordhoekBagels";
 
 import { LocationContext } from "./shared/context/LocationContext";
 
@@ -37,6 +38,11 @@ const App: React.FC = () => {
           <Route component={About} path="/about" exact />
           <Route component={Contact} path="/contact" exact />
           <Route component={Ourthreedots} path="/work/ourthreedots" exact />
+          <Route
+            component={NoordhoekBagels}
+            path="/work/noordhoek-bagels"
+            exact
+          />
           <Redirect to="/" />
         </Switch>
         <Footer />

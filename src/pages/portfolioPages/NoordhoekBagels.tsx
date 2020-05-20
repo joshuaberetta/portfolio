@@ -48,6 +48,10 @@ const useStyles = makeStyles({
   },
 });
 
+const makeCap = (s: string) => {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+};
+
 const CONTENT = WORK.items.filter(
   (item) => item.title === "noordhoek-bagels",
 )[0];
@@ -85,14 +89,14 @@ const NoordhoekBagels: React.FC = () => {
         >
           <Grid item>
             <Typography className={classes.textHeading}>
-              # Ourthreedots
+              {`# ${CONTENT.title.split("-").map(makeCap).join(" ")}`}
             </Typography>
           </Grid>
           <Grid item>
             <Typography className={classes.textBody}>
               <span className={classes.textTitle}>Website: </span>
               <Link className={classes.link} href={CONTENT.href_ext}>
-                ourthreedots.com
+                {CONTENT.href_ext!.slice(8, CONTENT.href_ext!.length)}
               </Link>
             </Typography>
           </Grid>
