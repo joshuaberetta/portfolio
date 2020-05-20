@@ -46,7 +46,7 @@ export const WORK = {
         "Python",
         "Flask",
         "Firebase",
-        "AWS",
+        "AWS: Lambda, S3, SQS, SES",
         "Stripe",
         "Travis CI",
         "Figma",
