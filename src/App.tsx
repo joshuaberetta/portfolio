@@ -14,6 +14,7 @@ import Contact from "./pages/Contact";
 
 import Ourthreedots from "./pages/portfolioPages/Ourthreedots";
 import NoordhoekBagels from "./pages/portfolioPages/NoordhoekBagels";
+import THC from "./pages/portfolioPages/THC";
 
 import { LocationContext } from "./shared/context/LocationContext";
 
@@ -41,6 +42,11 @@ const App: React.FC = () => {
           <Route
             component={NoordhoekBagels}
             path="/work/noordhoek-bagels"
+            exact
+          />
+          <Route
+            component={THC}
+            path="/work/travelling-hipster-coaster"
             exact
           />
           <Redirect to="/" />
