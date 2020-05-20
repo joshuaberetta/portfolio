@@ -29,7 +29,8 @@ export const NAV = {
 };
 
 export const WORK = {
-  image: "https://d281hw6jrax8rk.cloudfront.net/me.jpg",
+  image:
+    "https://my-portfolio-bucket-resources.s3-eu-west-1.amazonaws.com/public/me.jpg",
   subtitle: "hi, i'm josh.",
   items: [
     {
@@ -58,7 +59,19 @@ export const WORK = {
     {
       title: "noordhoek-bagels",
       href: "/work/noordhoek-bagels",
-      underConstruction: true,
+      href_ext: "https://noordhoekbagels.com",
+      stack: [
+        "React",
+        "Typescript",
+        "Node",
+        "Express",
+        "MongoDB",
+        "Firebase",
+        "AWS S3, Cloudfront",
+        "Stripe",
+        "Travis CI",
+      ],
+      underConstruction: false,
       display: {
         type: "svg",
         component: <Noordhoek />,
@@ -469,7 +482,8 @@ export const ABOUT = {
 };
 
 export const CONTACT = {
-  image: "https://d281hw6jrax8rk.cloudfront.net/me.jpg",
+  image:
+    "https://my-portfolio-bucket-resources.s3-eu-west-1.amazonaws.com/public/me.jpg",
   details: [
     { title: "NAME:", value: "JOSHUA BERETTA" },
     { title: "TITLE:", value: "ENTREPRENEUR / DEVELOPER / ENGINEER" },

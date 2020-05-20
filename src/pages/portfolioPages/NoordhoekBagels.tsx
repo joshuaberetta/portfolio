@@ -48,9 +48,11 @@ const useStyles = makeStyles({
   },
 });
 
-const CONTENT = WORK.items.filter((item) => item.title === "ourthreedots")[0];
+const CONTENT = WORK.items.filter(
+  (item) => item.title === "noordhoek-bagels",
+)[0];
 
-const Ourthreedots: React.FC = () => {
+const NoordhoekBagels: React.FC = () => {
   const classes = useStyles();
 
   return (
@@ -112,4 +114,4 @@ const Ourthreedots: React.FC = () => {
   );
 };
 
-export default Ourthreedots;
+export default NoordhoekBagels;
