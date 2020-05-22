@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
     // marginTop: 10,
     width: "inherit",
     // maxWidth: 800,
+    // flex: 1,
     minHeight: 100,
     borderRadius: 10,
     paddingRight: 20,
@@ -54,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 20,
     border: `3px solid ${COLOURS.secondary}`,
     "&:hover": {
-      border: `3px solid ${COLOURS.pink}`,
+      border: `3px solid ${COLOURS.blue}`,
     },
   },
 }));

@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography } from "@material-ui/core";
+import { Typography, createStyles } from "@material-ui/core";
 
 import GitHubIcon from "@material-ui/icons/GitHub";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
@@ -14,6 +14,16 @@ import THC from "../components/svg/THC";
 import BS from "../components/svg/BS";
 import Trend from "../components/svg/trend";
 import Portfolio from "../components/svg/Portfolio";
+
+import { COLOURS } from "./colours";
+
+const TypeStyle = createStyles({
+  root: {
+    color: COLOURS.secondary,
+    fontFamily: "IBM Plex Mono, monospace",
+    fontWeight: "bold",
+  },
+});
 
 export const NAV = {
   title: {
@@ -36,7 +46,9 @@ export const WORK = {
     {
       title: "ourthreedots",
       href: "/work/ourthreedots",
-      href_ext: "https://ourthreedots.com",
+      href_ext: { title: "ourthreedots.com", link: "https://ourthreedots.com" },
+      figma:
+        "https://www.figma.com/file/X7QdDfMOXwHFpFs0OQKPcK/OurThreeDots?node-id=0%3A1",
       stack: [
         "React",
         "Typescript",
@@ -52,7 +64,13 @@ export const WORK = {
         "Figma",
       ],
       underConstruction: false,
+      description:
+        "My first foray into technology startups, Our Three Dots is a digital service that analyses your WhatsApp chats, outputting a customizable PDF of your chat history with interesting analyses of your conversations",
+      inspiration: `
+      My inspiration on the design of the website was heavily inspired by the colour scheme from the guys over at Figma and including a playfulness that is often contained within our chat conversations between our best friends.
+      `,
       display: {
+        title: "Our Three Dots",
         type: "svg",
         component: <Ourthreedots />,
       },
@@ -60,7 +78,12 @@ export const WORK = {
     {
       title: "noordhoek-bagels",
       href: "/work/noordhoek-bagels",
-      href_ext: "https://noordhoekbagels.com",
+      href_ext: {
+        title: "noordhoekbagels.com",
+        link: "https://noordhoekbagels.com",
+      },
+      figma:
+        "https://www.figma.com/file/5U7vc0HhNb7GAMqY5DDFw3/bagels?node-id=0%3A1",
       stack: [
         "React",
         "Typescript",
@@ -74,15 +97,25 @@ export const WORK = {
         "Figma",
       ],
       underConstruction: false,
+      description:
+        "A COVID-19 quarantine side-project started after falling in love with homemade bagels.",
+      inspiration:
+        "The black and white theme for the website and the style of the photos was inspired by the aesthetics within the Lake Michelle estate and following a similar look and feel to my Instagram.",
       display: {
+        title: "Noordhoek Bagels",
         type: "svg",
         component: <Noordhoek />,
       },
     },
     {
-      title: "travelling-hipster-coaster",
-      href: "/work/travelling-hipster-coaster",
-      href_ext: "https:///work/travelling-hipster-coaster",
+      title: "bagels-and-world-peace",
+      href: "/work/bagels-and-world-peace",
+      href_ext: {
+        title: "bagelsandworldpeace.com (not yet live)",
+        link: "https://joshuaberetta.com/work/bagels-and-world-peace",
+      },
+      figma:
+        "https://www.figma.com/file/1F9rZC8cHw6hZkw5WhqglI/Draft?node-id=0%3A1",
       stack: [
         "Nextjs",
         "Typescript",
@@ -92,25 +125,95 @@ export const WORK = {
         "Figma",
       ],
       underConstruction: false,
+      description:
+        "A personal site and travel blog for my good friend Ryan to document and showcase his crazy travels around the world.",
+      inspiration:
+        "Ryan is famous for his funky boardshorts and unique fashion sense. The site aims to bring across some of this playfulness in the colour scheming and in the UX. The goal is to highlight his amazing stories and bring his writing to life.",
       display: {
+        title: "Bagels & World Peace",
         type: "svg",
-        component: <THC />,
+        component: (
+          <Typography
+            variant="h4"
+            style={{
+              color: COLOURS.secondary,
+              fontFamily: "IBM Plex Mono, monospace",
+              fontWeight: "bold",
+              textAlign: "center",
+            }}
+          >
+            Bagels & World Peace
+          </Typography>
+        ),
+      },
+    },
+    {
+      title: "gitfully",
+      href: "/work/gitfully",
+      href_ext: {
+        title: "gitfully.com (not yet live)",
+        link: "https://joshuaberetta.com/work/gitfully",
+      },
+      platforms: [],
+      stack: [
+        "React",
+        "Typescript",
+        "Git",
+        "React Native",
+        "Electron",
+        "Netlify",
+      ],
+      underConstruction: false,
+      description:
+        "A git-based, open-source alternative to Notion and GitBook (currently under development)",
+      display: {
+        title: "Gitfully",
+        type: "svg",
+        component: (
+          <Typography
+            variant="h4"
+            style={{
+              color: COLOURS.secondary,
+              fontFamily: "IBM Plex Mono, monospace",
+              fontWeight: "bold",
+            }}
+          >
+            gitfully
+          </Typography>
+        ),
       },
     },
     {
       title: "beretta-studio",
       href: "/work/beretta-studio",
-      underConstruction: true,
+      href_ext: {
+        title: "beretta.studio (no longer live)",
+        link:
+          "https://web.archive.org/web/20181228052746/http://beretta.studio/",
+      },
+      underConstruction: false,
+      description:
+        "A creative project started by my brother and me as our first true entrepreneurial venture.",
       display: {
+        title: "Beretta Studio",
         type: "svg",
         component: <BS />,
       },
     },
+
     {
       title: "trend",
       href: "/work/trend",
-      underConstruction: true,
+      href_ext: {
+        title: "github.com/joshuaberetta/trend",
+        link: "https://github.com/joshuaberetta/trend",
+      },
+      stack: ["python"],
+      underConstruction: false,
+      description:
+        "A python-based tool created at my previous company, Aurecon, for generating animations from GIS and node data",
       display: {
+        title: "Trend",
         type: "svg",
         component: <Trend />,
       },
@@ -118,8 +221,20 @@ export const WORK = {
     {
       title: "portfolio",
       href: "/work/portfolio",
-      underConstruction: true,
+      href_ext: {
+        title: "joshuaberetta.com",
+        link: "https://joshuaberetta.com",
+      },
+      figma:
+        "https://www.figma.com/file/t3rY0EdbSllKkKHfbS9Evy/portfolio?node-id=0%3A1",
+      stack: ["Typescript", "React", "Firebase", "AWS S3, Cloudfront", "Figma"],
+      underConstruction: false,
+      description:
+        "My personal site to showcase my portfolio, CV and probably some other things in the future.",
+      inspiration:
+        "My inspiration for the site comes from my terminal, vim and VS Code text editor theme of Solarized Light. The raw markdown look appeals to me in its simplicity and pragmatic nature.",
       display: {
+        title: "Joshua Beretta",
         type: "svg",
         component: <Portfolio />,
       },
@@ -185,7 +300,7 @@ export const ABOUT = {
           endDate: "present",
           role: "Solo-Founder",
           description: `
-          My first foray into technology startups, OurThreeDots is a digital service that analyses your WhatsApp chats, outputting a customizable PDF of your chat history with interesting analyses of your conversations. The tech stack includes Typescript, React, Node, Python, Flask, MongoDB, Stripe, Figma, Docker, Travis CI, Heroku, Firebase and AWS Lambda, S3, SES, SQS.
+          My first foray into technology startups, Our Three Dots is a digital service that analyses your WhatsApp chats, outputting a customizable PDF of your chat history with interesting analyses of your conversations. The tech stack includes Typescript, React, Node, Python, Flask, MongoDB, Stripe, Figma, Docker, Travis CI, Heroku, Firebase and AWS Lambda, S3, SES, SQS.
           `,
         },
         {

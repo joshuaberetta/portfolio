@@ -95,9 +95,21 @@ const THC: React.FC = () => {
           <Grid item>
             <Typography className={classes.textBody}>
               <span className={classes.textTitle}>Website: </span>
-              still to come :)
+              <Link className={classes.link} href={CONTENT.href_ext.link}>
+                {CONTENT.href_ext.title}
+              </Link>
             </Typography>
           </Grid>
+          {CONTENT.figma && (
+            <Grid item>
+              <Typography className={classes.textBody}>
+                <span className={classes.textTitle}>Figma: </span>
+                <Link className={classes.link} href={CONTENT.figma}>
+                  Figma design
+                </Link>
+              </Typography>
+            </Grid>
+          )}
           <Grid item>
             <Typography className={classes.textBody}>
               <span className={classes.textTitle}>Stack: </span>
@@ -107,7 +119,7 @@ const THC: React.FC = () => {
           <Grid item>
             <Typography className={classes.textBody}>
               <span className={classes.textTitle}>Description: </span>
-              Still to come :)
+              {CONTENT.description}
             </Typography>
           </Grid>
         </Grid>

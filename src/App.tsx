@@ -15,8 +15,10 @@ import Contact from "./pages/Contact";
 import Ourthreedots from "./pages/portfolioPages/Ourthreedots";
 import NoordhoekBagels from "./pages/portfolioPages/NoordhoekBagels";
 import THC from "./pages/portfolioPages/THC";
+import PortfolioPage from "./pages/portfolioPages/PortfolioPage";
 
 import { LocationContext } from "./shared/context/LocationContext";
+import { WORK } from "./shared/content";
 
 const App: React.FC = () => {
   const [location, setLocation] = useState<string>("/work");
@@ -38,7 +40,7 @@ const App: React.FC = () => {
           <Route component={Work} path="/" exact />
           <Route component={About} path="/about" exact />
           <Route component={Contact} path="/contact" exact />
-          <Route component={Ourthreedots} path="/work/ourthreedots" exact />
+          {/* <Route component={Ourthreedots} path="/work/ourthreedots" exact />
           <Route
             component={NoordhoekBagels}
             path="/work/noordhoek-bagels"
@@ -48,7 +50,12 @@ const App: React.FC = () => {
             component={THC}
             path="/work/travelling-hipster-coaster"
             exact
-          />
+          /> */}
+          {WORK.items.map((item) => (
+            <Route path={item.href} exact>
+              <PortfolioPage title={item.title} />
+            </Route>
+          ))}
           <Redirect to="/" />
         </Switch>
         <Footer />

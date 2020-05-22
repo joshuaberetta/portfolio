@@ -95,11 +95,21 @@ const NoordhoekBagels: React.FC = () => {
           <Grid item>
             <Typography className={classes.textBody}>
               <span className={classes.textTitle}>Website: </span>
-              <Link className={classes.link} href={CONTENT.href_ext}>
-                {CONTENT.href_ext!.slice(8, CONTENT.href_ext!.length)}
+              <Link className={classes.link} href={CONTENT.href_ext.link}>
+                {CONTENT.href_ext.title}
               </Link>
             </Typography>
           </Grid>
+          {CONTENT.figma && (
+            <Grid item>
+              <Typography className={classes.textBody}>
+                <span className={classes.textTitle}>Figma: </span>
+                <Link className={classes.link} href={CONTENT.figma}>
+                  Figma design
+                </Link>
+              </Typography>
+            </Grid>
+          )}
           <Grid item>
             <Typography className={classes.textBody}>
               <span className={classes.textTitle}>Stack: </span>
@@ -109,7 +119,7 @@ const NoordhoekBagels: React.FC = () => {
           <Grid item>
             <Typography className={classes.textBody}>
               <span className={classes.textTitle}>Description: </span>
-              Still to come :)
+              {CONTENT.description}
             </Typography>
           </Grid>
         </Grid>
