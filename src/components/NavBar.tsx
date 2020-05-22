@@ -20,9 +20,9 @@ const useStyles = makeStyles((theme) => ({
     color: COLOURS.secondary,
     fontFamily: "IBM Plex Mono, monospace",
     fontWeight: "bold",
-    "&:hover": {
-      color: COLOURS.blue,
-    },
+    // "&:hover": {
+    //   color: COLOURS.blue,
+    // },
   },
   links: {
     fontFamily: "IBM Plex Mono, monospace",

@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import { Grid, Typography, Avatar, Link, makeStyles } from "@material-ui/core";
 
 import PublicKeyModal from "../components/PublicKeyModal";
@@ -99,6 +100,9 @@ const Contact: React.FC = () => {
 
   return (
     <React.Fragment>
+      <Helmet>
+        <title>Joshua Beretta - Contact</title>
+      </Helmet>
       <PublicKeyModal open={open} onClick={toggleModal} />
       <Grid
         container

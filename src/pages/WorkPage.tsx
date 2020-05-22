@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import { Helmet } from "react-helmet";
 import { Grid, Typography, makeStyles, Avatar } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 
@@ -51,6 +52,9 @@ const Work: React.FC = () => {
 
   return (
     <React.Fragment>
+      <Helmet>
+        <title>Joshua Beretta</title>
+      </Helmet>
       <Modal open={open} onClick={toggleModal} />
       <Grid
         container

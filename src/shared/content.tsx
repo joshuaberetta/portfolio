@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, createStyles } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 
 import GitHubIcon from "@material-ui/icons/GitHub";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
@@ -16,14 +16,6 @@ import Trend from "../components/svg/trend";
 import Portfolio from "../components/svg/Portfolio";
 
 import { COLOURS } from "./colours";
-
-const TypeStyle = createStyles({
-  root: {
-    color: COLOURS.secondary,
-    fontFamily: "IBM Plex Mono, monospace",
-    fontWeight: "bold",
-  },
-});
 
 export const NAV = {
   title: {
@@ -75,15 +67,39 @@ export const WORK = {
         component: <Ourthreedots />,
       },
       md: "",
-      //       md: `
-      // # # testing out some md
-
-      // hello there
-
-      // ## ## is this working?
-
-      // > Maybe...
-      // `,
+      // md: [
+      //   { type: "h", data: ["# Our Three Dots"] },
+      //   {
+      //     type: "p",
+      //     data: [
+      //       "My inspiration on the design of the website was heavily inspired by the colour scheme from the guys over at Figma and including a playfulness that is often contained within our chat conversations between our best friends.",
+      //     ],
+      //   },
+      //   {
+      //     type: "p",
+      //     data: [
+      //       "My inspiration on the design of the website was heavily inspired by the colour scheme from the guys over at Figma and including a playfulness that is often contained within our chat conversations between our best friends.",
+      //     ],
+      //   },
+      //   { type: "h", data: ["## Technology startups"] },
+      //   {
+      //     type: "com",
+      //     data: [
+      //       "My first foray into technology startups, Our Three Dots is a digital service that analyses your WhatsApp chats, outputting a customizable PDF of your chat history with interesting analyses of your conversations",
+      //     ],
+      //   },
+      //   {
+      //     type: "img",
+      //     data: [
+      //       "https://my-portfolio-bucket-resources.s3-eu-west-1.amazonaws.com/public/me.jpg",
+      //       "me",
+      //     ],
+      //   },
+      //   {
+      //     type: "a",
+      //     data: ["noordhoekbagels.com", "https://noordhoekbagels.com"],
+      //   },
+      // ],
     },
     {
       title: "noordhoek-bagels",

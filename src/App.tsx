@@ -53,7 +53,7 @@ const App: React.FC = () => {
           /> */}
           {WORK.items.map((item) => (
             <Route path={item.href} exact>
-              <PortfolioPage title={item.title} />
+              <PortfolioPage title={item.title} label={item.display.title} />
             </Route>
           ))}
           <Redirect to="/" />

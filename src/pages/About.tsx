@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react";
+import { Helmet } from "react-helmet";
 import { Grid, Typography, makeStyles } from "@material-ui/core";
 
 import { ABOUT } from "../shared/content";
@@ -165,39 +166,44 @@ const About: React.FC = () => {
   }, []);
 
   return (
-    <Grid container direction="column" justify="center" alignItems="center">
-      <Grid item>
-        <Grid
-          container
-          item
-          direction="column"
-          alignItems="flex-start"
-          justify="flex-start"
-          spacing={3}
-          className={classes.root}
-          xs={12}
-        >
-          <Grid item xs={12}>
-            <Whoami />
-          </Grid>
-          <Grid item xs={12}>
-            <Experience />
-          </Grid>
-          <Grid item xs={12}>
-            <Education />
-          </Grid>
-          <Grid item xs={12}>
-            <Honours />
-          </Grid>
-          <Grid item xs={12}>
-            <Skills />
-          </Grid>
-          <Grid item xs={12}>
-            <Interests />
+    <React.Fragment>
+      <Helmet>
+        <title>Joshua Beretta - About</title>
+      </Helmet>
+      <Grid container direction="column" justify="center" alignItems="center">
+        <Grid item>
+          <Grid
+            container
+            item
+            direction="column"
+            alignItems="flex-start"
+            justify="flex-start"
+            spacing={3}
+            className={classes.root}
+            xs={12}
+          >
+            <Grid item xs={12}>
+              <Whoami />
+            </Grid>
+            <Grid item xs={12}>
+              <Experience />
+            </Grid>
+            <Grid item xs={12}>
+              <Education />
+            </Grid>
+            <Grid item xs={12}>
+              <Honours />
+            </Grid>
+            <Grid item xs={12}>
+              <Skills />
+            </Grid>
+            <Grid item xs={12}>
+              <Interests />
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
-    </Grid>
+    </React.Fragment>
   );
 };
 
