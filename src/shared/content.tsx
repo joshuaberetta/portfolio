@@ -74,6 +74,16 @@ export const WORK = {
         type: "svg",
         component: <Ourthreedots />,
       },
+      md: "",
+      //       md: `
+      // # # testing out some md
+
+      // hello there
+
+      // ## ## is this working?
+
+      // > Maybe...
+      // `,
     },
     {
       title: "noordhoek-bagels",
