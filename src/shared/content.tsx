@@ -134,11 +134,11 @@ export const WORK = {
       },
     },
     {
-      title: "bagels-and-world-peace",
-      href: "/work/bagels-and-world-peace",
+      title: "doughnuts-and-world-peace",
+      href: "/work/doughnuts-and-world-peace",
       href_ext: {
-        title: "bagelsandworldpeace.com (not yet live)",
-        link: "https://joshuaberetta.com/work/bagels-and-world-peace",
+        title: "doughnutsandworldpeace.com (not yet live)",
+        link: "https://joshuaberetta.com/work/doughnuts-and-world-peace",
       },
       figma:
         "https://www.figma.com/file/1F9rZC8cHw6hZkw5WhqglI/Draft?node-id=0%3A1",
@@ -156,7 +156,7 @@ export const WORK = {
       inspiration:
         "Ryan is famous for his funky boardshorts and unique fashion sense. The site aims to bring across some of this playfulness in the colour scheming and in the UX. The goal is to highlight his amazing stories and bring his writing to life.",
       display: {
-        title: "Bagels & World Peace",
+        title: "Doughnuts & World Peace",
         type: "svg",
         component: (
           <Typography
@@ -168,7 +168,7 @@ export const WORK = {
               textAlign: "center",
             }}
           >
-            Bagels & World Peace
+            Doughnuts & World Peace
           </Typography>
         ),
       },
