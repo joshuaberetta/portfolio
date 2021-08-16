@@ -32,7 +32,7 @@ export const NAV = {
 
 export const WORK = {
   image:
-    "https://my-portfolio-bucket-resources.s3-eu-west-1.amazonaws.com/public/me.jpg",
+    "https://avatars.githubusercontent.com/u/50016008",
   subtitle: "hi, i'm josh.",
   items: [
     {
