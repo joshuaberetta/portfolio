@@ -646,7 +646,7 @@ export const ABOUT = {
 
 export const CONTACT = {
   image:
-    "https://my-portfolio-bucket-resources.s3-eu-west-1.amazonaws.com/public/me.jpg",
+    "https://avatars.githubusercontent.com/u/50016008",
   details: [
     { title: "NAME:", value: "JOSHUA BERETTA" },
     { title: "TITLE:", value: "ENTREPRENEUR / DEVELOPER / ENGINEER" },
