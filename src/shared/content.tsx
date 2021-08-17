@@ -314,7 +314,7 @@ export const ABOUT = {
         
         I am married to the beautiful Naomi Beretta and we are currently travelling the world, experiencing new things and working remotely.
         
-        I am a passionate about technology and an advocate for privacy and individual freedom.`,
+        I am passionate about technology and an advocate for privacy and individual freedom.`,
       ],
     },
     experience: {
