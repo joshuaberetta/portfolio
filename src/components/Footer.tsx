@@ -35,7 +35,7 @@ const Footer: React.FC = () => {
             direction="row"
             alignItems="center"
             justify="center"
-            spacing={10}
+            spacing={5}
             // xs={12} //this was causing an offset from center...
             // className={classes.root}
           >
