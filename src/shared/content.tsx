@@ -4,9 +4,6 @@ import { Typography } from "@material-ui/core";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
-import InstagramIcon from "@material-ui/icons/Instagram";
-import TwitterIcon from "@material-ui/icons/Twitter";
-import Dribble from "../components/svg/dribble";
 
 import Ourthreedots from "../components/svg/Ourthreedots";
 import Noordhoek from "../components/svg/Noordhoek";
@@ -31,8 +28,7 @@ export const NAV = {
 };
 
 export const WORK = {
-  image:
-    "https://avatars.githubusercontent.com/u/50016008",
+  image: "https://avatars.githubusercontent.com/u/50016008",
   subtitle: "hi, i'm josh.",
   items: [
     {
@@ -214,8 +210,7 @@ export const WORK = {
       href: "/work/beretta-studio",
       href_ext: {
         title: "beretta.studio (no longer live)",
-        link:
-          "https://web.archive.org/web/20181228052746/http://beretta.studio/",
+        link: "https://web.archive.org/web/20181228052746/http://beretta.studio/",
       },
       underConstruction: false,
       description:
@@ -273,7 +268,7 @@ export const FOOTER = {
     {
       title: "email",
       logo: <MailOutlineIcon />,
-      href: "mailto:joshuaberetta@gmail.com",
+      href: "mailto:me@joshuaberetta.com",
     },
 
     {
@@ -285,22 +280,6 @@ export const FOOTER = {
       title: "linkedin",
       logo: <LinkedInIcon />,
       href: "https://www.linkedin.com/in/joshua-beretta-aa857693/",
-    },
-
-    {
-      title: "indie-hackers",
-      logo: <Typography style={{ fontWeight: "bold" }}>IH</Typography>,
-      href: "https://www.indiehackers.com/joshuaberetta",
-    },
-    {
-      title: "instagram",
-      logo: <InstagramIcon />,
-      href: "https://www.instagram.com/joshberetta",
-    },
-    {
-      title: "twitter",
-      logo: <TwitterIcon />,
-      href: "https://www.twitter.com/joshberetta",
     },
   ],
 };
@@ -321,9 +300,18 @@ export const ABOUT = {
       title: "# Experience",
       body: [
         {
+          title: "KoBoToolbox",
+          startDate: "08/2020",
+          endDate: "present",
+          role: "Backend Developer",
+          description: `
+          Trying to be useful.
+          `,
+        },
+        {
           title: "Ourthreedots",
           startDate: "03/2020",
-          endDate: "present",
+          endDate: "7/2020",
           role: "Solo-Founder",
           description: `
           My first foray into technology startups, Our Three Dots is a digital service that analyses your WhatsApp chats, outputting a customizable PDF of your chat history with interesting analyses of your conversations. The tech stack includes Typescript, React, Node, Python, Flask, MongoDB, Stripe, Figma, Docker, Travis CI, Heroku, Firebase and AWS Lambda, S3, SES, SQS.
@@ -645,8 +633,7 @@ export const ABOUT = {
 };
 
 export const CONTACT = {
-  image:
-    "https://avatars.githubusercontent.com/u/50016008",
+  image: "https://avatars.githubusercontent.com/u/50016008",
   details: [
     { title: "NAME:", value: "JOSHUA BERETTA" },
     { title: "TITLE:", value: "ENTREPRENEUR / DEVELOPER / ENGINEER" },
