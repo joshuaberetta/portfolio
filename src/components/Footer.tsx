@@ -10,6 +10,7 @@ const useStyles = makeStyles({
   },
   icon: {
     color: COLOURS.pink,
+    padding: "0px",
     "&:hover": {
       color: COLOURS.blue,
     },
@@ -40,7 +41,7 @@ const Footer: React.FC = () => {
             // className={classes.root}
           >
             {FOOTER.icons.map((icon) => (
-              <Grid item xs={2}>
+              <Grid item>
                 <Link
                   href={icon.href}
                   underline="none"
