@@ -639,7 +639,7 @@ export const CONTACT = {
     { title: "TITLE:", value: "ENTREPRENEUR / DEVELOPER / ENGINEER" },
     { title: "DOB:", value: "19/06/1995" },
     { title: "NATIONALITY:", value: "ITALIAN / SOUTH AFRICAN" },
-    { title: "EMAIL:", value: "JOSHUABERETTA@GMAIL.COM" },
+    { title: "EMAIL:", value: "ME@JOSHUABERETTA.COM" },
   ],
   pgp: "PGP FINGERPRINT: 2B51 8B51 D0C4 2000 4C2C CFE4 ED79 D7ED CB6C EFA3",
   button: "SHOW PUBLIC KEY",

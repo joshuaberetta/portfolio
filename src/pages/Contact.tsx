@@ -61,31 +61,31 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface PGPButtonProps {
-  onClick: () => void;
-}
+// interface PGPButtonProps {
+//   onClick: () => void;
+// }
 
-const PGPButton: React.FC<PGPButtonProps> = (props) => {
-  const classes = useStyles();
+// const PGPButton: React.FC<PGPButtonProps> = (props) => {
+//   const classes = useStyles();
 
-  return (
-    <Link underline="none" component="button" onClick={props.onClick}>
-      <Grid
-        container
-        item
-        direction="column"
-        justify="center"
-        alignItems="center"
-        className={classes.button}
-        xs={12}
-      >
-        <Grid item xs={12}>
-          <Typography className={classes.values}>{CONTACT.button}</Typography>
-        </Grid>
-      </Grid>
-    </Link>
-  );
-};
+//   return (
+//     <Link underline="none" component="button" onClick={props.onClick}>
+//       <Grid
+//         container
+//         item
+//         direction="column"
+//         justify="center"
+//         alignItems="center"
+//         className={classes.button}
+//         xs={12}
+//       >
+//         <Grid item xs={12}>
+//           <Typography className={classes.values}>{CONTACT.button}</Typography>
+//         </Grid>
+//       </Grid>
+//     </Link>
+//   );
+// };
 
 const Contact: React.FC = () => {
   const classes = useStyles();
@@ -135,7 +135,7 @@ const Contact: React.FC = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item>
+        {/* <Grid item>
           <Grid
             container
             item
@@ -151,7 +151,7 @@ const Contact: React.FC = () => {
         </Grid>
         <Grid item>
           <PGPButton onClick={toggleModal} />
-        </Grid>
+        </Grid> */}
       </Grid>
     </React.Fragment>
   );
