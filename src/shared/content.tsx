@@ -11,6 +11,7 @@ import THC from "../components/svg/THC";
 import BS from "../components/svg/BS";
 import Trend from "../components/svg/trend";
 import Portfolio from "../components/svg/Portfolio";
+import Md2Xlsform from "../components/svg/md2xlsform";
 
 import { COLOURS } from "./colours";
 
@@ -31,6 +32,23 @@ export const WORK = {
   image: "https://avatars.githubusercontent.com/u/50016008",
   subtitle: "hi, i'm josh.",
   items: [
+    {
+      title: "md2xlsform",
+      href: "/work/md2xlsform",
+      href_ext: {
+        title: "md2xlsform",
+        link: "https://github.com/joshuaberetta/md2xlsform",
+      },
+      stack: ["Python"],
+      underConstruction: false,
+      description:
+        "Convert Markdown to XLSForm for importing into KoBoToolbox.",
+      display: {
+        title: "md2xlsform",
+        type: "svg",
+        component: <Md2Xlsform />,
+      },
+    },
     {
       title: "ourthreedots",
       href: "/work/ourthreedots",
