@@ -23,7 +23,7 @@ export const NAV = {
   subtitle: "hi, i'm josh.",
   links: [
     { title: "/work", href: "/" },
-    { title: "/about", href: "/about" },
+    //{ title: "/about", href: "/about" },
     { title: "/contact", href: "/contact" },
   ],
 };
