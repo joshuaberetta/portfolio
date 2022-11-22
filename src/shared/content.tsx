@@ -4,6 +4,7 @@ import { Typography } from "@material-ui/core";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
+import CameraAltIcon from '@material-ui/icons/CameraAlt';
 
 import Ourthreedots from "../components/svg/Ourthreedots";
 import Noordhoek from "../components/svg/Noordhoek";
@@ -299,6 +300,11 @@ export const FOOTER = {
       logo: <LinkedInIcon />,
       href: "https://www.linkedin.com/in/joshua-beretta-aa857693/",
     },
+    {
+      title: "flickr",
+      logo: <CameraAltIcon />,
+      href: "https://www.flickr.com/photos/joshuaberetta/albums",
+    },
   ],
 };
 
@@ -307,11 +313,10 @@ export const ABOUT = {
     whoami: {
       title: "# whoami",
       body: [
-        `I grew up in the peaceful suburb of Noordhoek in Cape Town, South Africa.
-        
-        I am married to the beautiful Naomi Beretta and we are currently travelling the world, experiencing new things and working remotely.
-        
-        I am passionate about technology and an advocate for privacy and individual freedom.`,
+        `I grew up in the peaceful suburb of Noordhoek in Cape Town, South
+        Africa and currently travelling the world, experiencing new things and
+        working remotely. I am passionate about technology and an advocate for
+        privacy and individual freedom.`,
       ],
     },
     experience: {
