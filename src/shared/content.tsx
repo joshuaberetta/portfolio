@@ -660,7 +660,7 @@ export const CONTACT = {
   details: [
     { title: "NAME:", value: "JOSHUA BERETTA" },
     { title: "TITLE:", value: "HUMANITARIAN PROJECT COORDINATOR" },
-    { title: "DOB:", value: "19/06/1995" },
+    // { title: "DOB:", value: "19/06/1995" },
     { title: "NATIONALITY:", value: "ITALIAN / SOUTH AFRICAN" },
     { title: "EMAIL:", value: "ME@JOSHUABERETTA.COM" },
   ],
