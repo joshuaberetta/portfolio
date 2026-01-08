@@ -298,7 +298,7 @@ export const FOOTER = {
     {
       title: "linkedin",
       logo: <LinkedInIcon />,
-      href: "https://www.linkedin.com/in/joshua-beretta-aa857693/",
+      href: "https://www.linkedin.com/in/joshuaberetta/",
     },
     {
       title: "flickr",
@@ -659,7 +659,7 @@ export const CONTACT = {
   image: "https://avatars.githubusercontent.com/u/50016008",
   details: [
     { title: "NAME:", value: "JOSHUA BERETTA" },
-    { title: "TITLE:", value: "ENTREPRENEUR / DEVELOPER / ENGINEER" },
+    { title: "TITLE:", value: "HUMANITARIAN PROJECT COORDINATOR" },
     { title: "DOB:", value: "19/06/1995" },
     { title: "NATIONALITY:", value: "ITALIAN / SOUTH AFRICAN" },
     { title: "EMAIL:", value: "ME@JOSHUABERETTA.COM" },

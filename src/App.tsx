@@ -37,9 +37,9 @@ const App: React.FC = () => {
       <Router>
         <NavBar />
         <Switch>
-          <Route component={Work} path="/" exact />
-          <Route component={About} path="/about" exact />
-          <Route component={Contact} path="/contact" exact />
+          {/* <Route component={Work} path="/" exact />
+          <Route component={About} path="/about" exact /> */}
+          <Route component={Contact} path="/" exact />
           {/* <Route component={Ourthreedots} path="/work/ourthreedots" exact />
           <Route
             component={NoordhoekBagels}

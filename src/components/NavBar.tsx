@@ -63,7 +63,7 @@ const NavBar: React.FC = () => {
           </Typography>
         </Link>
       </Grid>
-      <Grid item>
+      {/* <Grid item>
         <Grid
           container
           item
@@ -96,7 +96,7 @@ const NavBar: React.FC = () => {
             );
           })}
         </Grid>
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 };
