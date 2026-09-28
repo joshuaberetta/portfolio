@@ -7,8 +7,10 @@ export type LinkIcon = "email" | "github" | "linkedin" | "flickr";
 export interface SiteContent {
   site: { title: string; name: string };
   profile: {
+    title: string;
     image: string;
-    details: { label: string; value: string }[];
+    details: { label?: string; value: string; href?: string }[];
+    education?: { degree: string; institution: string }[];
   };
   research: {
     title: string;

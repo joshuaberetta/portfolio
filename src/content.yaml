@@ -9,16 +9,21 @@ site:
   name: "JOSHUA BERETTA"
 
 profile:
+  title: "About"
   image: "profile-picture.jpg"
+  # Lines next to the photo. `label` is optional and shown in bold before
+  # the value. `href` is optional and turns the value into a link.
   details:
-    - label: "NAME"
-      value: "JOSHUA BERETTA"
-    - label: "TITLE"
-      value: "HUMANITARIAN PROJECT COORDINATOR"
-    - label: "NATIONALITY"
-      value: "ITALIAN / SOUTH AFRICAN"
-    - label: "EMAIL"
-      value: "ME@JOSHUABERETTA.COM"
+    - value: "JOSHUA BERETTA"
+    - value: "HUMANITARIAN PROJECT COORDINATOR"
+    - value: "ME@JOSHUABERETTA.COM"
+      href: "mailto:me@joshuaberetta.com"
+  # Shown under the details: the degree in italics, the institution below it.
+  education:
+    - degree: "BSc. Mechanical Engineering"
+      institution: "UCT"
+    - degree: "MA International Humanitarian Action"
+      institution: "University of Groningen"
 
 research:
   title: "Research"

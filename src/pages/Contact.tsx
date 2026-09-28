@@ -30,7 +30,21 @@ const useStyles = makeStyles()((theme) => ({
     border: `1px solid ${COLOURS.border}`,
   },
   profile: {
-    minHeight: 300,
+    padding: "12px 0",
+  },
+  education: {
+    // extra space above the first degree to set it apart from the details
+    "&:first-of-type": {
+      marginTop: 24,
+    },
+    "& + &": {
+      marginTop: 12,
+    },
+  },
+  degree: {
+    color: COLOURS.secondary,
+    fontFamily: "IBM Plex Mono, monospace",
+    fontStyle: "italic",
   },
   heading: {
     color: COLOURS.pink,
@@ -74,6 +88,14 @@ const useStyles = makeStyles()((theme) => ({
     },
     "& svg": {
       fontSize: 16,
+    },
+  },
+  link: {
+    color: "inherit",
+    textDecoration: "none",
+    "&:hover": {
+      color: COLOURS.blue,
+      textDecoration: "underline",
     },
   },
   avatar: {
@@ -170,28 +192,51 @@ const Contact: React.FC = () => {
           // sx, not a class: Grid items set maxWidth: none, which would win
           sx={{ maxWidth: "calc(100vw - 32px)" }}
         >
-          <Grid
-            container
-            spacing={5}
-            className={`${classes.card} ${classes.profile}`}
-            sx={{ justifyContent: "center", alignItems: "center" }}
-          >
-            <Grid>
-              <Avatar
-                src={SITE.profile.image}
-                alt={SITE.site.title}
-                className={classes.avatar}
-              />
+          <div className={classes.card}>
+            <Typography className={classes.heading}>
+              {SITE.profile.title}
+            </Typography>
+            <Grid
+              container
+              spacing={5}
+              className={classes.profile}
+              sx={{ justifyContent: "center", alignItems: "center" }}
+            >
+              <Grid>
+                <Avatar
+                  src={SITE.profile.image}
+                  alt={SITE.site.title}
+                  className={classes.avatar}
+                />
+              </Grid>
+              <Grid sx={{ maxWidth: "100%" }}>
+                {SITE.profile.details.map((item) => (
+                  <Typography key={item.value} className={classes.values}>
+                    {item.label && (
+                      <span className={classes.title}>{item.label}: </span>
+                    )}
+                    {item.href ? (
+                      <a href={item.href} className={classes.link}>
+                        {item.value}
+                      </a>
+                    ) : (
+                      item.value
+                    )}
+                  </Typography>
+                ))}
+                {SITE.profile.education?.map((item) => (
+                  <div key={item.degree} className={classes.education}>
+                    <Typography className={classes.degree}>
+                      {item.degree}
+                    </Typography>
+                    <Typography className={classes.detail}>
+                      {item.institution}
+                    </Typography>
+                  </div>
+                ))}
+              </Grid>
             </Grid>
-            <Grid sx={{ maxWidth: "100%" }}>
-              {SITE.profile.details.map((item) => (
-                <Typography key={item.label} className={classes.values}>
-                  <span className={classes.title}>{item.label}: </span>
-                  {item.value}
-                </Typography>
-              ))}
-            </Grid>
-          </Grid>
+          </div>
           <div className={classes.card}>
             <Typography className={classes.heading}>
               {SITE.research.title}

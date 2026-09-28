@@ -79,7 +79,8 @@ const Work: React.FC = () => {
         </Grid>
         <Grid>
           <Typography variant="body1" className={classes.subtitle}>
-            {SITE.profile.details.find((d) => d.label === "TITLE")?.value}
+            {/* the job title is the second line in content.yaml */}
+            {SITE.profile.details[1]?.value}
           </Typography>
         </Grid>
         <Grid>
