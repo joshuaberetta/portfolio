@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Grid, Typography, Avatar, Link } from "@mui/material";
+import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import { makeStyles } from "tss-react/mui";
 
 import PublicKeyModal from "../components/PublicKeyModal";
 
 import { CONTACT } from "../shared/content";
+import { SITE } from "../shared/siteContent";
 import { COLOURS } from "../shared/colours";
 import { LocationContext } from "../shared/context/LocationContext";
 
@@ -15,13 +17,64 @@ const useStyles = makeStyles()((theme) => ({
     marginBottom: 40,
     minHeight: "30rem",
   },
+  cards: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 24,
+  },
   card: {
     padding: 20,
-    minHeight: 300,
     // maxWidth: 800,
     background: COLOURS.primary,
     borderRadius: 6,
     border: `1px solid ${COLOURS.border}`,
+  },
+  profile: {
+    minHeight: 300,
+  },
+  heading: {
+    color: COLOURS.pink,
+    fontFamily: "IBM Plex Mono, monospace",
+    fontWeight: "bold",
+    paddingBottom: 12,
+  },
+  research: {
+    paddingTop: 12,
+    "& + &": {
+      borderTop: `1px solid ${COLOURS.border}`,
+      marginTop: 16,
+      paddingTop: 16,
+    },
+  },
+  detail: {
+    color: COLOURS.muted,
+    fontFamily: "IBM Plex Mono, monospace",
+    fontSize: "0.875rem",
+  },
+  // modelled on VS Code's primary button
+  download: {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 6,
+    marginTop: 16,
+    padding: "6px 14px",
+    borderRadius: 4,
+    background: COLOURS.button,
+    color: "#FFFFFF",
+    fontFamily: "IBM Plex Mono, monospace",
+    fontSize: "0.8125rem",
+    lineHeight: 1.4,
+    textDecoration: "none",
+    "&:hover": {
+      background: COLOURS.buttonHover,
+    },
+    "&:focus-visible": {
+      outline: `1px solid ${COLOURS.blue}`,
+      outlineOffset: 2,
+    },
+    "& svg": {
+      fontSize: 16,
+    },
   },
   avatar: {
     height: 200,
@@ -100,7 +153,7 @@ const Contact: React.FC = () => {
 
   return (
     <React.Fragment>
-      <title>Joshua Beretta - Contact</title>
+      <title>{`${SITE.site.title} - Contact`}</title>
       <PublicKeyModal open={open} onClick={toggleModal} />
       <Grid
         container
@@ -112,25 +165,56 @@ const Contact: React.FC = () => {
           alignItems: "center",
         }}
       >
-        <Grid>
+        <Grid
+          className={classes.cards}
+          // sx, not a class: Grid items set maxWidth: none, which would win
+          sx={{ maxWidth: "calc(100vw - 32px)" }}
+        >
           <Grid
             container
             spacing={5}
-            className={classes.card}
+            className={`${classes.card} ${classes.profile}`}
             sx={{ justifyContent: "center", alignItems: "center" }}
           >
             <Grid>
-              <Avatar src={CONTACT.image} alt="me" className={classes.avatar} />
+              <Avatar
+                src={SITE.profile.image}
+                alt={SITE.site.title}
+                className={classes.avatar}
+              />
             </Grid>
-            <Grid>
-              {CONTACT.details.map((item) => (
-                <Typography className={classes.values}>
-                  <span className={classes.title}>{item.title} </span>
+            <Grid sx={{ maxWidth: "100%" }}>
+              {SITE.profile.details.map((item) => (
+                <Typography key={item.label} className={classes.values}>
+                  <span className={classes.title}>{item.label}: </span>
                   {item.value}
                 </Typography>
               ))}
             </Grid>
           </Grid>
+          <div className={classes.card}>
+            <Typography className={classes.heading}>
+              {SITE.research.title}
+            </Typography>
+            {SITE.research.items.map((item) => (
+              <div key={item.file} className={classes.research}>
+                <Typography className={classes.title}>{item.title}</Typography>
+                {item.detail && (
+                  <Typography className={classes.detail}>
+                    {item.detail}
+                  </Typography>
+                )}
+                <a
+                  href={item.file}
+                  download={item.fileName}
+                  className={classes.download}
+                >
+                  <FileDownloadOutlinedIcon />
+                  {item.button}
+                </a>
+              </div>
+            ))}
+          </div>
         </Grid>
         {/* <Grid>
           <Grid

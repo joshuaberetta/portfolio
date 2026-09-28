@@ -6,7 +6,8 @@ import { useNavigate } from "react-router";
 import Block from "../components/PortfolioBlock";
 import Modal from "../components/UnderConstruction";
 
-import { WORK, CONTACT } from "../shared/content";
+import { WORK } from "../shared/content";
+import { SITE } from "../shared/siteContent";
 import { COLOURS } from "../shared/colours";
 import { LocationContext } from "../shared/context/LocationContext";
 import { WorkItem } from "../shared/models/workItem";
@@ -65,7 +66,11 @@ const Work: React.FC = () => {
         }}
       >
         <Grid>
-          <Avatar src={WORK.image} alt="me" className={classes.avatar} />
+          <Avatar
+            src={SITE.profile.image}
+            alt="me"
+            className={classes.avatar}
+          />
         </Grid>
         <Grid>
           <Typography variant="body1" className={classes.subtitle}>
@@ -74,7 +79,7 @@ const Work: React.FC = () => {
         </Grid>
         <Grid>
           <Typography variant="body1" className={classes.subtitle}>
-            {CONTACT.details.filter((d) => d.title === "TITLE:")[0].value}
+            {SITE.profile.details.find((d) => d.label === "TITLE")?.value}
           </Typography>
         </Grid>
         <Grid>

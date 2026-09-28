@@ -1,0 +1,44 @@
+# Site content. Edit this file to update the site without touching code.
+#
+# `image` and `file` values are file names inside assets/ (spaces are fine).
+# The build fails if a named file is missing, so a broken link or image
+# never reaches the live site.
+
+site:
+  title: "Joshua Beretta"
+  name: "JOSHUA BERETTA"
+
+profile:
+  image: "profile-picture.jpg"
+  details:
+    - label: "NAME"
+      value: "JOSHUA BERETTA"
+    - label: "TITLE"
+      value: "HUMANITARIAN PROJECT COORDINATOR"
+    - label: "NATIONALITY"
+      value: "ITALIAN / SOUTH AFRICAN"
+    - label: "EMAIL"
+      value: "ME@JOSHUABERETTA.COM"
+
+research:
+  title: "Research"
+  items:
+    # title:  shown in bold
+    # detail: one line underneath (degree, institution, date)
+    # file:   the PDF inside assets/
+    # button: text on the download button
+    - title: "Responsible Humanitarian AI: Shared Principles, Divergent Practice"
+      detail: "MA International Humanitarian Action (NOHA), University of Groningen, 2026"
+      file: "research/Responsible Humanitarian AI - Shared Principles, Divergent Practice - Joshua Beretta.pdf"
+      button: "Download thesis"
+
+# Footer icons. `icon` is one of: email, github, linkedin, flickr
+links:
+  - icon: email
+    href: "mailto:me@joshuaberetta.com"
+  - icon: github
+    href: "https://www.github.com/joshuaberetta"
+  - icon: linkedin
+    href: "https://www.linkedin.com/in/joshuaberetta/"
+  - icon: flickr
+    href: "https://www.flickr.com/photos/joshuaberetta/albums"

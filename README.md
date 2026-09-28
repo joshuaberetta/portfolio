@@ -24,11 +24,23 @@ npm run preview  # serve the build locally
 
 `npm run build` type-checks with `tsc` before bundling.
 
+## Editing content
+
+The profile, research and footer links live in [`src/content.yaml`](src/content.yaml). Edit that file; no code changes are needed.
+
+- Put images and PDFs in `assets/`, then refer to them by file name in an `image:` or `file:` field. Spaces in names are fine.
+- To add a research item, add another entry under `research.items` with a `title`, an optional `detail` line, the PDF `file` and the `button` text.
+- The build fails if a named file is missing or its capitalisation doesn't match the file on disk, so a broken link never gets deployed.
+
+With `npm run dev` running, changes to `content.yaml` show up in the browser straight away.
+
 ## Project layout
 
 - `src/pages/`: page components. Only the contact page is routed at the moment (see `src/App.tsx`).
 - `src/components/`: nav bar, footer, markdown renderer and SVG logos.
-- `src/shared/content.tsx`: all site text, links and portfolio entries.
+- `src/content.yaml`: profile, research and footer links (see above).
+- `src/shared/content.tsx`: portfolio entries and the unused About page text.
+- `assets/`: profile picture and research PDFs referenced from `content.yaml`.
 - `src/shared/colours.tsx`: the colour palette.
 - `index.html`: the HTML entry point.
 - `public/`: static assets and `CNAME`.

@@ -7,4 +7,6 @@ export const COLOURS = {
   muted: "#8A8272",
   blue: "#2F6BB3",
   pink: "#C15F3C",
+  button: "#8C7020",
+  buttonHover: "#76601B",
 };

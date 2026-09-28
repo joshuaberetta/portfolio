@@ -4,6 +4,7 @@ import { makeStyles } from "tss-react/mui";
 import { useNavigate } from "react-router";
 
 import { NAV } from "../shared/content";
+import { SITE } from "../shared/siteContent";
 import { COLOURS } from "../shared/colours";
 import { LocationContext } from "../shared/context/LocationContext";
 
@@ -54,13 +55,9 @@ const NavBar: React.FC = () => {
       sx={{ justifyContent: "space-between", alignItems: "center" }}
     >
       <Grid>
-        <Link
-          underline="none"
-          component="button"
-          onClick={() => navigate(NAV.title.href)}
-        >
+        <Link underline="none" component="button" onClick={() => navigate("/")}>
           <Typography variant="h5" className={classes.logo}>
-            {NAV.title.title}
+            {SITE.site.name}
           </Typography>
         </Link>
       </Grid>

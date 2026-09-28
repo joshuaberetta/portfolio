@@ -1,11 +1,6 @@
 import React from "react";
 import { Typography } from "@mui/material";
 
-import GitHubIcon from "@mui/icons-material/GitHub";
-import MailOutlineIcon from "@mui/icons-material/MailOutlined";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import CameraAltIcon from "@mui/icons-material/CameraAlt";
-
 import Ourthreedots from "../components/svg/Ourthreedots";
 import Noordhoek from "../components/svg/Noordhoek";
 import THC from "../components/svg/THC";
@@ -17,10 +12,6 @@ import Md2Xlsform from "../components/svg/md2xlsform";
 import { COLOURS } from "./colours";
 
 export const NAV = {
-  title: {
-    title: "JOSHUA BERETTA",
-    href: "/",
-  },
   subtitle: "hi, i'm josh.",
   links: [
     { title: "/work", href: "/" },
@@ -30,7 +21,6 @@ export const NAV = {
 };
 
 export const WORK = {
-  image: "https://avatars.githubusercontent.com/u/50016008",
   subtitle: "hi, i'm josh.",
   items: [
     {
@@ -278,32 +268,6 @@ export const WORK = {
         type: "svg",
         component: <Portfolio />,
       },
-    },
-  ],
-};
-
-export const FOOTER = {
-  icons: [
-    {
-      title: "email",
-      logo: <MailOutlineIcon />,
-      href: "mailto:me@joshuaberetta.com",
-    },
-
-    {
-      title: "github",
-      logo: <GitHubIcon />,
-      href: "https://www.github.com/joshuaberetta",
-    },
-    {
-      title: "linkedin",
-      logo: <LinkedInIcon />,
-      href: "https://www.linkedin.com/in/joshuaberetta/",
-    },
-    {
-      title: "flickr",
-      logo: <CameraAltIcon />,
-      href: "https://www.flickr.com/photos/joshuaberetta/albums",
     },
   ],
 };
@@ -656,14 +620,6 @@ export const ABOUT = {
 };
 
 export const CONTACT = {
-  image: "https://avatars.githubusercontent.com/u/50016008",
-  details: [
-    { title: "NAME:", value: "JOSHUA BERETTA" },
-    { title: "TITLE:", value: "HUMANITARIAN PROJECT COORDINATOR" },
-    // { title: "DOB:", value: "19/06/1995" },
-    { title: "NATIONALITY:", value: "ITALIAN / SOUTH AFRICAN" },
-    { title: "EMAIL:", value: "ME@JOSHUABERETTA.COM" },
-  ],
   pgp: "PGP FINGERPRINT: 2B51 8B51 D0C4 2000 4C2C CFE4 ED79 D7ED CB6C EFA3",
   button: "SHOW PUBLIC KEY",
   publickey: [
