@@ -34,7 +34,7 @@ const App: React.FC = () => {
         updateLocation: updateLocation,
       }}
     >
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <NavBar />
         <Switch>
           {/* <Route component={Work} path="/" exact />
