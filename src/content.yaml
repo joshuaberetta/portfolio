@@ -20,10 +20,10 @@ profile:
       href: "mailto:me@joshuaberetta.com"
   # Shown under the details: the degree in italics, the institution below it.
   education:
-    - degree: "BSc. Mechanical Engineering"
-      institution: "University of Cape Town"
     - degree: "MA International Humanitarian Action (NOHA)"
       institution: "University of Groningen"
+    - degree: "BSc. Mechanical Engineering"
+      institution: "University of Cape Town"
 
 research:
   title: "Research"
