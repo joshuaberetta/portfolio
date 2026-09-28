@@ -21,7 +21,7 @@ profile:
   # Shown under the details: the degree in italics, the institution below it.
   education:
     - degree: "BSc. Mechanical Engineering"
-      institution: "UCT"
+      institution: "University of Cape Town"
     - degree: "MA International Humanitarian Action"
       institution: "University of Groningen"
 
