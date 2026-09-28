@@ -56,7 +56,7 @@ const makeCap = (s: string) => {
 };
 
 const CONTENT = WORK.items.filter(
-  (item) => item.title === "noordhoek-bagels",
+  (item) => item.title === "noordhoek-bagels"
 )[0];
 
 const NoordhoekBagels: React.FC = () => {
@@ -65,19 +65,19 @@ const NoordhoekBagels: React.FC = () => {
   return (
     <Grid
       container
-      direction="column"
-      justifyContent="flex-start"
-      alignItems="center"
       //   spacing={3}
       className={classes.root}
+      sx={{
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        alignItems: "center",
+      }}
     >
       <Grid>
         <Grid
           container
-          direction="row"
-          alignItems="center"
-          justifyContent="center"
           className={classes.header}
+          sx={{ justifyContent: "center", alignItems: "center" }}
         >
           <Grid>{CONTENT.display.component}</Grid>
         </Grid>
@@ -85,10 +85,12 @@ const NoordhoekBagels: React.FC = () => {
       <Grid>
         <Grid
           container
-          direction="column"
-          alignItems="flex-start"
-          justifyContent="flex-start"
           className={classes.content}
+          sx={{
+            flexDirection: "column",
+            justifyContent: "flex-start",
+            alignItems: "flex-start",
+          }}
         >
           <Grid>
             <Typography className={classes.textHeading}>
@@ -98,7 +100,7 @@ const NoordhoekBagels: React.FC = () => {
           <Grid>
             <Typography className={classes.textBody}>
               <span className={classes.textTitle}>Website: </span>
-              <Link className={classes.link} href={CONTENT.href_ext.link}>
+              <Link underline="hover" className={classes.link} href={CONTENT.href_ext.link}>
                 {CONTENT.href_ext.title}
               </Link>
             </Typography>
@@ -107,7 +109,7 @@ const NoordhoekBagels: React.FC = () => {
             <Grid>
               <Typography className={classes.textBody}>
                 <span className={classes.textTitle}>Figma: </span>
-                <Link className={classes.link} href={CONTENT.figma}>
+                <Link underline="hover" className={classes.link} href={CONTENT.figma}>
                   Figma design
                 </Link>
               </Typography>

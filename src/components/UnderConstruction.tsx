@@ -41,11 +41,13 @@ const Modal: React.FC<ModalProps> = (props) => {
     >
       <Grid
         container
-        direction="column"
-        justifyContent="center"
-        alignItems="center"
         spacing={5}
         className={classes.container}
+        sx={{
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
       >
         <Grid>
           <Typography className={classes.text}>

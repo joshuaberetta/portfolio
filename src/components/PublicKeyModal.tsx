@@ -44,11 +44,13 @@ const PublicKeyModal: React.FC<PublicKeyModalProps> = (props) => {
     >
       <Grid
         container
-        direction="column"
-        justifyContent="flex-start"
-        alignItems="center"
         // spacing={3}
         className={classes.container}
+        sx={{
+          flexDirection: "column",
+          justifyContent: "flex-start",
+          alignItems: "center",
+        }}
       >
         <Grid>
           {CONTACT.publickey.map((line) => (

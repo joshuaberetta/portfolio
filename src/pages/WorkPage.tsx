@@ -56,11 +56,13 @@ const Work: React.FC = () => {
       <Modal open={open} onClick={toggleModal} />
       <Grid
         container
-        direction="column"
-        justifyContent="flex-start"
-        alignItems="center"
         className={classes.root}
         spacing={3}
+        sx={{
+          flexDirection: "column",
+          justifyContent: "flex-start",
+          alignItems: "center",
+        }}
       >
         <Grid>
           <Avatar src={WORK.image} alt="me" className={classes.avatar} />
@@ -78,11 +80,9 @@ const Work: React.FC = () => {
         <Grid>
           <Grid
             container
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
             spacing={5}
             className={classes.grid}
+            sx={{ justifyContent: "center", alignItems: "center" }}
           >
             {WORK.items.map((item) => (
               <Grid key={item.title}>

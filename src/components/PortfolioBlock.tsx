@@ -38,10 +38,12 @@ const Block: React.FC<BlockProps> = (props) => {
     <Button disableRipple className={classes.button} onClick={props.cb}>
       <Grid
         container
-        direction="column"
-        justifyContent="center"
-        alignItems="center"
         className={classes.root}
+        sx={{
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
       >
         <Grid>
           <Typography className={classes.title}>{props.children}</Typography>

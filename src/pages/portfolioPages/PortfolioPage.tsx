@@ -86,18 +86,18 @@ const PortfolioPage: React.FC<PortfolioPageProps> = (props) => {
       {CONTENT && (
         <Grid
           container
-          direction="column"
-          justifyContent="flex-start"
-          alignItems="center"
           className={classes.root}
+          sx={{
+            flexDirection: "column",
+            justifyContent: "flex-start",
+            alignItems: "center",
+          }}
         >
           <Grid>
             <Grid
               container
-              direction="row"
-              alignItems="center"
-              justifyContent="center"
               className={classes.header}
+              sx={{ justifyContent: "center", alignItems: "center" }}
             >
               <Grid>{CONTENT.display.component}</Grid>
             </Grid>
@@ -105,10 +105,12 @@ const PortfolioPage: React.FC<PortfolioPageProps> = (props) => {
           <Grid>
             <Grid
               container
-              direction="column"
-              alignItems="flex-start"
-              justifyContent="flex-start"
               className={classes.content}
+              sx={{
+                flexDirection: "column",
+                justifyContent: "flex-start",
+                alignItems: "flex-start",
+              }}
             >
               <Grid>
                 <Typography className={classes.textHeading}>
@@ -118,7 +120,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = (props) => {
               <Grid>
                 <Typography className={classes.textBody}>
                   <span className={classes.textTitle}>Website: </span>
-                  <Link className={classes.link} href={CONTENT.href_ext.link}>
+                  <Link underline="hover" className={classes.link} href={CONTENT.href_ext.link}>
                     {CONTENT.href_ext.title}
                   </Link>
                 </Typography>
@@ -127,7 +129,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = (props) => {
                 <Grid>
                   <Typography className={classes.textBody}>
                     <span className={classes.textTitle}>Figma: </span>
-                    <Link className={classes.link} href={CONTENT.figma}>
+                    <Link underline="hover" className={classes.link} href={CONTENT.figma}>
                       Figma design
                     </Link>
                   </Typography>

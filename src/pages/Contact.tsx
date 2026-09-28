@@ -75,11 +75,9 @@ const useStyles = makeStyles()((theme) => ({
 //     <Link underline="none" component="button" onClick={props.onClick}>
 //       <Grid
 //         container
-//         direction="column"
-//         justifyContent="center"
-//         alignItems="center"
 //         className={classes.button}
 //         size={12}
+//         sx={{ flexDirection: "column", justifyContent: "center", alignItems: "center" }}
 //       >
 //         <Grid size={12}>
 //           <Typography className={classes.values}>{CONTACT.button}</Typography>
@@ -106,20 +104,20 @@ const Contact: React.FC = () => {
       <PublicKeyModal open={open} onClick={toggleModal} />
       <Grid
         container
-        direction="column"
-        justifyContent="flex-start"
-        alignItems="center"
         spacing={5}
         className={classes.root}
+        sx={{
+          flexDirection: "column",
+          justifyContent: "flex-start",
+          alignItems: "center",
+        }}
       >
         <Grid>
           <Grid
             container
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
             spacing={5}
             className={classes.card}
+            sx={{ justifyContent: "center", alignItems: "center" }}
           >
             <Grid>
               <Avatar src={CONTACT.image} alt="me" className={classes.avatar} />
@@ -137,10 +135,7 @@ const Contact: React.FC = () => {
         {/* <Grid>
           <Grid
             container
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-            className={classes.pgp}
+            className={classes.pgp} sx={{ flexDirection: "column", justifyContent: "center", alignItems: "center" }}
           >
             <Grid>
               <Typography className={classes.values}>{CONTACT.pgp}</Typography>

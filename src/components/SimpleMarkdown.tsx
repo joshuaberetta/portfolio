@@ -93,7 +93,7 @@ const Markdown: React.FC<MarkdownProps> = (props) => {
   const { classes } = useStyles();
 
   return (
-    <Grid container className={classes.space} direction="column">
+    <Grid container className={classes.space} sx={{ flexDirection: "column" }}>
       {props.content.map((item) => (
         <MdBlock item={item} />
       ))}

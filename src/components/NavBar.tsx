@@ -50,10 +50,8 @@ const NavBar: React.FC = () => {
   return (
     <Grid
       container
-      direction="row"
-      justifyContent="space-between"
-      alignItems="center"
       className={classes.root}
+      sx={{ justifyContent: "space-between", alignItems: "center" }}
     >
       <Grid>
         <Link
@@ -69,11 +67,8 @@ const NavBar: React.FC = () => {
       {/* <Grid>
         <Grid
           container
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
           spacing={5}
-          size={12}
+          size={12} sx={{ justifyContent: "center", alignItems: "center" }}
         >
           {NAV.links.map((link) => {
             return (

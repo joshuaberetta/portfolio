@@ -2,9 +2,9 @@ import React from "react";
 import { Typography } from "@mui/material";
 
 import GitHubIcon from "@mui/icons-material/GitHub";
-import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import MailOutlineIcon from "@mui/icons-material/MailOutlined";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import CameraAltIcon from '@mui/icons-material/CameraAlt';
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
 
 import Ourthreedots from "../components/svg/Ourthreedots";
 import Noordhoek from "../components/svg/Noordhoek";

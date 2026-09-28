@@ -169,16 +169,25 @@ const About: React.FC = () => {
   return (
     <React.Fragment>
       <title>Joshua Beretta - About</title>
-      <Grid container direction="column" justifyContent="center" alignItems="center">
+      <Grid
+        container
+        sx={{
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <Grid>
           <Grid
             container
-            direction="column"
-            alignItems="flex-start"
-            justifyContent="flex-start"
             spacing={3}
             className={classes.root}
             size={12}
+            sx={{
+              flexDirection: "column",
+              justifyContent: "flex-start",
+              alignItems: "flex-start",
+            }}
           >
             <Grid size={12}>
               <Whoami />

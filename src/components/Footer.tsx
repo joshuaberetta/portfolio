@@ -25,20 +25,20 @@ const Footer: React.FC = () => {
     <div>
       <Grid
         container
-        direction="column"
-        justifyContent="center"
-        alignItems="center"
         className={classes.root}
+        sx={{
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
       >
         <Grid>
           <Grid
             container
-            direction="row"
-            alignItems="center"
-            justifyContent="center"
             spacing={5}
             // size={12} //this was causing an offset from center...
             // className={classes.root}
+            sx={{ justifyContent: "center", alignItems: "center" }}
           >
             {FOOTER.icons.map((icon) => (
               <Grid>
