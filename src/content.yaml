@@ -15,14 +15,14 @@ profile:
   # the value. `href` is optional and turns the value into a link.
   details:
     - value: "JOSHUA BERETTA"
-    - value: "HUMANITARIAN PROJECT COORDINATOR"
+    - value: "HUMANITARIAN PROJECT COORDINATOR, KOBO"
     - value: "ME@JOSHUABERETTA.COM"
       href: "mailto:me@joshuaberetta.com"
   # Shown under the details: the degree in italics, the institution below it.
   education:
     - degree: "BSc. Mechanical Engineering"
       institution: "University of Cape Town"
-    - degree: "MA International Humanitarian Action"
+    - degree: "MA International Humanitarian Action (NOHA)"
       institution: "University of Groningen"
 
 research:

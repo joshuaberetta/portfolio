@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { BrowserRouter as Router, Route, Navigate, Routes } from "react-router";
 
-import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Work from "./pages/WorkPage";
 import About from "./pages/About";
@@ -30,7 +29,6 @@ const App: React.FC = () => {
       }}
     >
       <Router>
-        <NavBar />
         <Routes>
           {/* <Route element={<Work />} path="/" />
           <Route element={<About />} path="/about" /> */}
