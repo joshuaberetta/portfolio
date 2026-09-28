@@ -1,10 +1,5 @@
 import React, { useState, useCallback } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Redirect,
-  Switch,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Navigate, Routes } from "react-router";
 
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
@@ -34,30 +29,26 @@ const App: React.FC = () => {
         updateLocation: updateLocation,
       }}
     >
-      <Router basename={process.env.PUBLIC_URL}>
+      <Router>
         <NavBar />
-        <Switch>
-          {/* <Route component={Work} path="/" exact />
-          <Route component={About} path="/about" exact /> */}
-          <Route component={Contact} path="/" exact />
-          {/* <Route component={Ourthreedots} path="/work/ourthreedots" exact />
-          <Route
-            component={NoordhoekBagels}
-            path="/work/noordhoek-bagels"
-            exact
-          />
-          <Route
-            component={THC}
-            path="/work/travelling-hipster-coaster"
-            exact
-          /> */}
+        <Routes>
+          {/* <Route element={<Work />} path="/" />
+          <Route element={<About />} path="/about" /> */}
+          <Route element={<Contact />} path="/" />
+          {/* <Route element={<Ourthreedots />} path="/work/ourthreedots" />
+          <Route element={<NoordhoekBagels />} path="/work/noordhoek-bagels" />
+          <Route element={<THC />} path="/work/travelling-hipster-coaster" /> */}
           {WORK.items.map((item) => (
-            <Route path={item.href} exact>
-              <PortfolioPage title={item.title} label={item.display.title} />
-            </Route>
+            <Route
+              key={item.href}
+              path={item.href}
+              element={
+                <PortfolioPage title={item.title} label={item.display.title} />
+              }
+            />
           ))}
-          <Redirect to="/" />
-        </Switch>
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
         <Footer />
       </Router>
     </LocationContext.Provider>

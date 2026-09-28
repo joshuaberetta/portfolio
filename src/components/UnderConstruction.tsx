@@ -1,20 +1,22 @@
 import React from "react";
-import { Grid, Typography, Backdrop, makeStyles } from "@material-ui/core";
+import { Grid, Typography, Backdrop } from "@mui/material";
+import { makeStyles } from "tss-react/mui";
 
 import { MODALS } from "../shared/content";
 import { COLOURS } from "../shared/colours";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   root: {},
   backdrop: {
     zIndex: 2,
-    background: "rgba(255,255,255,0.7)",
+    background: "rgba(245,239,225,0.8)",
   },
   container: {
     width: 400,
     height: 200,
     background: COLOURS.primary,
-    borderRadius: 10,
+    borderRadius: 6,
+    border: `1px solid ${COLOURS.border}`,
   },
   text: {
     color: COLOURS.secondary,
@@ -29,7 +31,7 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = (props) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <Backdrop
@@ -40,12 +42,12 @@ const Modal: React.FC<ModalProps> = (props) => {
       <Grid
         container
         direction="column"
-        justify="center"
+        justifyContent="center"
         alignItems="center"
         spacing={5}
         className={classes.container}
       >
-        <Grid item>
+        <Grid>
           <Typography className={classes.text}>
             {MODALS.underConstruction}
           </Typography>

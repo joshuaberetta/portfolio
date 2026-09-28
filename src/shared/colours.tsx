@@ -1,6 +1,10 @@
+// warm light palette, modelled on the cream VS Code theme
 export const COLOURS = {
-  primary: "#FCF6E5",
-  secondary: "#6A7A82",
-  blue: "#3388F8",
-  pink: "#C34681",
+  background: "#F5EFE1",
+  primary: "#ECE5D4",
+  border: "#D8CDB6",
+  secondary: "#3D3A33",
+  muted: "#8A8272",
+  blue: "#2F6BB3",
+  pink: "#C15F3C",
 };

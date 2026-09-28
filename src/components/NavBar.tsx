@@ -1,17 +1,20 @@
 import React, { useContext } from "react";
-import { Grid, Typography, makeStyles, Link } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
+import { Grid, Typography, Link } from "@mui/material";
+import { makeStyles } from "tss-react/mui";
+import { useNavigate } from "react-router";
 
 import { NAV } from "../shared/content";
 import { COLOURS } from "../shared/colours";
 import { LocationContext } from "../shared/context/LocationContext";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   root: {
-    padding: 50,
+    padding: 30,
+    marginBottom: 20,
+    borderBottom: `1px solid ${COLOURS.border}`,
     paddingLeft: 200,
     paddingRight: 200,
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("md")]: {
       paddingRight: 100,
       paddingLeft: 100,
     },
@@ -40,46 +43,45 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NavBar: React.FC = () => {
-  const classes = useStyles();
-  const history = useHistory();
+  const { classes } = useStyles();
+  const navigate = useNavigate();
   const locationContext = useContext(LocationContext);
 
   return (
     <Grid
       container
       direction="row"
-      justify="space-between"
+      justifyContent="space-between"
       alignItems="center"
       className={classes.root}
     >
-      <Grid item>
+      <Grid>
         <Link
           underline="none"
           component="button"
-          onClick={() => history.push(NAV.title.href)}
+          onClick={() => navigate(NAV.title.href)}
         >
           <Typography variant="h5" className={classes.logo}>
             {NAV.title.title}
           </Typography>
         </Link>
       </Grid>
-      {/* <Grid item>
+      {/* <Grid>
         <Grid
           container
-          item
           direction="row"
-          justify="center"
+          justifyContent="center"
           alignItems="center"
           spacing={5}
-          xs={12}
+          size={12}
         >
           {NAV.links.map((link) => {
             return (
-              <Grid item xs={4}>
+              <Grid size={4}>
                 <Link
                   underline="none"
                   component="button"
-                  onClick={() => history.push(link.href)}
+                  onClick={() => navigate(link.href)}
                 >
                   <Typography
                     // className={classes.links}

@@ -1,20 +1,19 @@
 import React, { useEffect } from "react";
-import { Helmet } from "react-helmet";
 import {
   Grid,
   Typography,
   // CircularProgress,
   // Backdrop,
-  makeStyles,
   Link,
-} from "@material-ui/core";
+} from "@mui/material";
+import { makeStyles } from "tss-react/mui";
 
 import Markdown from "../../components/SimpleMarkdown";
 
 import { COLOURS } from "../../shared/colours";
 import { WORK } from "../../shared/content";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   root: {
     marginTop: 40,
     marginBottom: 20,
@@ -23,7 +22,8 @@ const useStyles = makeStyles({
     height: 220,
     width: 220,
     background: COLOURS.primary,
-    borderRadius: 10,
+    borderRadius: 6,
+    border: `1px solid ${COLOURS.border}`,
     marginBottom: 20,
     padding: 20,
   },
@@ -32,7 +32,8 @@ const useStyles = makeStyles({
     marginBottom: 20,
     padding: 20,
     maxWidth: 800,
-    borderRadius: 10,
+    borderRadius: 6,
+    border: `1px solid ${COLOURS.border}`,
   },
   textHeading: {
     fontFamily: "IBM Plex Mono, monospace",
@@ -70,7 +71,7 @@ interface PortfolioPageProps {
 }
 
 const PortfolioPage: React.FC<PortfolioPageProps> = (props) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const CONTENT = WORK.items.filter((item) => item.title === props.title)[0];
 
   useEffect(() => {
@@ -80,43 +81,41 @@ const PortfolioPage: React.FC<PortfolioPageProps> = (props) => {
 
   return (
     <React.Fragment>
-      <Helmet>
-        <title>{props.label}</title>
-      </Helmet>
+      <title>{props.label}</title>
       <div />
       {CONTENT && (
         <Grid
           container
           direction="column"
-          justify="flex-start"
+          justifyContent="flex-start"
           alignItems="center"
           className={classes.root}
         >
-          <Grid item>
+          <Grid>
             <Grid
               container
               direction="row"
               alignItems="center"
-              justify="center"
+              justifyContent="center"
               className={classes.header}
             >
-              <Grid item>{CONTENT.display.component}</Grid>
+              <Grid>{CONTENT.display.component}</Grid>
             </Grid>
           </Grid>
-          <Grid item>
+          <Grid>
             <Grid
               container
               direction="column"
               alignItems="flex-start"
-              justify="flex-start"
+              justifyContent="flex-start"
               className={classes.content}
             >
-              <Grid item>
+              <Grid>
                 <Typography className={classes.textHeading}>
                   # {CONTENT.display.title}
                 </Typography>
               </Grid>
-              <Grid item>
+              <Grid>
                 <Typography className={classes.textBody}>
                   <span className={classes.textTitle}>Website: </span>
                   <Link className={classes.link} href={CONTENT.href_ext.link}>
@@ -125,7 +124,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = (props) => {
                 </Typography>
               </Grid>
               {CONTENT.figma && (
-                <Grid item>
+                <Grid>
                   <Typography className={classes.textBody}>
                     <span className={classes.textTitle}>Figma: </span>
                     <Link className={classes.link} href={CONTENT.figma}>
@@ -135,21 +134,21 @@ const PortfolioPage: React.FC<PortfolioPageProps> = (props) => {
                 </Grid>
               )}
               {CONTENT.stack && (
-                <Grid item>
+                <Grid>
                   <Typography className={classes.textBody}>
                     <span className={classes.textTitle}>Stack: </span>
                     {CONTENT.stack!.join(", ")}
                   </Typography>
                 </Grid>
               )}
-              <Grid item>
+              <Grid>
                 <Typography className={classes.textBody}>
                   <span className={classes.textTitle}>Description: </span>
                   {CONTENT.description}
                 </Typography>
               </Grid>
               {CONTENT.inspiration && (
-                <Grid item>
+                <Grid>
                   <Typography className={classes.textBody}>
                     <span className={classes.textTitle}>Inspiration: </span>
                     {CONTENT.inspiration}

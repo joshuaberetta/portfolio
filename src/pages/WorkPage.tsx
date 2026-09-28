@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Helmet } from "react-helmet";
-import { Grid, Typography, makeStyles, Avatar } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
+import { Grid, Typography, Avatar } from "@mui/material";
+import { makeStyles } from "tss-react/mui";
+import { useNavigate } from "react-router";
 
 import Block from "../components/PortfolioBlock";
 import Modal from "../components/UnderConstruction";
@@ -11,7 +11,7 @@ import { COLOURS } from "../shared/colours";
 import { LocationContext } from "../shared/context/LocationContext";
 import { WorkItem } from "../shared/models/workItem";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   root: {
     minHeight: "40rem",
   },
@@ -32,9 +32,9 @@ const useStyles = makeStyles({
 });
 
 const Work: React.FC = () => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const locationContext = useContext(LocationContext);
-  const history = useHistory();
+  const navigate = useNavigate();
   const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
@@ -47,47 +47,45 @@ const Work: React.FC = () => {
     if (item.underConstruction) {
       return toggleModal;
     }
-    return () => history.push(item.href);
+    return () => navigate(item.href);
   };
 
   return (
     <React.Fragment>
-      <Helmet>
-        <title>Joshua Beretta</title>
-      </Helmet>
+      <title>Joshua Beretta</title>
       <Modal open={open} onClick={toggleModal} />
       <Grid
         container
         direction="column"
-        justify="flex-start"
+        justifyContent="flex-start"
         alignItems="center"
         className={classes.root}
         spacing={3}
       >
-        <Grid item>
+        <Grid>
           <Avatar src={WORK.image} alt="me" className={classes.avatar} />
         </Grid>
-        <Grid item>
+        <Grid>
           <Typography variant="body1" className={classes.subtitle}>
             {WORK.subtitle}
           </Typography>
         </Grid>
-        <Grid item>
+        <Grid>
           <Typography variant="body1" className={classes.subtitle}>
             {CONTACT.details.filter((d) => d.title === "TITLE:")[0].value}
           </Typography>
         </Grid>
-        <Grid item>
+        <Grid>
           <Grid
             container
             direction="row"
-            justify="center"
+            justifyContent="center"
             alignItems="center"
             spacing={5}
             className={classes.grid}
           >
             {WORK.items.map((item) => (
-              <Grid item key={item.title}>
+              <Grid key={item.title}>
                 <Block cb={cb(item)}>{item.display.component}</Block>
               </Grid>
             ))}

@@ -1,10 +1,10 @@
 import React from "react";
-import { Typography } from "@material-ui/core";
+import { Typography } from "@mui/material";
 
-import GitHubIcon from "@material-ui/icons/GitHub";
-import MailOutlineIcon from "@material-ui/icons/MailOutline";
-import LinkedInIcon from "@material-ui/icons/LinkedIn";
-import CameraAltIcon from '@material-ui/icons/CameraAlt';
+import GitHubIcon from "@mui/icons-material/GitHub";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
 
 import Ourthreedots from "../components/svg/Ourthreedots";
 import Noordhoek from "../components/svg/Noordhoek";

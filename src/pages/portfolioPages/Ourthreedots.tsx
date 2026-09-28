@@ -1,10 +1,11 @@
 import React from "react";
-import { Grid, Typography, makeStyles, Link } from "@material-ui/core";
+import { Grid, Typography, Link } from "@mui/material";
+import { makeStyles } from "tss-react/mui";
 
 import { COLOURS } from "../../shared/colours";
 import { WORK } from "../../shared/content";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   root: {
     marginTop: 40,
     marginBottom: 20,
@@ -13,7 +14,8 @@ const useStyles = makeStyles({
     height: 220,
     width: 220,
     background: COLOURS.primary,
-    borderRadius: 10,
+    borderRadius: 6,
+    border: `1px solid ${COLOURS.border}`,
     marginBottom: 20,
     padding: 20,
   },
@@ -22,7 +24,8 @@ const useStyles = makeStyles({
     marginBottom: 20,
     padding: 20,
     maxWidth: 800,
-    borderRadius: 10,
+    borderRadius: 6,
+    border: `1px solid ${COLOURS.border}`,
   },
   textHeading: {
     fontFamily: "IBM Plex Mono, monospace",
@@ -51,42 +54,42 @@ const useStyles = makeStyles({
 const CONTENT = WORK.items.filter((item) => item.title === "ourthreedots")[0];
 
 const Ourthreedots: React.FC = () => {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <Grid
       container
       direction="column"
-      justify="flex-start"
+      justifyContent="flex-start"
       alignItems="center"
       //   spacing={3}
       className={classes.root}
     >
-      <Grid item>
+      <Grid>
         <Grid
           container
           direction="row"
           alignItems="center"
-          justify="center"
+          justifyContent="center"
           className={classes.header}
         >
-          <Grid item>{CONTENT.display.component}</Grid>
+          <Grid>{CONTENT.display.component}</Grid>
         </Grid>
       </Grid>
-      <Grid item>
+      <Grid>
         <Grid
           container
           direction="column"
           alignItems="flex-start"
-          justify="flex-start"
+          justifyContent="flex-start"
           className={classes.content}
         >
-          <Grid item>
+          <Grid>
             <Typography className={classes.textHeading}>
               # Ourthreedots
             </Typography>
           </Grid>
-          <Grid item>
+          <Grid>
             <Typography className={classes.textBody}>
               <span className={classes.textTitle}>Website: </span>
               <Link className={classes.link} href={CONTENT.href_ext.link}>
@@ -95,7 +98,7 @@ const Ourthreedots: React.FC = () => {
             </Typography>
           </Grid>
           {CONTENT.figma && (
-            <Grid item>
+            <Grid>
               <Typography className={classes.textBody}>
                 <span className={classes.textTitle}>Figma: </span>
                 <Link className={classes.link} href={CONTENT.figma}>
@@ -104,13 +107,13 @@ const Ourthreedots: React.FC = () => {
               </Typography>
             </Grid>
           )}
-          <Grid item>
+          <Grid>
             <Typography className={classes.textBody}>
               <span className={classes.textTitle}>Stack: </span>
               {CONTENT.stack!.join(", ")}
             </Typography>
           </Grid>
-          <Grid item>
+          <Grid>
             <Typography className={classes.textBody}>
               <span className={classes.textTitle}>Description: </span>
               {CONTENT.description}

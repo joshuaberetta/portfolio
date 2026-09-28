@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Helmet } from "react-helmet";
-import { Grid, Typography, Avatar, Link, makeStyles } from "@material-ui/core";
+import { Grid, Typography, Avatar, Link } from "@mui/material";
+import { makeStyles } from "tss-react/mui";
 
 import PublicKeyModal from "../components/PublicKeyModal";
 
@@ -8,7 +8,7 @@ import { CONTACT } from "../shared/content";
 import { COLOURS } from "../shared/colours";
 import { LocationContext } from "../shared/context/LocationContext";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   root: {
     // padding: 20,
     marginTop: 40,
@@ -20,11 +20,13 @@ const useStyles = makeStyles((theme) => ({
     minHeight: 300,
     // maxWidth: 800,
     background: COLOURS.primary,
-    borderRadius: 10,
+    borderRadius: 6,
+    border: `1px solid ${COLOURS.border}`,
   },
   avatar: {
     height: 200,
     width: 200,
+    border: `1px solid ${COLOURS.border}`,
   },
   title: {
     color: COLOURS.secondary,
@@ -42,7 +44,8 @@ const useStyles = makeStyles((theme) => ({
     // maxWidth: 800,
     // flex: 1,
     minHeight: 100,
-    borderRadius: 10,
+    borderRadius: 6,
+    border: `1px solid ${COLOURS.border}`,
     paddingRight: 20,
     paddingLeft: 20,
     background: COLOURS.primary,
@@ -51,12 +54,12 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 250,
     minHeight: 50,
     background: COLOURS.primary,
-    borderRadius: 10,
+    borderRadius: 6,
     paddingRight: 20,
     paddingLeft: 20,
-    border: `3px solid ${COLOURS.secondary}`,
+    border: `1px solid ${COLOURS.secondary}`,
     "&:hover": {
-      border: `3px solid ${COLOURS.blue}`,
+      border: `1px solid ${COLOURS.blue}`,
     },
   },
 }));
@@ -66,20 +69,19 @@ const useStyles = makeStyles((theme) => ({
 // }
 
 // const PGPButton: React.FC<PGPButtonProps> = (props) => {
-//   const classes = useStyles();
+//   const { classes } = useStyles();
 
 //   return (
 //     <Link underline="none" component="button" onClick={props.onClick}>
 //       <Grid
 //         container
-//         item
 //         direction="column"
-//         justify="center"
+//         justifyContent="center"
 //         alignItems="center"
 //         className={classes.button}
-//         xs={12}
+//         size={12}
 //       >
-//         <Grid item xs={12}>
+//         <Grid size={12}>
 //           <Typography className={classes.values}>{CONTACT.button}</Typography>
 //         </Grid>
 //       </Grid>
@@ -88,7 +90,7 @@ const useStyles = makeStyles((theme) => ({
 // };
 
 const Contact: React.FC = () => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const locationContext = useContext(LocationContext);
   const [open, setOpen] = useState<boolean>(false);
 
@@ -100,32 +102,29 @@ const Contact: React.FC = () => {
 
   return (
     <React.Fragment>
-      <Helmet>
-        <title>Joshua Beretta - Contact</title>
-      </Helmet>
+      <title>Joshua Beretta - Contact</title>
       <PublicKeyModal open={open} onClick={toggleModal} />
       <Grid
         container
         direction="column"
-        justify="flex-start"
+        justifyContent="flex-start"
         alignItems="center"
         spacing={5}
         className={classes.root}
       >
-        <Grid item>
+        <Grid>
           <Grid
             container
-            item
             direction="row"
-            justify="center"
+            justifyContent="center"
             alignItems="center"
             spacing={5}
             className={classes.card}
           >
-            <Grid item>
+            <Grid>
               <Avatar src={CONTACT.image} alt="me" className={classes.avatar} />
             </Grid>
-            <Grid item>
+            <Grid>
               {CONTACT.details.map((item) => (
                 <Typography className={classes.values}>
                   <span className={classes.title}>{item.title} </span>
@@ -135,21 +134,20 @@ const Contact: React.FC = () => {
             </Grid>
           </Grid>
         </Grid>
-        {/* <Grid item>
+        {/* <Grid>
           <Grid
             container
-            item
             direction="column"
-            justify="center"
+            justifyContent="center"
             alignItems="center"
             className={classes.pgp}
           >
-            <Grid item>
+            <Grid>
               <Typography className={classes.values}>{CONTACT.pgp}</Typography>
             </Grid>
           </Grid>
         </Grid>
-        <Grid item>
+        <Grid>
           <PGPButton onClick={toggleModal} />
         </Grid> */}
       </Grid>

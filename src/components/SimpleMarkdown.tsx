@@ -1,9 +1,10 @@
 import React from "react";
-import { Grid, Typography, makeStyles } from "@material-ui/core";
+import { Grid, Typography } from "@mui/material";
+import { makeStyles } from "tss-react/mui";
 
 import { COLOURS } from "../shared/colours";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   space: {
     paddingTop: 20,
     paddingBottom: 20,
@@ -28,7 +29,7 @@ const useStyles = makeStyles({
   img: {
     maxWidth: 500,
     maxHeight: 300,
-    borderRadius: 10,
+    borderRadius: 6,
     marginBottom: 20,
     alignSelf: "center",
   },
@@ -52,7 +53,7 @@ interface MdBlockProps {
 }
 
 const MdBlock: React.FC<MdBlockProps> = ({ item }) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   switch (item.type) {
     case "img": {
@@ -89,10 +90,10 @@ interface MarkdownProps {
 }
 
 const Markdown: React.FC<MarkdownProps> = (props) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
-    <Grid container item className={classes.space} direction="column">
+    <Grid container className={classes.space} direction="column">
       {props.content.map((item) => (
         <MdBlock item={item} />
       ))}

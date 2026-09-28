@@ -1,19 +1,20 @@
 import React, { useContext, useEffect } from "react";
-import { Helmet } from "react-helmet";
-import { Grid, Typography, makeStyles } from "@material-ui/core";
+import { Grid, Typography } from "@mui/material";
+import { makeStyles } from "tss-react/mui";
 
 import { ABOUT } from "../shared/content";
 import { COLOURS } from "../shared/colours";
 import { LocationContext } from "../shared/context/LocationContext";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   root: {
     padding: 20,
     marginTop: 40,
     marginBottom: 40,
     maxWidth: "50rem",
     minHeight: "40rem",
-    borderRadius: 10,
+    borderRadius: 6,
+    border: `1px solid ${COLOURS.border}`,
     background: COLOURS.primary,
   },
   text: {
@@ -43,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Whoami: React.FC = () => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   return (
     <>
       <Typography className={classes.heading}>
@@ -57,7 +58,7 @@ const Whoami: React.FC = () => {
 };
 
 const Experience: React.FC = () => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   return (
     <>
       <Typography className={classes.heading}>
@@ -78,7 +79,7 @@ const Experience: React.FC = () => {
 };
 
 const Education: React.FC = () => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   return (
     <>
       <Typography className={classes.heading}>
@@ -108,7 +109,7 @@ const Education: React.FC = () => {
 };
 
 const Honours: React.FC = () => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   return (
     <>
       <Typography className={classes.heading}>
@@ -130,7 +131,7 @@ const Honours: React.FC = () => {
 };
 
 const Skills: React.FC = () => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   return (
     <>
       <Typography className={classes.heading}>
@@ -144,7 +145,7 @@ const Skills: React.FC = () => {
 };
 
 const Interests: React.FC = () => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   return (
     <>
       <Typography className={classes.heading}>
@@ -158,7 +159,7 @@ const Interests: React.FC = () => {
 };
 
 const About: React.FC = () => {
-  const classes = useStyles();
+  const { classes } = useStyles();
   const locationContext = useContext(LocationContext);
 
   useEffect(() => {
@@ -167,37 +168,34 @@ const About: React.FC = () => {
 
   return (
     <React.Fragment>
-      <Helmet>
-        <title>Joshua Beretta - About</title>
-      </Helmet>
-      <Grid container direction="column" justify="center" alignItems="center">
-        <Grid item>
+      <title>Joshua Beretta - About</title>
+      <Grid container direction="column" justifyContent="center" alignItems="center">
+        <Grid>
           <Grid
             container
-            item
             direction="column"
             alignItems="flex-start"
-            justify="flex-start"
+            justifyContent="flex-start"
             spacing={3}
             className={classes.root}
-            xs={12}
+            size={12}
           >
-            <Grid item xs={12}>
+            <Grid size={12}>
               <Whoami />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <Experience />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <Education />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <Honours />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <Skills />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <Interests />
             </Grid>
           </Grid>

@@ -22,12 +22,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: yarn
-      - run: yarn install --frozen-lockfile
-      - run: yarn build
-        env:
-          # CRA treats lint warnings as errors when CI=true
-          CI: false
+          cache: npm
+      - run: npm ci
+      - run: npm run build
       # SPA fallback: GitHub Pages serves 404.html for unknown paths
       - run: cp build/index.html build/404.html
       - uses: actions/upload-pages-artifact@v3

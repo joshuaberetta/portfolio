@@ -1,13 +1,15 @@
 import React from "react";
-import { Grid, Typography, Button, makeStyles } from "@material-ui/core";
+import { Grid, Typography, Button } from "@mui/material";
+import { makeStyles } from "tss-react/mui";
 
 import { COLOURS } from "../shared/colours";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   root: {
     height: 220,
     width: 220,
-    borderRadius: 10,
+    borderRadius: 6,
+    border: `1px solid ${COLOURS.border}`,
     background: COLOURS.primary,
   },
   title: {
@@ -30,18 +32,18 @@ interface BlockProps {
 }
 
 const Block: React.FC<BlockProps> = (props) => {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <Button disableRipple className={classes.button} onClick={props.cb}>
       <Grid
         container
         direction="column"
-        justify="center"
+        justifyContent="center"
         alignItems="center"
         className={classes.root}
       >
-        <Grid item>
+        <Grid>
           <Typography className={classes.title}>{props.children}</Typography>
         </Grid>
       </Grid>
