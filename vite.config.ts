@@ -35,7 +35,8 @@ function assetProblem(name: string): string | null {
 /**
  * Load content.yaml as a JS module. File names under `image`/`file` keys are
  * swapped for imports, so Vite bundles the assets and the site gets their
- * final URLs. `file` entries also get a `fileName` for the download name.
+ * final URLs. `file` entries also get a `fileName` for the download name
+ * and a `fileSize` in bytes.
  */
 function yamlContent(): Plugin {
   return {
@@ -55,7 +56,11 @@ function yamlContent(): Plugin {
             if (problem) problems.push(`  assets/${value}: ${problem}`);
             imports.push(JSON.stringify(path.join(ASSETS_DIR, value)));
             out[key] = `__asset_${imports.length - 1}__`;
-            if (key === "file") out.fileName = path.basename(value);
+            if (key === "file") {
+              out.fileName = path.basename(value);
+              if (!problem)
+                out.fileSize = fs.statSync(path.join(ASSETS_DIR, value)).size;
+            }
           } else {
             out[key] = walk(value);
           }

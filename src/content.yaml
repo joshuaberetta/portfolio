@@ -6,44 +6,123 @@
 
 site:
   title: "Joshua Beretta"
-  name: "JOSHUA BERETTA"
+  # Where `wget cv.pdf` sends people for the latest CV.
+  cv: "https://cv.joshuaberetta.com"
 
-profile:
-  title: "About"
+# The header next to the pixel avatar.
+header:
   image: "profile-picture.jpg"
-  # Lines next to the photo. `label` is optional and shown in bold before
-  # the value. `href` is optional and turns the value into a link.
-  details:
-    - value: "JOSHUA BERETTA"
-    - value: "HUMANITARIAN PROGRAMS LEAD, KOBO"
-    - value: "ME@JOSHUABERETTA.COM"
-      href: "mailto:me@joshuaberetta.com"
-  # Shown under the details: the degree in italics, the institution below it.
-  education:
-    - degree: "MA International Humanitarian Action (NOHA)"
-      institution: "University of Groningen"
-    - degree: "BSc. Mechanical Engineering"
-      institution: "University of Cape Town"
+  name: "Joshua Beretta"
+  version: "v2026.11"
+  subtitle: "Humanitarian Programs Lead · Kobo"
+  path: "~/joshuaberetta.com"
 
-research:
-  title: "Research"
-  items:
-    # title:  shown in bold
-    # detail: one line underneath (degree, institution, date)
-    # file:   the PDF inside assets/
-    # button: text on the download button
-    - title: "Responsible Humanitarian AI: Shared Principles, Divergent Practice"
-      detail: "MA International Humanitarian Action (NOHA), University of Groningen, 2026"
-      file: "research/Responsible Humanitarian AI - Shared Principles, Divergent Practice - Joshua Beretta.pdf"
-      button: "Download thesis"
+# The highlighted line under the header.
+banner: "Humanitarian tech, data collection & responsible AI · me@joshuaberetta.com"
 
-# Footer icons. `icon` is one of: email, github, linkedin, flickr
-links:
-  - icon: email
-    href: "mailto:me@joshuaberetta.com"
-  - icon: github
-    href: "https://www.github.com/joshuaberetta"
-  - icon: linkedin
-    href: "https://www.linkedin.com/in/joshuaberetta/"
-  - icon: flickr
-    href: "https://www.flickr.com/photos/joshuaberetta/albums"
+# Typed into the prompt and answered when the page first loads.
+intro:
+  prompt: "who is joshua?"
+  section: about
+
+# Window name in the tmux status bar.
+window: "joshua"
+
+# The menu. Each section becomes an option; choosing it "streams" the body.
+#
+# body is light markdown:
+#   **bold**  *italic*  `code`  [text](https://link)
+#   lines starting with "- " are bullets, a blank line is a paragraph break
+# files (optional) are downloads listed after the body; `file` is in assets/.
+sections:
+  - key: about
+    label: "About"
+    hint: "who I am and what I do"
+    body: |
+      I'm **Joshua Beretta**, a humanitarian technology professional based *nowhere* (I live out of a backpack, wherever the work takes me), trying to do some good in this chaotic world we live in.
+
+      I started out as a mechanical engineer, became a core backend developer at [Kobo](https://www.kobotoolbox.org), and now lead Kobo's humanitarian programs: partnerships with UN agencies, INGOs and governments working in crisis contexts.
+
+      **What I work on:**
+      - Humanitarian response and remote deployments for data collection
+      - Technical training across Africa, Latin America and Asia, in English and Spanish
+      - Responsible use of AI in humanitarian data collection
+
+  - key: experience
+    label: "Experience"
+    hint: "roles at Kobo and before"
+    body: |
+      **Kobo** · remote
+      - **Humanitarian Programs Lead** · 2026 – now
+      - **Humanitarian Project Coordinator** · 2023 – 2026
+      - **Project Coordinator** · 2022 – 2023
+      - **Backend Developer** · 2020 – 2022
+
+      **Aurecon Group** · Cape Town
+      - **Mechanical Engineer** · 2018 – 2020
+
+  - key: deployments
+    label: "Deployments"
+    hint: "emergency responses"
+    body: |
+      **DRC / Uganda** · Ebola response · 2026 – now
+      - Remote support for the Bundibugyo Ebola outbreak response in Ituri Province
+      - WHO rapid qualitative assessment forms in French, Congolese Swahili and Lingala
+      - Proof-of-concept WhatsApp AI interviewer bot for primary data collection
+
+      **Mozambique** · floods · Jan – Feb 2026
+      - IM coordination and data collection infrastructure alongside UNDAC and local partners
+
+      **Jamaica** · Hurricane Melissa · Nov 2025
+      - Two weeks supporting emergency IM with UN, government and local organizations
+
+  - key: research
+    label: "Research"
+    hint: "MA thesis"
+    body: |
+      **Responsible Humanitarian AI: Shared Principles, Divergent Practice**
+      *MA International Humanitarian Action (NOHA), University of Groningen, 2026*
+    files:
+      - file: "research/Responsible Humanitarian AI - Shared Principles, Divergent Practice - Joshua Beretta.pdf"
+        label: "Download thesis (PDF)"
+
+  - key: education
+    label: "Education"
+    hint: "degrees"
+    body: |
+      **MA International Humanitarian Action (NOHA)** · 2024 – 2026
+      - Rijksuniversiteit Groningen & Universidad de Deusto
+      - Erasmus Mundus scholarship
+
+      **BSc Mechanical Engineering** · 2014 – 2017
+      - University of Cape Town
+      - First Class Honours, class medals in mathematics and physics
+
+  - key: trainings
+    label: "Trainings"
+    hint: "workshops I've run"
+    body: |
+      KoboToolbox and AI-for-humanitarians trainings, in person and online:
+      - **2025** · Santo Domingo, Bogotá, Dili, Dar es Salaam, Kabul, Buenos Aires
+      - **2024** · Bogotá, Lima, Buenos Aires
+      - **2023** · Jijiga, Ankara, Amman, remote
+      - **2022** · Warsaw, remote
+
+      For UNHCR, IFRC, FAO, the Gates Foundation, R4V and national partners, in English, Spanish, Tetum and Russian (with translation).
+
+  - key: volunteering
+    label: "Volunteering"
+    hint: "IFRC SIMS & CVTL"
+    body: |
+      - **IFRC SIMS** · Remote Information Management Support · 2025 – now
+      - **Cruz Vermelha de Timor-Leste** · Information Management Support · 2025 – now
+
+  - key: contact
+    label: "Contact"
+    hint: "email and links"
+    body: |
+      - **email** · [me@joshuaberetta.com](mailto:me@joshuaberetta.com)
+      - **github** · [github.com/joshuaberetta](https://www.github.com/joshuaberetta)
+      - **linkedin** · [linkedin.com/in/joshuaberetta](https://www.linkedin.com/in/joshuaberetta/)
+      - **photos** · [flickr.com/photos/joshuaberetta](https://www.flickr.com/photos/joshuaberetta/albums)
+      - **cv** · [cv.joshuaberetta.com](https://cv.joshuaberetta.com)

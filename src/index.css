@@ -1,22 +1,497 @@
-body {
+/* A dark terminal app running inside tmux. */
+:root {
+  --bg: #16181d;
+  --fg: #e8e8e6;
+  --dim: #8b8e96;
+  --row: #1f2228;
+  --panel: #1c1f25;
+  --rule: #4a4d55;
+  --accent: #5fc9b4;
+  --blue: #9ec5fe;
+  --select: #e8e8e6;
+  --select-bg: #2a3a3a;
+  --tmux: #9acd32;
+  --tmux-fg: #111;
+  --avatar-filter: none;
+  --font: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  color-scheme: dark;
+}
+
+/* other themes, picked with /theme (see src/terminal/themes.ts) */
+html[data-theme="phosphor"] {
+  --bg: #0b130d;
+  --fg: #8dfc9d;
+  --dim: #3f8a4f;
+  --row: #10200f;
+  --panel: #0e1a10;
+  --rule: #2a5a33;
+  --accent: #b6ffbf;
+  --blue: #d4ffd9;
+  --select: #0b130d;
+  --select-bg: #8dfc9d;
+  --tmux: #8dfc9d;
+  --tmux-fg: #0b130d;
+  --avatar-filter: grayscale(1) sepia(1) hue-rotate(70deg) saturate(4) brightness(0.95);
+}
+html[data-theme="amber"] {
+  --bg: #140d04;
+  --fg: #ffb847;
+  --dim: #9a6a22;
+  --row: #22160a;
+  --panel: #1b1207;
+  --rule: #5a3d12;
+  --accent: #ffd27a;
+  --blue: #ffe0a3;
+  --select: #140d04;
+  --select-bg: #ffb847;
+  --tmux: #ffb847;
+  --tmux-fg: #140d04;
+  --avatar-filter: grayscale(1) sepia(1) hue-rotate(-12deg) saturate(3.5);
+}
+/* the cream palette of the old site */
+html[data-theme="paper"] {
+  --bg: #f5efe1;
+  --fg: #3d3a33;
+  --dim: #8a8272;
+  --row: #ece5d4;
+  --panel: #efe8d8;
+  --rule: #d8cdb6;
+  --accent: #c15f3c;
+  --blue: #2f6bb3;
+  --select: #3d3a33;
+  --select-bg: #e3d9c2;
+  --tmux: #3d3a33;
+  --tmux-fg: #f5efe1;
+  color-scheme: light;
+}
+
+/* CRT look: soft glow and scanlines */
+html[data-theme="phosphor"] body,
+html[data-theme="amber"] body {
+  text-shadow: 0 0 6px color-mix(in srgb, var(--fg) 45%, transparent);
+}
+html[data-theme="phosphor"] .screen::after,
+html[data-theme="amber"] .screen::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0 2px,
+    rgba(0, 0, 0, 0.22) 2px 3px
+  );
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
   margin: 0;
-  background: #F5EFE1;
-  color: #3D3A33;
-  max-width: 100%;
-  overflow-x: hidden;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font: 15px/1.6 var(--font);
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+::selection {
+  background: var(--select);
+  color: var(--bg);
 }
 
-html {
-  max-width: 100%;
-  overflow-x: hidden;
+[hidden] {
+  display: none !important;
+}
+
+.b {
+  font-weight: 700;
+}
+.i {
+  font-style: italic;
+}
+.dim {
+  color: var(--dim);
+}
+.accent {
+  color: var(--accent);
+}
+.tag {
+  background: var(--accent);
+  color: var(--bg);
+  font-weight: 700;
+  padding: 0 1ch;
+  margin-right: 1.5ch;
+}
+.code {
+  color: var(--blue);
+}
+.link {
+  color: var(--blue);
+  text-decoration: none;
+}
+.link:hover,
+.link:focus-visible {
+  text-decoration: underline;
+  outline: none;
+}
+
+/* layout: scrolling transcript above a fixed prompt, menu and status line */
+/* the whole screen: panes above, tmux status line below */
+.screen {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+}
+
+.layout {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+/* one pane, placed by Tmux.tsx; a container so it restyles when small */
+.cell {
+  position: absolute;
+  container-type: size;
+  overflow: hidden;
+}
+.cell.edge-right {
+  border-right: 1px solid var(--rule);
+}
+.cell.edge-bottom {
+  border-bottom: 1px solid var(--rule);
+}
+/* with several panes, the active one is marked and the rest dim */
+.layout.multi .cell.active {
+  box-shadow: inset 0 0 0 1px var(--tmux);
+}
+.layout.multi .cell:not(.active) .term {
+  opacity: 0.55;
+}
+/* inactive panes give the menu's room back to their transcript */
+.layout.multi .cell:not(.active) :is(.menu, .keys, .completions) {
+  display: none;
+}
+
+/* unfocused panes show a hollow, still cursor */
+.layout.multi .cell:not(.active) .cursor {
+  background: transparent;
+  outline: 1px solid var(--dim);
+  outline-offset: -1px;
+  animation: none;
+}
+
+.welcome {
+  margin-bottom: 1rem;
+}
+
+.term {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.pane {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.25rem 1ch 0.5rem;
+  overscroll-behavior: contain;
+}
+
+.pane > header,
+.pane > .banner,
+.response {
+  max-width: 96ch;
+}
+
+.banner-head {
+  display: flex;
+  align-items: center;
+  gap: 2.5ch;
+  padding: 0 1ch 1rem;
+}
+
+.avatar {
+  width: 9.6rem;
+  height: 9.6rem;
+  flex: none;
+  image-rendering: pixelated;
+  filter: var(--avatar-filter);
+  cursor: crosshair;
+}
+
+.banner {
+  margin-bottom: 1.5rem;
+}
+
+.entry {
+  margin-bottom: 1.25rem;
+}
+
+/* the question as a panel with an accent edge */
+.prompt-row {
+  background: var(--row);
+  border-left: 2px solid var(--accent);
+  padding: 0.35rem 2ch;
+  margin-bottom: 0.75rem;
+  max-width: 96ch;
+}
+
+.caret {
+  color: var(--dim);
+  flex: none;
+}
+
+/* response lines, with bullets indented like markdown lists */
+.response .line {
+  display: flex;
+  padding-left: 3ch;
+  position: relative;
+  min-height: 1.6em;
+}
+.response .line.bullet {
+  padding-left: 3ch;
+}
+.response .dash {
+  flex: none;
+  width: 2ch;
+  color: var(--fg);
+}
+.response .content {
+  min-width: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.response .line.blank {
+  min-height: 1em;
+}
+
+.done {
+  margin-top: 0.75rem;
+  padding-left: 2ch;
+}
+
+.spinner {
+  display: flex;
+  align-items: center;
+  gap: 2ch;
+  padding-left: 2ch;
+}
+.scanner {
+  color: var(--accent);
+  letter-spacing: 0.05em;
+}
+.scanner .cell {
+  transition: opacity 70ms linear;
+}
+
+/* the prompt box */
+.inputbox {
+  border: 1px solid var(--rule);
+  background: var(--panel);
+  margin: 0 1ch;
+  padding: 0.35rem 1.5ch;
+}
+
+.input-row {
+  position: relative;
+  display: flex;
+  gap: 1ch;
+  cursor: text;
+}
+.input-row .caret {
+  color: var(--accent);
+  font-weight: 700;
+}
+.typed {
+  white-space: pre;
+  overflow: hidden;
+}
+.placeholder {
+  color: var(--dim);
+}
+.cursor {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.15em;
+  vertical-align: -0.2em;
+  background: var(--fg);
+  animation: blink 1.1s steps(1) infinite;
+}
+/* the real input is invisible but takes taps, focus and the mobile keyboard */
+.input-row input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  font-size: 16px; /* stops iOS zooming on focus */
+  border: 0;
+  background: transparent;
+  color: transparent;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* section menu under the prompt; the selected row gets a filled bar */
+.menu {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  margin: 0.4rem 1ch 0;
+  max-height: 40cqh;
+  overflow-y: auto;
+}
+.option {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  font: inherit;
+  text-align: left;
+  color: var(--dim);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.option:focus-visible {
+  outline: 1px dashed var(--accent);
+}
+.option > span {
+  padding: 0 2ch;
+  line-height: 1.7;
+}
+.option > .hint {
+  padding-left: 0;
+}
+.option.on {
+  color: var(--select);
+  background: var(--select-bg);
+}
+.option.on .cmd {
+  color: var(--accent);
+}
+div.option {
+  display: block;
+  grid-column: 1 / -1;
+  padding-left: 3ch;
+}
+
+/* tab-completion candidates, laid out in columns like a shell */
+.completions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 3ch;
+  margin: 0.4rem 1ch 0;
+  padding-left: 2ch;
+  color: var(--dim);
+}
+
+/* keybinding hints */
+.keys {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 3ch;
+  padding: 0.4rem 1ch 0.3rem 2ch;
+}
+.key {
+  color: var(--fg);
+  font-weight: 700;
+}
+
+.tmux {
+  display: flex;
+  justify-content: space-between;
+  gap: 2ch;
+  background: var(--tmux);
+  color: var(--tmux-fg);
+  padding: 0 1ch;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.tmux .u {
+  text-decoration: underline;
+}
+.tmux .prefix {
+  background: var(--tmux-fg);
+  color: var(--tmux);
+  margin-left: 1ch;
+}
+.tmux-hint {
+  opacity: 0.7;
+}
+
+@container (max-width: 600px) {
+  .term {
+    font-size: 13px;
+  }
+  .avatar {
+    width: 7.2rem;
+    height: 7.2rem;
+  }
+  .banner-head {
+    gap: 2ch;
+    padding-left: 0;
+  }
+    /* two columns of commands, without hints, so the menu stays short */
+  .menu {
+    grid-template-columns: 1fr 1fr;
+  }
+  .option {
+    display: block;
+    grid-column: auto;
+  }
+  .option > .hint {
+    display: none;
+  }
+  .option > span {
+    display: block;
+    line-height: 2.2; /* bigger tap targets */
+  }
+}
+
+/* short panes: smaller avatar, and drop the key hints */
+@container (max-height: 480px) {
+  .avatar {
+    width: 4.8rem;
+    height: 4.8rem;
+  }
+  .keys {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .tmux .tmux-hint {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .tmux .right {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor {
+    animation: none;
+  }
+}
+
+/* on the CRT themes the selected row is solid, so keep its text dark */
+html[data-theme="phosphor"] .option.on .cmd,
+html[data-theme="amber"] .option.on .cmd {
+  color: var(--select);
 }

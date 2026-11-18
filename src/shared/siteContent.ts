@@ -2,27 +2,27 @@
 // in vite.config.ts. Asset file names arrive here already resolved to URLs.
 import content from "../content.yaml";
 
-export type LinkIcon = "email" | "github" | "linkedin" | "flickr";
+export interface Section {
+  key: string;
+  label: string;
+  hint?: string;
+  body: string;
+  files?: { file: string; fileName: string; fileSize: number; label: string }[];
+}
 
 export interface SiteContent {
-  site: { title: string; name: string };
-  profile: {
-    title: string;
+  site: { title: string; cv?: string };
+  header: {
     image: string;
-    details: { label?: string; value: string; href?: string }[];
-    education?: { degree: string; institution: string }[];
+    name: string;
+    version: string;
+    subtitle: string;
+    path: string;
   };
-  research: {
-    title: string;
-    items: {
-      title: string;
-      detail?: string;
-      file: string;
-      fileName: string;
-      button: string;
-    }[];
-  };
-  links: { icon: LinkIcon; href: string }[];
+  banner: string;
+  intro: { prompt: string; section: string };
+  window: string;
+  sections: Section[];
 }
 
 export const SITE = content as SiteContent;

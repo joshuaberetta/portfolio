@@ -2,7 +2,7 @@
 
 Source for [joshuaberetta.com](https://joshuaberetta.com), my personal portfolio site.
 
-Built with React, TypeScript and MUI, bundled with Vite. Hosted on GitHub Pages.
+A single page styled as a terminal app running in tmux: pick a section from the slash-command menu (arrows, number keys, typing or tapping) and its text streams in. Built with React and TypeScript, bundled with Vite. Hosted on GitHub Pages.
 
 ## Running locally
 
@@ -26,22 +26,24 @@ npm run preview  # serve the build locally
 
 ## Editing content
 
-The profile, research and footer links live in [`src/content.yaml`](src/content.yaml). Edit that file; no code changes are needed.
+Everything on the page lives in [`src/content.yaml`](src/content.yaml). Edit that file; no code changes are needed.
 
-- Put images and PDFs in `assets/`, then refer to them by file name in an `image:` or `file:` field. Spaces in names are fine.
-- To add a research item, add another entry under `research.items` with a `title`, an optional `detail` line, the PDF `file` and the `button` text.
+- Each entry under `sections` becomes a `/command` in the menu. `body` is light markdown: `**bold**`, `*italic*`, `` `code` ``, `[text](url)`, `- ` bullets and blank-line paragraph breaks.
+- Downloads go under a section's `files`, each with a `file` in `assets/` and a `label`.
+- `intro` is the question typed in on first load and which section answers it. A link like `/#research` opens that section instead.
+- Put images and PDFs in `assets/` and refer to them by file name in an `image:` or `file:` field. Spaces in names are fine.
 - The build fails if a named file is missing or its capitalisation doesn't match the file on disk, so a broken link never gets deployed.
 
 With `npm run dev` running, changes to `content.yaml` show up in the browser straight away.
 
 ## Project layout
 
-- `src/pages/`: page components. Only the contact page is routed at the moment (see `src/App.tsx`).
-- `src/components/`: nav bar, footer, markdown renderer and SVG logos.
-- `src/content.yaml`: profile, research and footer links (see above).
-- `src/shared/content.tsx`: portfolio entries and the unused About page text.
+- `src/terminal/`: the terminal page: `Tmux.tsx` (pane layout, `ctrl+b` keys, theme and status bar), `Pane.tsx` (one session: menu, keyboard and streaming), `PixelAvatar.tsx` (pixelates the profile photo on a canvas), `Response.tsx`, `Spinner.tsx`, `StatusBar.tsx` and the markdown parser.
+- `src/terminal/shell.ts`: the hidden shell commands (`help`, `ls`, `cat`, `sudo`, `vim`, `neofetch`…). Add one by adding an entry to `COMMANDS`.
+- `src/terminal/themes.ts`: theme names for `/theme`; their colours are CSS variables in `src/index.css`.
+- `src/content.yaml`: all site text (see above).
+- `src/index.css`: styles and the colour palette (CSS variables at the top).
 - `assets/`: profile picture and research PDFs referenced from `content.yaml`.
-- `src/shared/colours.tsx`: the colour palette.
 - `index.html`: the HTML entry point.
 - `public/`: static assets and `CNAME`.
 
