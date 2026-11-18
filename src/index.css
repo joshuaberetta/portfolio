@@ -95,6 +95,8 @@ body,
 }
 
 body {
+  overflow: hidden;
+  overscroll-behavior: none;
   background: var(--bg);
   color: var(--fg);
   font: 15px/1.6 var(--font);
@@ -150,6 +152,8 @@ body {
   flex-direction: column;
   height: 100vh;
   height: 100dvh;
+  /* the visible viewport, so the prompt stays above a mobile keyboard */
+  height: var(--vvh, 100dvh);
 }
 
 .layout {
