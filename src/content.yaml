@@ -97,6 +97,16 @@ sections:
     body: |
       **Responsible Humanitarian AI: Shared Principles, Divergent Practice**
       *MA International Humanitarian Action (NOHA), University of Groningen, 2026*
+
+      Humanitarian organisations are adopting AI faster than the sector can govern it, and most AI ethics principles were written before ChatGPT. I interviewed eleven people in Colombia's response to Venezuelan migration, seven practitioners from local organisations and four AI experts building the tools, and analysed how each group puts six ethical principles into practice.
+
+      **What I found:**
+      - Both groups rate all six principles as highly important. They differ in *how* they apply them, not in the values themselves
+      - Practitioners apply them through individual judgement; AI experts think at the level of institutions and the sector
+      - Fairness is the one real split: practitioners see AI as a corrective to human bias, AI experts as a carrier of bias that can be reduced but not removed
+      - Both see AI as inevitable given the scale of need, and both admit the sector isn't ready to use it responsibly yet
+
+      The thesis proposes six components for bridging the two groups: a starting point for moving humanitarian AI ethics from principles to practice.
     files:
       - file: "research/Responsible Humanitarian AI - Shared Principles, Divergent Practice - Joshua Beretta.pdf"
         label: "Download thesis (PDF)"
