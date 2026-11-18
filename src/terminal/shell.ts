@@ -1,5 +1,5 @@
 // Hidden shell commands: anything typed at the prompt that isn't a section.
-// Each returns a markdown reply, and optionally asks the avatar to glitch.
+// Each returns a markdown reply, and may ask for a download or a pane change.
 import { SITE } from "../shared/siteContent";
 import { THEMES } from "./themes";
 
@@ -8,7 +8,6 @@ export type TmuxAction = "split-h" | "split-v" | "kill";
 
 export interface ShellResult {
   md: string;
-  glitch?: boolean;
   /** Download this file (same-site) or open this page (elsewhere). */
   fetch?: { href: string; fileName?: string };
   tmux?: TmuxAction;
@@ -170,11 +169,10 @@ const COMMANDS: Record<string, (args: string[], ctx: ShellContext) => ShellResul
   }),
   sudo: () => ({
     md: "guest is not in the sudoers file. This incident will be reported.",
-    glitch: true,
   }),
   rm: (args) =>
     args.some((a) => a.includes("r") && a.startsWith("-"))
-      ? { md: "Nice try. Everything here is backed up in a backpack.", glitch: true }
+      ? { md: "Nice try. Everything here is backed up in a backpack." }
       : { md: "rm: permission denied" },
   vim: () => ({ md: "You're in vim now. Good luck. (type `:q` to escape)" }),
   ":q": () => ({ md: "Phew. You escaped vim. Most people don't." }),

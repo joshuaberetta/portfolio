@@ -104,7 +104,6 @@ const Pane: React.FC<PaneProps> = (props) => {
   const stick = useRef(true);
   const inputEl = useRef<HTMLInputElement>(null);
   const touch = useMemo(coarsePointer, []);
-  const [glitch, setGlitch] = useState(0);
   const pastPrompts = useRef<string[]>([]);
 
   const active = entries.at(-1);
@@ -146,7 +145,6 @@ const Pane: React.FC<PaneProps> = (props) => {
         theme: latest.current.theme,
         panes: latest.current.panes,
       });
-      if (result.glitch) setGlitch((g) => g + 1);
       if (result.tmux) latest.current.onTmux(result.tmux);
       if (result.fetch) fetchFile(result.fetch);
       body = parseMarkdown(result.md);
@@ -338,7 +336,6 @@ const Pane: React.FC<PaneProps> = (props) => {
             src={header.image}
             alt={header.name}
             theme={theme}
-            glitch={glitch}
           />
           <div>
             <div>

@@ -226,7 +226,6 @@ body {
   flex: none;
   image-rendering: pixelated;
   filter: var(--avatar-filter);
-  cursor: crosshair;
 }
 
 .banner {

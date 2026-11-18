@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 // Grid size of the avatar and how many colours it keeps. Small numbers give
 // the chunky look of an image drawn with half-block characters in a terminal.
@@ -6,11 +6,6 @@ const GRID = 32;
 const COLOURS = 20;
 // Square crop of the photo, as fractions of its width/height, around the face.
 const CROP = { x: 0.14, y: 0.06, size: 0.74 };
-// Glitch: how many frames, how long each lasts, and the gap between the
-// glitches that happen on their own.
-const GLITCH_FRAMES = 7;
-const GLITCH_FRAME_MS = 55;
-const IDLE_GLITCH_MS = [7000, 16000];
 
 type RGB = [number, number, number];
 
@@ -65,68 +60,15 @@ function themeBackground(): RGB {
   return [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16) || 0) as RGB;
 }
 
-/**
- * One glitched frame: a few bands of rows slide sideways, the red channel
- * drifts off the others, and some frames drop to the 4-colour palette.
- */
-function glitchFrame(base: ImageData, crushed: ImageData): ImageData {
-  const src = Math.random() < 0.4 ? crushed : base;
-  const out = new ImageData(new Uint8ClampedArray(src.data), GRID, GRID);
-  const bands = 1 + Math.floor(Math.random() * 3);
-  for (let b = 0; b < bands; b++) {
-    const top = Math.floor(Math.random() * GRID);
-    const height = 1 + Math.floor(Math.random() * 5);
-    const shift = Math.floor(Math.random() * 9) - 4;
-    for (let y = top; y < Math.min(GRID, top + height); y++) {
-      for (let x = 0; x < GRID; x++) {
-        const from = (y * GRID + ((x - shift + GRID) % GRID)) * 4;
-        out.data.set(src.data.subarray(from, from + 4), (y * GRID + x) * 4);
-      }
-    }
-  }
-  const drift = Math.random() < 0.6 ? 1 + Math.floor(Math.random() * 2) : 0;
-  if (drift) {
-    for (let i = 0; i < GRID * GRID; i++) {
-      const x = i % GRID;
-      out.data[i * 4] = src.data[(i - Math.min(x, drift)) * 4];
-    }
-  }
-  return out;
-}
-
 interface PixelAvatarProps {
   src: string;
   alt: string;
   /** Redraws when this changes, so the edges fade into the new background. */
   theme: string;
-  /** Glitches whenever this number changes. */
-  glitch: number;
 }
 
-const PixelAvatar: React.FC<PixelAvatarProps> = ({ src, alt, theme, glitch }) => {
+const PixelAvatar: React.FC<PixelAvatarProps> = ({ src, alt, theme }) => {
   const canvas = useRef<HTMLCanvasElement>(null);
-  const frames = useRef<{ base: ImageData; crushed: ImageData } | null>(null);
-  const running = useRef(false);
-
-  const runGlitch = useCallback(() => {
-    const ctx = canvas.current?.getContext("2d");
-    if (!ctx || !frames.current || running.current) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    running.current = true;
-    const { base, crushed } = frames.current;
-    let n = 0;
-    const tick = () => {
-      if (n++ < GLITCH_FRAMES) {
-        ctx.putImageData(glitchFrame(base, crushed), 0, 0);
-        setTimeout(tick, GLITCH_FRAME_MS * (0.5 + Math.random()));
-      } else {
-        ctx.putImageData(frames.current?.base ?? base, 0, 0);
-        running.current = false;
-      }
-    };
-    tick();
-  }, []);
-
   useEffect(() => {
     const img = new Image();
     img.onload = () => {
@@ -161,30 +103,10 @@ const PixelAvatar: React.FC<PixelAvatarProps> = ({ src, alt, theme, glitch }) =>
           ) as RGB
         );
       }
-      const base = toImageData(quantize(pixels, COLOURS));
-      frames.current = { base, crushed: toImageData(quantize(pixels, 4)) };
-      ctx.putImageData(base, 0, 0);
+      ctx.putImageData(toImageData(quantize(pixels, COLOURS)), 0, 0);
     };
     img.src = src;
   }, [src, theme]);
-
-  useEffect(() => {
-    if (glitch) runGlitch();
-  }, [glitch, runGlitch]);
-
-  // Every so often, glitch on its own.
-  useEffect(() => {
-    let t: ReturnType<typeof setTimeout>;
-    const schedule = () => {
-      const [min, max] = IDLE_GLITCH_MS;
-      t = setTimeout(() => {
-        runGlitch();
-        schedule();
-      }, min + Math.random() * (max - min));
-    };
-    schedule();
-    return () => clearTimeout(t);
-  }, [runGlitch]);
 
   return (
     <canvas
@@ -194,8 +116,6 @@ const PixelAvatar: React.FC<PixelAvatarProps> = ({ src, alt, theme, glitch }) =>
       className="avatar"
       role="img"
       aria-label={alt}
-      onMouseEnter={runGlitch}
-      onClick={runGlitch}
     />
   );
 };
