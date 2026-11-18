@@ -161,7 +161,7 @@ const COMMANDS: Record<string, (args: string[], ctx: ShellContext) => ShellResul
       "**joshua**@**nowhere**",
       "- **OS** · NomadOS 2026.11 (backpack edition)",
       "- **Host** · whichever airport has wifi",
-      "- **Uptime** · 3 deployments, 22 trainings, 1 thesis",
+      "- **Uptime** · 4 deployments, 22 trainings, 1 thesis",
       "- **Shell** · nosh (no-home shell)",
       "- **Languages** · English, Spanish, Python, TypeScript",
       `- **Theme** · ${theme}`,

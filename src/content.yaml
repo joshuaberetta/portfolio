@@ -39,7 +39,7 @@ sections:
     label: "About"
     hint: "who I am and what I do"
     body: |
-      I'm **Joshua Beretta**, a humanitarian technology professional based *nowhere* (I live out of a backpack, wherever the work takes me), trying to do some good in this chaotic world we live in.
+      I'm **Joshua Beretta**, a humanitarian technology professional based *nowhere* (I live out of a backpack, wherever the work or life takes me), trying to do some good in this chaotic world we live in.
 
       I started out as a mechanical engineer, became a core backend developer at [Kobo](https://www.kobotoolbox.org), and now lead Kobo's humanitarian programs: partnerships with UN agencies, INGOs and governments working in crisis contexts.
 
@@ -65,16 +65,31 @@ sections:
     label: "Deployments"
     hint: "emergency responses"
     body: |
-      **DRC / Uganda** · Ebola response · 2026 – now
+      **Venezuela** · Caracas earthquake · remote · Jun – Jul 2026
+      - Remote IM coordination with UNDAC, the Logistics and Health Clusters, MapAction and Atlas Logistique, on standby for in-country deployment
+      - Adapted rapid impact, aerial, health facility and USAR assessment forms from earlier responses, localising the rapid impact assessment to Venezuelan Spanish
+      - Took the KoboToolbox–LogIE integration live, so assessment data fed straight into shared visualisation
+      - Piloted an AI-assisted analysis workflow for the rapid needs assessment
+      - Spanish and offline documentation, and an introductory training for 200+ people from local organisations
+
+      **DRC / Uganda** · Ebola response · remote · 2026 – now
       - Remote support for the Bundibugyo Ebola outbreak response in Ituri Province
       - WHO rapid qualitative assessment forms in French, Congolese Swahili and Lingala
       - Proof-of-concept WhatsApp AI interviewer bot for primary data collection
 
-      **Mozambique** · floods · Jan – Feb 2026
-      - IM coordination and data collection infrastructure alongside UNDAC and local partners
+      **Mozambique** · floods · in country · Jan – Feb 2026
+      - Deployed with UNDAC to Xai-Xai, Gaza province: Kobo's second emergency deployment, after Jamaica
+      - IM coordination with the Logistics Cluster, ETC, IOM DTM, MapAction, Atlas Logistique, iMMAP and INGD, Mozambique's national disaster management institute
+      - Built assessments for UNDAC/OCHA (aerial observation, rapid infrastructure assessment, MIRA poll), SADC ERT and INGD
+      - Cleaned and mapped aerial observation data into WFP's LogIE platform, and supported MapAction with bulk geocoding
+      - Released a set of public IM utility tools, including a geocoder extended to Mozambique
 
-      **Jamaica** · Hurricane Melissa · Nov 2025
-      - Two weeks supporting emergency IM with UN, government and local organizations
+      **Jamaica** · Hurricane Melissa · in country · Nov 2025
+      - Kobo's first official emergency deployment: two weeks in Kingston and Montego Bay, embedded in the existing IM coordination led by OCHA and UNDAC
+      - Supported 20+ organisations with 9 forms, 2 dashboards and 8 tools and integrations
+      - Merged six damage assessment forms into one for a government ministry, and set up nearly 1,000 enumerator accounts in bulk
+      - 5W activity tracking for OCHA/UNDAC, and assessments for IOM DTM, emergency telecoms, UK-Med and Atlas Logistique
+      - Built Kobo-in-a-box (an offline Kobo server on a laptop, piloted in the field), a geocoder that adds p-codes, and secure data sharing between agencies
 
   - key: research
     label: "Research"
