@@ -142,6 +142,74 @@ sections:
       - **IFRC SIMS** · Remote Information Management Support · 2025 – now
       - **Cruz Vermelha de Timor-Leste** · Information Management Support · 2025 – now
 
+  - key: travel
+    label: "Travel"
+    hint: "where I've lived and been"
+    body: |
+      Places I've called home, and places the work (or the backpack) has taken me. Hover or tap a country.
+    # Country names as on the map (the build lists them if one doesn't match).
+    # "Country (note)" adds a note, shown when the country is hovered.
+    map:
+      lived:
+        - Albania
+        - Austria
+        - Belgium
+        - Bosnia and Herzegovina
+        - Canada
+        - Netherlands
+        - Portugal
+        - South Africa (Cape Town)
+        - Spain
+        - Timor-Leste
+        - United Kingdom (England, Scotland)
+      visited:
+        - Afghanistan
+        - Andorra
+        - Antarctica
+        - Argentina (Ushuaia)
+        - Australia
+        - Bulgaria
+        - Chile
+        - Colombia
+        - Croatia
+        - Dominican Republic
+        - Egypt
+        - Ethiopia
+        - France
+        - Germany
+        - Greece
+        - Hungary
+        - Indonesia
+        - Ireland
+        - Italy
+        - Jamaica
+        - Jordan
+        - Kenya
+        - Kyrgyzstan
+        - Madagascar
+        - Malta
+        - Mauritius
+        - Morocco
+        - Mozambique
+        - Namibia
+        - Nepal
+        - North Macedonia
+        - Oman
+        - Peru
+        - Poland
+        - Qatar
+        - Serbia
+        - Slovakia
+        - Slovenia (Ljubljana, Kranj)
+        - Sweden (Stockholm)
+        - Switzerland (Geneva)
+        - Tanzania
+        - Turkey
+        - United Arab Emirates
+        - United States (Boston)
+        - Uruguay
+        - Vatican City
+
   - key: contact
     label: "Contact"
     hint: "email and links"

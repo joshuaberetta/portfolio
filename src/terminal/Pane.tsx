@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import PixelAvatar from "./PixelAvatar";
 import Response from "./Response";
 import Spinner from "./Spinner";
+import TravelMap from "./TravelMap";
 import { clock } from "./StatusBar";
 import { Line, chunkStops, parseMarkdown, totalLength } from "./markdown";
 import { TmuxAction, completions, runShell } from "./shell";
@@ -23,6 +24,8 @@ interface Entry {
   phase: "thinking" | "streaming" | "done";
   started: number;
   finished?: number;
+  /** A section's map, shown once its text has streamed in. */
+  map?: Section["map"];
 }
 
 /** A section's body, plus its downloads as link bullets. */
@@ -165,6 +168,7 @@ const Pane: React.FC<PaneProps> = (props) => {
         phase: instant ? "done" : thinks ? "thinking" : "streaming",
         started: Date.now(),
         finished: instant ? Date.now() : undefined,
+        map: section?.map,
       },
     ]);
   }, []);
@@ -361,6 +365,9 @@ const Pane: React.FC<PaneProps> = (props) => {
           <section key={e.id} className="entry">
             <div className="prompt-row">{e.prompt}</div>
             {e.phase !== "thinking" && <Response lines={e.lines} shown={e.shown} />}
+            {e.phase === "done" && e.map && (
+              <TravelMap lived={e.map.lived} visited={e.map.visited} touch={touch} />
+            )}
             {e.phase === "done" && e.finished && (
               <div className="done dim">
                 <span className="accent">▣</span> done ·{" "}

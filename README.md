@@ -30,6 +30,7 @@ Everything on the page lives in [`src/content.yaml`](src/content.yaml). Edit tha
 
 - Each entry under `sections` becomes a `/command` in the menu. `body` is light markdown: `**bold**`, `*italic*`, `` `code` ``, `[text](url)`, `- ` bullets and blank-line paragraph breaks.
 - Downloads go under a section's `files`, each with a `file` in `assets/` and a `label`.
+- A section's `map` draws a dot-matrix world map under its body (used by `/travel`): `lived` and `visited` are country names, and `"Country (note)"` adds a note shown on hover. A name the map doesn't know fails the build and suggests close matches.
 - `intro` is the question typed in on first load and which section answers it. A link like `/#research` opens that section instead.
 - Put images and PDFs in `assets/` and refer to them by file name in an `image:` or `file:` field. Spaces in names are fine.
 - The build fails if a named file is missing or its capitalisation doesn't match the file on disk, so a broken link never gets deployed.
@@ -39,6 +40,7 @@ With `npm run dev` running, changes to `content.yaml` show up in the browser str
 ## Project layout
 
 - `src/terminal/`: the terminal page: `Tmux.tsx` (pane layout, `ctrl+b` keys, theme and status bar), `Pane.tsx` (one session: menu, keyboard and streaming), `PixelAvatar.tsx` (pixelates the profile photo on a canvas), `Response.tsx`, `Spinner.tsx`, `StatusBar.tsx` and the markdown parser.
+- `src/terminal/TravelMap.tsx`: the `/travel` map. It draws `src/terminal/world-grid.json`, a coarse grid of countries in the Equal Earth projection made by `node scripts/world-grid.mjs` from Natural Earth data. Rerun that only to change the grid size.
 - `src/terminal/shell.ts`: the hidden shell commands (`help`, `ls`, `cat`, `sudo`, `vim`, `neofetch`…). Add one by adding an entry to `COMMANDS`.
 - `src/terminal/themes.ts`: theme names for `/theme`; their colours are CSS variables in `src/index.css`.
 - `src/content.yaml`: all site text (see above).

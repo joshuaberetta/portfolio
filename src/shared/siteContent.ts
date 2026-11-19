@@ -8,6 +8,8 @@ export interface Section {
   hint?: string;
   body: string;
   files?: { file: string; fileName: string; fileSize: number; label: string }[];
+  /** Country names for a world map under the body, "Country (note)" allowed. */
+  map?: { lived: string[]; visited: string[] };
 }
 
 export interface SiteContent {
