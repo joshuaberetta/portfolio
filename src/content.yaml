@@ -146,7 +146,7 @@ sections:
     label: "Travel"
     hint: "where I've lived and been"
     body: |
-      Places I've called home, and places the work (or the backpack) has taken me. Hover or tap a country.
+      Places I've called home, and places the work (or the backpack) has taken me. Hover or tap a country, or type `/travel list` for the full list by continent.
     # Country names as on the map (the build lists them if one doesn't match).
     # "Country (note)" adds a note, shown when the country is hovered.
     map:

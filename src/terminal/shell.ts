@@ -2,6 +2,7 @@
 // Each returns a markdown reply, and may ask for a download or a pane change.
 import { SITE } from "../shared/siteContent";
 import { THEMES } from "./themes";
+import { travelList } from "./travel";
 
 /** Pane changes a command can ask the tmux layout for. */
 export type TmuxAction = "split-h" | "split-v" | "kill";
@@ -50,6 +51,15 @@ function tmux([sub, ...flags]: string[], { panes }: ShellContext): ShellResult {
     default:
       return { md: TMUX_HELP };
   }
+}
+
+const travelSection = SITE.sections.find((s) => s.map);
+
+/** `/travel list`; a bare `/travel` opens the section and never gets here. */
+function travel([sub]: string[]): ShellResult {
+  if (!travelSection?.map) return { md: "travel: nowhere to list" };
+  if (sub === "list" || sub === "ls") return { md: travelList(travelSection.map) };
+  return { md: `travel: unknown option \`${sub}\` · try \`/travel list\`` };
 }
 
 const thesis = SITE.sections.flatMap((s) => s.files ?? [])[0];
@@ -122,6 +132,7 @@ const COMMANDS: Record<string, (args: string[], ctx: ShellContext) => ShellResul
       ...SITE.sections.map((s) => `- \`/${s.key}\` · ${s.hint ?? s.label}`),
       "",
       "**extras**",
+      ...(travelSection ? [`- \`/${travelSection.key} list\` · every country, by continent`] : []),
       "- `/theme [name]` · switch colour scheme",
       "- `/clear` · clear the screen",
       "- `wget thesis.pdf` · download the thesis",
@@ -181,6 +192,7 @@ const COMMANDS: Record<string, (args: string[], ctx: ShellContext) => ShellResul
       ? { md: "[exited]", tmux: "kill" }
       : { md: "There is no exit. Only the next deployment." },
   tmux,
+  travel,
   ping: ([host]) => ({
     md: `ping: ${host ?? "home"}: Name or service not known`,
   }),
@@ -232,6 +244,8 @@ export function completions(input: string): { word: string; matches: string[] } 
         ];
   } else if (words[0].replace(/^\//, "") === "theme") {
     candidates = [...THEMES];
+  } else if (words[0].replace(/^\//, "") === "travel") {
+    candidates = ["list"];
   } else if (words[0] === "tmux") {
     candidates = ["split-window", "kill-pane", "list-sessions"];
   } else {

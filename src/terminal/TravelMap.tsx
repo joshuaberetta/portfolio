@@ -1,10 +1,10 @@
 import React, { useMemo, useState } from "react";
 
-import WORLD from "./world-grid.json";
+import { NAMES, Place, Status, WORLD, placesOf } from "./travel";
 
 // The world as a grid of country ids in the Equal Earth projection, built by
 // scripts/world-grid.mjs. -1 is sea.
-const { cols: COLS, rows: ROWS, names: NAMES } = WORLD;
+const { cols: COLS, rows: ROWS } = WORLD;
 const BASE: number[][] = WORLD.runs.map((runs) => {
   const row = new Array(COLS).fill(-1);
   for (let i = 0; i < runs.length; i += 3) {
@@ -17,22 +17,6 @@ const BASE: number[][] = WORLD.runs.map((runs) => {
 // islands and tiny states can be hit on a phone.
 const REACH = 2;
 
-type Status = "lived" | "visited";
-
-interface Place {
-  status: Status;
-  /** Cities or regions, from "Country (note)" in content.yaml. */
-  note?: string;
-}
-
-/** "Sweden (Stockholm)" → ["Sweden", "Stockholm"] */
-export function splitPlace(entry: string): [string, string | undefined] {
-  const m = entry.match(/^(.*?)\s*\((.+)\)\s*$/);
-  return m ? [m[1], m[2]] : [entry.trim(), undefined];
-}
-
-export const COUNTRY_NAMES: readonly string[] = NAMES;
-
 interface TravelMapProps {
   lived: string[];
   visited: string[];
@@ -41,18 +25,10 @@ interface TravelMapProps {
 
 /** A dot-matrix world map: where I've lived, where I've been. */
 const TravelMap: React.FC<TravelMapProps> = ({ lived, visited, touch }) => {
-  const places = useMemo(() => {
-    const out = new Map<number, Place>();
-    // Lived wins over visited for a country in both lists.
-    for (const [status, list] of [["visited", visited], ["lived", lived]] as const) {
-      for (const entry of list) {
-        const [name, note] = splitPlace(entry);
-        const id = NAMES.indexOf(name);
-        if (id >= 0) out.set(id, { status, note });
-      }
-    }
-    return out;
-  }, [lived, visited]);
+  const places: Map<number, Place> = useMemo(
+    () => placesOf({ lived, visited }),
+    [lived, visited]
+  );
 
   // Countries too small for a cell of their own get one at their centre,
   // but only when they're on the map, so they don't punch holes in others.
@@ -163,6 +139,7 @@ const TravelMap: React.FC<TravelMapProps> = ({ lived, visited, touch }) => {
           )}
         </div>
         <div className="travel-legend">
+          <span>{places.size} countries and territories</span>
           <span>
             <span className="swatch lived">■</span> lived · {livedCount}
           </span>
