@@ -100,6 +100,9 @@ const Pane: React.FC<PaneProps> = (props) => {
   const [input, setInput] = useState("");
   const [introTyping, setIntroTyping] = useState(intro);
   const [highlight, setHighlight] = useState(0);
+  // With an empty prompt the menu is a single row of chips; typing, or ↓,
+  // opens the full list with hints.
+  const [listOpen, setListOpen] = useState(false);
   // Tab-completion candidates, listed under the prompt when there are several.
   const [candidates, setCandidates] = useState<string[]>([]);
   const nextId = useRef(0);
@@ -116,10 +119,12 @@ const Pane: React.FC<PaneProps> = (props) => {
   const options = MENU.filter(
     (s) => s.key.startsWith(query) || s.label.toLowerCase().startsWith(query)
   );
+  const expanded = listOpen || input !== "";
 
   const submit = useCallback((text: string, lines?: Line[]) => {
     setInput("");
     setHighlight(0);
+    setListOpen(false);
     setCandidates([]);
     stick.current = true;
     const section = findSection(text);
@@ -293,10 +298,24 @@ const Pane: React.FC<PaneProps> = (props) => {
         return;
       }
       const n = Math.max(options.length, 1);
-      if (e.key === "ArrowDown" || (e.key === "Tab" && !e.shiftKey)) {
+      if (!expanded && e.key === "ArrowDown") {
+        e.preventDefault();
+        setListOpen(true);
+      } else if (
+        e.key === "ArrowDown" ||
+        (e.key === "Tab" && !e.shiftKey) ||
+        (!expanded && e.key === "ArrowRight")
+      ) {
         e.preventDefault();
         setHighlight((h) => (h + 1) % n);
-      } else if (e.key === "ArrowUp" || (e.key === "Tab" && e.shiftKey)) {
+      } else if (expanded && !input && e.key === "ArrowUp" && highlight === 0) {
+        e.preventDefault();
+        setListOpen(false);
+      } else if (
+        e.key === "ArrowUp" ||
+        (e.key === "Tab" && e.shiftKey) ||
+        (!expanded && e.key === "ArrowLeft")
+      ) {
         e.preventDefault();
         setHighlight((h) => (h - 1 + n) % n);
       } else if (e.key === "Enter") {
@@ -307,6 +326,7 @@ const Pane: React.FC<PaneProps> = (props) => {
       } else if (e.key === "Escape") {
         setInput("");
         setHighlight(0);
+        setListOpen(false);
       } else if (/^[1-9]$/.test(e.key) && input === "") {
         const option = SITE.sections[Number(e.key) - 1];
         if (option) {
@@ -319,7 +339,7 @@ const Pane: React.FC<PaneProps> = (props) => {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [focused, busy, options, highlight, input, choose, submit, skip]);
+  }, [focused, busy, options, expanded, highlight, input, choose, submit, skip]);
 
   const onScroll = () => {
     const el = pane.current;
@@ -427,11 +447,22 @@ const Pane: React.FC<PaneProps> = (props) => {
       )}
 
       <nav
-        className="menu"
+        className={expanded ? "menu" : "menu chips"}
         aria-label="Sections"
         hidden={busy || candidates.length > 0}
       >
-        {options.map((s, i) => (
+        {!expanded && options.map((s, i) => (
+          <button
+            key={s.key}
+            className={i === highlight && !touch ? "chip on" : "chip"}
+            title={s.hint}
+            onMouseEnter={() => setHighlight(i)}
+            onClick={() => choose(s)}
+          >
+            /{s.key}
+          </button>
+        ))}
+        {expanded && options.map((s, i) => (
           <button
             key={s.key}
             className={i === highlight ? "option on" : "option"}
@@ -442,24 +473,32 @@ const Pane: React.FC<PaneProps> = (props) => {
             <span className="hint">{s.hint}</span>
           </button>
         ))}
-        {options.length === 0 && (
+        {expanded && options.length === 0 && (
           <div className="option dim">no matching section · enter to run it as a command</div>
         )}
       </nav>
 
       <div className="keys">
+        {!busy && !touch && !expanded && options[highlight] && (
+          <span className="chip-hint">{options[highlight].hint}</span>
+        )}
         {(busy
           ? [[touch ? "tap" : "esc", "skip"]]
           : touch
             ? [["tap", "open a section"]]
-            : [
-                ["↑↓", "navigate"],
-                ["tab", "complete"],
-                ["enter", "open"],
-                [`1-${Math.min(9, SITE.sections.length)}`, "jump"],
-                ["esc", "clear"],
-                ["^b %", "split"],
-              ]
+            : expanded
+              ? [
+                  ["↑↓", "navigate"],
+                  ["tab", "complete"],
+                  ["enter", "open"],
+                  ["esc", "close"],
+                ]
+              : [
+                  ["←→", "select"],
+                  ["↓", "details"],
+                  ["enter", "open"],
+                  [`1-${Math.min(9, SITE.sections.length)}`, "jump"],
+                ]
         ).map(([key, action]) => (
           <span key={key}>
             <span className="key">{key}</span> <span className="dim">{action}</span>

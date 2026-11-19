@@ -456,6 +456,33 @@ div.option {
   padding-left: 3ch;
 }
 
+/* collapsed menu: one wrapped row of commands, hints shown in the key line */
+.menu.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1ch;
+  padding-left: 1ch;
+}
+.chip {
+  font: inherit;
+  color: var(--dim);
+  background: none;
+  border: 0;
+  padding: 0 1ch;
+  line-height: 1.7;
+  cursor: pointer;
+}
+.chip:focus-visible {
+  outline: 1px dashed var(--accent);
+}
+.chip.on {
+  color: var(--accent);
+  background: var(--select-bg);
+}
+.chip-hint {
+  color: var(--fg);
+}
+
 /* tab-completion candidates, laid out in columns like a shell */
 .completions {
   display: flex;
@@ -527,6 +554,9 @@ div.option {
     display: block;
     line-height: 2.2; /* bigger tap targets */
   }
+  .chip {
+    line-height: 2.2;
+  }
 }
 
 /* short panes: smaller avatar, and drop the key hints */
@@ -562,6 +592,8 @@ div.option {
 
 /* on the CRT themes the selected row is solid, so keep its text dark */
 html[data-theme="phosphor"] .option.on .cmd,
-html[data-theme="amber"] .option.on .cmd {
+html[data-theme="amber"] .option.on .cmd,
+html[data-theme="phosphor"] .chip.on,
+html[data-theme="amber"] .chip.on {
   color: var(--select);
 }
