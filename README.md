@@ -40,7 +40,7 @@ With `npm run dev` running, changes to `content.yaml` show up in the browser str
 ## Project layout
 
 - `src/terminal/`: the terminal page: `Tmux.tsx` (pane layout, `ctrl+b` keys, theme and status bar), `Pane.tsx` (one session: menu, keyboard and streaming), `PixelAvatar.tsx` (pixelates the profile photo on a canvas), `Response.tsx`, `Spinner.tsx`, `StatusBar.tsx` and the markdown parser.
-- `src/terminal/TravelMap.tsx`: the `/travel` map. It draws `src/terminal/world-grid.json`, a coarse grid of countries in the Equal Earth projection with each country's continent, made by `node scripts/world-grid.mjs` from Natural Earth and `world-countries` data. `src/terminal/travel.ts` reads the places and builds `/travel list`. Rerun that only to change the grid size.
+- `src/terminal/TravelMap.tsx`: the `/travel` map. It draws `src/terminal/world-grid.json`, a coarse grid of countries in the Equal Earth projection with each country's continent, made by `node scripts/world-grid.mjs` from Natural Earth and `world-countries` data, with the UK split into England, Scotland, Wales and Northern Ireland (`scripts/uk-nations.json`). `src/terminal/travel.ts` reads the places and builds `/travel list`. Rerun that only to change the grid size.
 - `src/terminal/shell.ts`: the hidden shell commands (`help`, `ls`, `cat`, `sudo`, `vim`, `neofetch`…). Add one by adding an entry to `COMMANDS`.
 - `src/terminal/themes.ts`: theme names for `/theme`; their colours are CSS variables in `src/index.css`.
 - `src/content.yaml`: all site text (see above).

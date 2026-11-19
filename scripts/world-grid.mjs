@@ -16,6 +16,9 @@ import { geoBounds, geoCentroid, geoContains, geoEqualEarth, geoPath } from "d3-
 import { feature } from "topojson-client";
 import topology from "world-atlas/countries-50m.json" with { type: "json" };
 import worldCountries from "world-countries";
+// England, Scotland, Wales and Northern Ireland from Natural Earth's 1:50m
+// admin-0 map units, to stand in for the United Kingdom as one shape.
+import ukNations from "./uk-nations.json" with { type: "json" };
 
 const COLS = 128;
 
@@ -41,13 +44,19 @@ const RENAME = {
   eSwatini: "Eswatini",
 };
 
-const countries = feature(topology, topology.objects.countries).features;
+const countries = feature(topology, topology.objects.countries).features.flatMap((f) =>
+  f.properties.name === "United Kingdom" ? ukNations.features : [f]
+);
 const names = countries.map((c) => RENAME[c.properties.name] ?? c.properties.name);
 
 // Continents, joined on the ISO numeric code. The Americas are split in two,
 // with Central America and the Caribbean counted as North America.
 const byCode = new Map(worldCountries.map((c) => [c.ccn3, c]));
 const NO_CODE = {
+  England: "Europe",
+  Scotland: "Europe",
+  Wales: "Europe",
+  "Northern Ireland": "Europe",
   Kosovo: "Europe",
   "N. Cyprus": "Europe",
   "Indian Ocean Ter.": "Oceania",
