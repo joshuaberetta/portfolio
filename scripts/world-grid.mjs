@@ -5,15 +5,20 @@
 //   node scripts/world-grid.mjs
 //
 // Writes src/terminal/world-grid.json:
-//   names    country names, indexed by the ids below
-//   runs     per row, flat [start column, length, country id, ...] triples
-//   markers  [column, row, id] for countries too small to own a cell, placed
-//            at their centroid so they can still be lit up and hovered
+//   names       country names, indexed by the ids below
+//   continents  each country's continent, in the same order
+//   runs        per row, flat [start column, length, country id, ...] triples
+//   markers     [column, row, id] for countries too small to own a cell, placed
+//               at their centroid so they can still be lit up and hovered
 import fs from "node:fs";
 import path from "node:path";
 import { geoBounds, geoCentroid, geoContains, geoEqualEarth, geoPath } from "d3-geo";
 import { feature } from "topojson-client";
 import topology from "world-atlas/countries-50m.json" with { type: "json" };
+import worldCountries from "world-countries";
+// England, Scotland, Wales and Northern Ireland from Natural Earth's 1:50m
+// admin-0 map units, to stand in for the United Kingdom as one shape.
+import ukNations from "./uk-nations.json" with { type: "json" };
 
 const COLS = 128;
 
@@ -39,8 +44,37 @@ const RENAME = {
   eSwatini: "Eswatini",
 };
 
-const countries = feature(topology, topology.objects.countries).features;
+const countries = feature(topology, topology.objects.countries).features.flatMap((f) =>
+  f.properties.name === "United Kingdom" ? ukNations.features : [f]
+);
 const names = countries.map((c) => RENAME[c.properties.name] ?? c.properties.name);
+
+// Continents, joined on the ISO numeric code. The Americas are split in two,
+// with Central America and the Caribbean counted as North America.
+const byCode = new Map(worldCountries.map((c) => [c.ccn3, c]));
+const NO_CODE = {
+  England: "Europe",
+  Scotland: "Europe",
+  Wales: "Europe",
+  "Northern Ireland": "Europe",
+  Kosovo: "Europe",
+  "N. Cyprus": "Europe",
+  "Indian Ocean Ter.": "Oceania",
+  "Siachen Glacier": "Asia",
+  Somaliland: "Africa",
+};
+const continents = countries.map((f) => {
+  const c = byCode.get(f.id);
+  if (!c) {
+    const known = NO_CODE[f.properties.name];
+    if (!known) throw new Error(`no continent for ${f.properties.name}`);
+    return known;
+  }
+  if (c.region === "Americas")
+    return c.subregion === "South America" ? "South America" : "North America";
+  if (c.region === "Antarctic") return "Antarctica";
+  return c.region;
+});
 
 // Fit the whole sphere into a COLS-wide box, one unit per cell.
 const projection = geoEqualEarth().fitWidth(COLS, { type: "Sphere" });
@@ -90,5 +124,5 @@ countries.forEach((f, id) => {
 });
 
 const out = path.resolve(import.meta.dirname, "../src/terminal/world-grid.json");
-fs.writeFileSync(out, JSON.stringify({ cols: COLS, rows: ROWS, names, runs, markers }) + "\n");
+fs.writeFileSync(out, JSON.stringify({ cols: COLS, rows: ROWS, names, continents, runs, markers }) + "\n");
 console.log(`${COLS}×${ROWS}, ${owned.size} countries with cells, ${markers.length} markers → ${path.relative(process.cwd(), out)}`);
