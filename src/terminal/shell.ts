@@ -62,6 +62,26 @@ function travel([sub]: string[]): ShellResult {
   return { md: `travel: unknown option \`${sub}\` · try \`/travel list\`` };
 }
 
+const help = (): ShellResult => ({
+  md: [
+    "**sections**",
+    ...SITE.sections.map((s) => `- \`/${s.key}\` · ${s.hint ?? s.label}`),
+    "",
+    "**commands**",
+    ...(travelSection ? [`- \`/${travelSection.key} list\` · every country, by continent`] : []),
+    "- `/theme [name]` · switch colour scheme",
+    "- `/clear` · clear the screen",
+    "- `/help` · this list",
+    "",
+    "**shell** · start with `!` to run a command",
+    "- `! ls` · see what's here",
+    "- `! wget thesis.pdf` · download the thesis",
+    "- `! tmux` · split the screen into more sessions",
+    "",
+    "*…and a few hidden ones. It's a shell, try things.*",
+  ].join("\n"),
+});
+
 const thesis = SITE.sections.flatMap((s) => s.files ?? [])[0];
 const files = [
   ...SITE.sections.map((s) => `${s.key}.md`),
@@ -75,7 +95,7 @@ function megabytes(bytes: number) {
 
 /** Fake wget output, then hand the real download to the caller. */
 function wget(name: string | undefined): ShellResult {
-  if (!name) return { md: "wget: missing URL · try `wget thesis.pdf`" };
+  if (!name) return { md: "wget: missing URL · try `! wget thesis.pdf`" };
   const file = name.replace(/^.*\//, "");
   const now = new Date();
   const stamp = new Date(now.getTime() - now.getTimezoneOffset() * 60_000)
@@ -112,35 +132,21 @@ function wget(name: string | undefined): ShellResult {
     };
   }
   return {
-    md: `\`${started}\`\nHTTP request sent, awaiting response… **404 Not Found**\nwget: ${file}: nothing like that here. Try \`ls\`.`,
+    md: `\`${started}\`\nHTTP request sent, awaiting response… **404 Not Found**\nwget: ${file}: nothing like that here. Try \`! ls\`.`,
   };
 }
 
 function cat(name: string | undefined): string {
-  if (!name) return "usage: `cat <file>` · try `ls` first";
+  if (!name) return "usage: `! cat <file>` · try `! ls` first";
   if (name.endsWith(".pdf") && files.includes(name)) {
-    return `cat: ${name}: binary file. Try \`wget ${name}\`.`;
+    return `cat: ${name}: binary file. Try \`! wget ${name}\`.`;
   }
   const section = SITE.sections.find((s) => `${s.key}.md` === name || s.key === name);
   return section ? section.body : `cat: ${name}: No such file or directory`;
 }
 
 const COMMANDS: Record<string, (args: string[], ctx: ShellContext) => ShellResult> = {
-  help: () => ({
-    md: [
-      "**sections**",
-      ...SITE.sections.map((s) => `- \`/${s.key}\` · ${s.hint ?? s.label}`),
-      "",
-      "**extras**",
-      ...(travelSection ? [`- \`/${travelSection.key} list\` · every country, by continent`] : []),
-      "- `/theme [name]` · switch colour scheme",
-      "- `/clear` · clear the screen",
-      "- `wget thesis.pdf` · download the thesis",
-      "- `tmux` · split the screen into more sessions",
-      "",
-      "*…and a few hidden ones. It's a shell, try things.*",
-    ].join("\n"),
-  }),
+  help,
   ls: (args) => ({
     md: args.some((a) => a.startsWith("-"))
       ? files.map((f) => `- \`-rw-r--r--  joshua  nowhere\`  ${f}`).join("\n")
@@ -185,14 +191,13 @@ const COMMANDS: Record<string, (args: string[], ctx: ShellContext) => ShellResul
     args.some((a) => a.includes("r") && a.startsWith("-"))
       ? { md: "Nice try. Everything here is backed up in a backpack." }
       : { md: "rm: permission denied" },
-  vim: () => ({ md: "You're in vim now. Good luck. (type `:q` to escape)" }),
+  vim: () => ({ md: "You're in vim now. Good luck. (type `! :q` to escape)" }),
   ":q": () => ({ md: "Phew. You escaped vim. Most people don't." }),
   exit: (_, { panes }) =>
     panes > 1
       ? { md: "[exited]", tmux: "kill" }
       : { md: "There is no exit. Only the next deployment." },
   tmux,
-  travel,
   ping: ([host]) => ({
     md: `ping: ${host ?? "home"}: Name or service not known`,
   }),
@@ -221,35 +226,63 @@ for (const [alias, target] of Object.entries({
   COMMANDS[alias] = COMMANDS[target];
 }
 
+/** A shell command, typed after `!`. */
 export function runShell(text: string, ctx: ShellContext): ShellResult {
-  const [name, ...args] = text.trim().replace(/^\//, "").split(/\s+/);
+  const [name, ...args] = text.trim().split(/\s+/);
   const command = COMMANDS[name.toLowerCase()];
   if (command) return command(args, ctx);
-  return { md: `nosh: command not found: ${name}\n\nTry \`help\`.` };
+  return { md: `nosh: command not found: ${name}\n\nTry \`! help\`.` };
+}
+
+// Slash commands that aren't sections; the pane handles /theme and /clear.
+const SLASH: Record<string, (args: string[]) => ShellResult> = { help, travel };
+
+/** A `/command` that isn't a section, e.g. `/travel list` or `/help`. */
+export function runSlash(text: string): ShellResult {
+  const [name, ...args] = text.trim().slice(1).split(/\s+/);
+  const command = SLASH[name.toLowerCase()];
+  if (command) return command(args);
+  return { md: `Unknown command: /${name} · try \`/help\`` };
+}
+
+/** Plain text, neither a /command nor a `!` shell command. */
+export function answerPrompt(text: string): ShellResult {
+  const [name] = text.trim().split(/\s+/);
+  if (COMMANDS[name.toLowerCase()]) {
+    return {
+      md: `That looks like a shell command. Shell commands start with \`!\`: \`! ${text.trim()}\``,
+    };
+  }
+  return {
+    md: [
+      "I can only answer from what's here. Pick a section:",
+      SITE.sections.map((s) => `\`/${s.key}\``).join(" · "),
+      "",
+      "Or try `/help`, or run a shell command with `!`, like `! ls`.",
+    ].join("\n"),
+  };
 }
 
 /** What the last word of `input` could complete to. */
 export function completions(input: string): { word: string; matches: string[] } {
-  const words = input.split(" ");
+  // In shell mode the words come after the `!`.
+  const bang = input.match(/^!\s*/)?.[0];
+  const words = input.slice(bang?.length ?? 0).split(" ");
   const word = words.at(-1) ?? "";
   let candidates: string[];
-  if (words.length === 1) {
-    candidates = word.startsWith("/")
-      ? [...SITE.sections.map((s) => s.key), "theme", "clear"].map((k) => `/${k}`)
-      : [
-          ...Object.keys(COMMANDS).filter((c) => /^[a-z]/.test(c)),
-          ...SITE.sections.map((s) => s.key),
-          "clear",
-          "theme",
-        ];
-  } else if (words[0].replace(/^\//, "") === "theme") {
+  if (bang && words.length === 1) {
+    candidates = [...Object.keys(COMMANDS).filter((c) => /^[a-z]/.test(c)), "clear"];
+  } else if (bang) {
+    candidates = words[0] === "tmux" ? ["split-window", "kill-pane", "list-sessions"] : files;
+  } else if (words.length === 1) {
+    candidates = [...SITE.sections.map((s) => s.key), "theme", "clear", ...Object.keys(SLASH)]
+      .map((k) => `/${k}`);
+  } else if (words[0] === "/theme") {
     candidates = [...THEMES];
-  } else if (words[0].replace(/^\//, "") === "travel") {
+  } else if (words[0] === "/travel") {
     candidates = ["list"];
-  } else if (words[0] === "tmux") {
-    candidates = ["split-window", "kill-pane", "list-sessions"];
   } else {
-    candidates = files;
+    candidates = [];
   }
   const matches = [...new Set(candidates)]
     .filter((c) => c.startsWith(word) && c !== word)

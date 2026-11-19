@@ -12,6 +12,7 @@
   --select-bg: #2a3a3a;
   --tmux: #9acd32;
   --tmux-fg: #111;
+  --shell: #f0a6ca; /* shell mode, after `!` */
   --avatar-filter: none;
   --font: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
   color-scheme: dark;
@@ -19,6 +20,7 @@
 
 /* other themes, picked with /theme (see src/terminal/themes.ts) */
 html[data-theme="phosphor"] {
+  --shell: var(--accent);
   --bg: #0b130d;
   --fg: #8dfc9d;
   --dim: #3f8a4f;
@@ -34,6 +36,7 @@ html[data-theme="phosphor"] {
   --avatar-filter: grayscale(1) sepia(1) hue-rotate(70deg) saturate(4) brightness(0.95);
 }
 html[data-theme="amber"] {
+  --shell: var(--accent);
   --bg: #140d04;
   --fg: #ffb847;
   --dim: #9a6a22;
@@ -62,6 +65,7 @@ html[data-theme="paper"] {
   --select-bg: #e3d9c2;
   --tmux: #3d3a33;
   --tmux-fg: #f5efe1;
+  --shell: #b0457a;
   color-scheme: light;
 }
 
@@ -380,6 +384,16 @@ body {
 .input-row .caret {
   color: var(--accent);
   font-weight: 700;
+}
+/* shell mode: `!` as the caret, in its own colour */
+.inputbox.shell {
+  border-color: var(--shell);
+}
+.inputbox.shell .caret {
+  color: var(--shell);
+}
+.prompt-row.shell {
+  border-left-color: var(--shell);
 }
 .typed {
   white-space: pre;

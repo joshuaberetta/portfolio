@@ -6,7 +6,7 @@
 
 site:
   title: "Joshua Beretta"
-  # Where `wget cv.pdf` sends people for the latest CV.
+  # Where `! wget cv.pdf` sends people for the latest CV.
   cv: "https://cv.joshuaberetta.com"
 
 # The header next to the pixel avatar.

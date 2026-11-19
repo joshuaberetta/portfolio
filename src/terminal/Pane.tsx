@@ -6,7 +6,7 @@ import Spinner from "./Spinner";
 import TravelMap from "./TravelMap";
 import { clock } from "./StatusBar";
 import { Line, chunkStops, parseMarkdown, totalLength } from "./markdown";
-import { TmuxAction, completions, runShell } from "./shell";
+import { TmuxAction, answerPrompt, completions, runShell, runSlash } from "./shell";
 import { THEMES, Theme, resolveTheme } from "./themes";
 import { SITE, Section } from "../shared/siteContent";
 
@@ -115,11 +115,15 @@ const Pane: React.FC<PaneProps> = (props) => {
   const active = entries.at(-1);
   const busy = introTyping || (active !== undefined && active.phase !== "done");
 
+  // `!` switches the prompt to shell mode, as in Claude Code.
+  const shellMode = input.startsWith("!");
   const query = input.trim().toLowerCase().replace(/^\//, "");
-  const options = MENU.filter(
-    (s) => s.key.startsWith(query) || s.label.toLowerCase().startsWith(query)
-  );
-  const expanded = listOpen || input !== "";
+  const options = shellMode
+    ? []
+    : MENU.filter(
+        (s) => s.key.startsWith(query) || s.label.toLowerCase().startsWith(query)
+      );
+  const expanded = !shellMode && (listOpen || input !== "");
 
   const submit = useCallback((text: string, lines?: Line[]) => {
     setInput("");
@@ -127,16 +131,19 @@ const Pane: React.FC<PaneProps> = (props) => {
     setListOpen(false);
     setCandidates([]);
     stick.current = true;
-    const section = findSection(text);
+    const trimmed = text.trim();
+    // `! ls` runs a shell command; anything else is a /command or a question.
+    const shell = trimmed.match(/^!\s*(.*)$/)?.[1];
+    const section = shell === undefined ? findSection(text) : undefined;
     if (section) history.replaceState(null, "", `#${section.key}`);
-    if (/^\/?(clear|cls)$/.test(text.trim())) {
+    if (/^(\/|!\s*)(clear|cls)$/.test(trimmed)) {
       setEntries([]);
       history.replaceState(null, "", location.pathname);
       return;
     }
     pastPrompts.current.push(text);
     let body = lines ?? (section && sectionLines(section));
-    const themeCmd = text.trim().match(/^\/?theme(?:\s+(\S+))?$/);
+    const themeCmd = trimmed.match(/^\/theme(?:\s+(\S+))?$/);
     if (!body && themeCmd) {
       const next = resolveTheme(themeCmd[1], latest.current.theme);
       if (next) latest.current.onTheme(next);
@@ -148,17 +155,25 @@ const Pane: React.FC<PaneProps> = (props) => {
       );
     }
     if (!body) {
-      const result = runShell(text, {
-        history: pastPrompts.current,
-        theme: latest.current.theme,
-        panes: latest.current.panes,
-      });
+      const result =
+        shell !== undefined
+          ? shell
+            ? runShell(shell, {
+                history: pastPrompts.current,
+                theme: latest.current.theme,
+                panes: latest.current.panes,
+              })
+            : { md: "Type a shell command after `!`, like `! ls` or `! help`." }
+          : trimmed.startsWith("/")
+            ? runSlash(trimmed)
+            : answerPrompt(trimmed);
       if (result.tmux) latest.current.onTmux(result.tmux);
       if (result.fetch) fetchFile(result.fetch);
       body = parseMarkdown(result.md);
     }
-    // Sections "think" first; shell commands answer straight away.
-    const thinks = Boolean(section) || Boolean(lines);
+    // Sections and questions "think" first; commands answer straight away.
+    const thinks =
+      Boolean(section) || Boolean(lines) || (shell === undefined && !trimmed.startsWith("/"));
     const total = totalLength(body);
     const instant = reducedMotion();
     setEntries((prev) => [
@@ -377,13 +392,15 @@ const Pane: React.FC<PaneProps> = (props) => {
 
         {!intro && entries.length === 0 && (
           <div className="dim welcome">
-            new session · pick a section, or try <span className="code">help</span>
+            new session · pick a section, or try <span className="code">/help</span>
           </div>
         )}
 
         {entries.map((e) => (
           <section key={e.id} className="entry">
-            <div className="prompt-row">{e.prompt}</div>
+            <div className={e.prompt.startsWith("!") ? "prompt-row shell" : "prompt-row"}>
+              {e.prompt}
+            </div>
             {e.phase !== "thinking" && <Response lines={e.lines} shown={e.shown} />}
             {e.phase === "done" && e.map && (
               <TravelMap lived={e.map.lived} visited={e.map.visited} touch={touch} />
@@ -407,15 +424,15 @@ const Pane: React.FC<PaneProps> = (props) => {
         )}
       </main>
 
-      <div className="inputbox">
+      <div className={shellMode ? "inputbox shell" : "inputbox"}>
         <label className="input-row">
-          <span className="caret">›</span>
+          <span className="caret">{shellMode ? "!" : "›"}</span>
           <span className="typed">
-            {input}
+            {shellMode ? input.slice(1) : input}
             <span className="cursor" />
             {!input && !busy && (
               <span className="placeholder">
-                {touch ? " tap a command below" : " type a /command, or try help"}
+                {touch ? " tap a command below" : " type a /command, or ! for shell"}
               </span>
             )}
           </span>
@@ -449,7 +466,7 @@ const Pane: React.FC<PaneProps> = (props) => {
       <nav
         className={expanded ? "menu" : "menu chips"}
         aria-label="Sections"
-        hidden={busy || candidates.length > 0}
+        hidden={busy || shellMode || candidates.length > 0}
       >
         {!expanded && options.map((s, i) => (
           <button
@@ -486,6 +503,13 @@ const Pane: React.FC<PaneProps> = (props) => {
           ? [[touch ? "tap" : "esc", "skip"]]
           : touch
             ? [["tap", "open a section"]]
+            : shellMode
+              ? [
+                  ["!", "shell mode"],
+                  ["tab", "complete"],
+                  ["enter", "run"],
+                  ["esc", "cancel"],
+                ]
             : expanded
               ? [
                   ["↑↓", "navigate"],
