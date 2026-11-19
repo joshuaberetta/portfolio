@@ -278,6 +278,72 @@ body {
   min-height: 1em;
 }
 
+/* /travel: a dot-matrix world map under the section text */
+.travel {
+  margin: 1rem 0 0;
+  padding-left: 3ch;
+  max-width: 96ch;
+}
+.travel-map {
+  display: block;
+  width: 100%;
+  height: auto;
+  touch-action: manipulation;
+  animation: scan-in 0.9s steps(24) both;
+}
+.travel-map g {
+  fill: color-mix(in srgb, var(--dim) 30%, transparent);
+  transition: fill 120ms;
+}
+.travel-map g.visited {
+  fill: var(--blue);
+}
+.travel-map g.lived {
+  fill: var(--accent);
+}
+.travel-map g.on {
+  fill: var(--fg);
+}
+.travel figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.25rem 3ch;
+  margin-top: 0.5rem;
+}
+.travel-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 2.5ch;
+  color: var(--dim);
+}
+.swatch.lived {
+  color: var(--accent);
+}
+.swatch.visited {
+  color: var(--blue);
+}
+.swatch.land {
+  color: color-mix(in srgb, var(--dim) 30%, transparent);
+}
+@keyframes scan-in {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 .done {
   margin-top: 0.75rem;
   padding-left: 2ch;
@@ -488,7 +554,8 @@ div.option {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cursor {
+  .cursor,
+  .travel-map {
     animation: none;
   }
 }

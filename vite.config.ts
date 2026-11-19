@@ -5,6 +5,7 @@ import react from "@vitejs/plugin-react";
 import { parse } from "yaml";
 
 const ASSETS_DIR = path.resolve(import.meta.dirname, "assets");
+const WORLD_GRID = path.resolve(import.meta.dirname, "src/terminal/world-grid.json");
 
 // Keys in content.yaml whose values name a file inside assets/.
 const ASSET_KEYS = new Set(["image", "file"]);
@@ -30,6 +31,35 @@ function assetProblem(name: string): string | null {
   return caseMatch
     ? `name differs by case, the file on disk is '${caseMatch}'`
     : "file not found";
+}
+
+/**
+ * Country names under a section's `map` that the world map doesn't know,
+ * so a typo fails the build instead of leaving a country dark.
+ */
+function mapProblems(content: unknown): string[] {
+  const { names } = JSON.parse(fs.readFileSync(WORLD_GRID, "utf8"));
+  const known = new Set<string>(names);
+  const sections = (content as { sections?: { key: string; map?: Record<string, string[]> }[] })
+    .sections ?? [];
+  const problems: string[] = [];
+  for (const section of sections) {
+    for (const [list, entries] of Object.entries(section.map ?? {})) {
+      for (const entry of entries ?? []) {
+        const name = entry.replace(/\s*\(.*\)\s*$/, "").trim();
+        if (!known.has(name)) {
+          const near = names.filter((n: string) =>
+            n.toLowerCase().includes(name.toLowerCase().slice(0, 4))
+          );
+          problems.push(
+            `  ${section.key} map ${list}: '${name}' is not a country on the map` +
+              (near.length ? ` (did you mean ${near.map((n: string) => `'${n}'`).join(", ")}?)` : "")
+          );
+        }
+      }
+    }
+  }
+  return problems;
 }
 
 /**
@@ -68,10 +98,11 @@ function yamlContent(): Plugin {
         return out;
       };
       const content = walk(parse(source));
+      problems.push(...mapProblems(content));
 
       if (problems.length) {
         this.error(
-          `${path.basename(id)} names assets that can't be found:\n${problems.join("\n")}`
+          `${path.basename(id)} names things that can't be found:\n${problems.join("\n")}`
         );
       }
 
