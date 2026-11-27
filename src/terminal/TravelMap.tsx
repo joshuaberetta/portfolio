@@ -17,6 +17,10 @@ const BASE: number[][] = WORLD.runs.map((runs) => {
 // islands and tiny states can be hit on a phone.
 const REACH = 2;
 
+// How far (in cells) a tiny country's marker may move from its centre to
+// avoid hiding a neighbour.
+const MARKER_REACH = 2;
+
 interface TravelMapProps {
   lived: string[];
   visited: string[];
@@ -30,12 +34,35 @@ const TravelMap: React.FC<TravelMapProps> = ({ lived, visited, touch }) => {
     [lived, visited]
   );
 
-  // Countries too small for a cell of their own get one at their centre,
+  // Countries too small for a cell of their own get one near their centre,
   // but only when they're on the map, so they don't punch holes in others.
   const grid = useMemo(() => {
     const g = BASE.map((row) => [...row]);
+    const cellCount = new Map<number, number>();
+    for (const id of g.flat()) cellCount.set(id, (cellCount.get(id) ?? 0) + 1);
     for (const [c, r, id] of WORLD.markers) {
-      if (places.has(id) && g[r]) g[r][c] = id;
+      if (!places.has(id)) continue;
+      // The nearest cell whose owner can spare it: sea, a country that isn't
+      // lit, or a lit one with other cells left. Cells of lit countries cost
+      // a little extra, so a marker would rather sit in the sea beside them.
+      let best: [number, number] | null = null;
+      let bestScore = Infinity;
+      for (let dr = -MARKER_REACH; dr <= MARKER_REACH; dr++) {
+        for (let dc = -MARKER_REACH; dc <= MARKER_REACH; dc++) {
+          const owner = g[r + dr]?.[c + dc];
+          if (owner === undefined) continue;
+          const lit = places.has(owner);
+          if (lit && (cellCount.get(owner) ?? 0) <= 1) continue;
+          const score = Math.hypot(dr, dc) + (lit ? 0.75 : 0);
+          if (score < bestScore) [best, bestScore] = [[r + dr, c + dc], score];
+        }
+      }
+      if (!best) continue;
+      const [br, bc] = best;
+      const owner = g[br][bc];
+      cellCount.set(owner, (cellCount.get(owner) ?? 0) - 1);
+      g[br][bc] = id;
+      cellCount.set(id, (cellCount.get(id) ?? 0) + 1);
     }
     return g;
   }, [places]);
